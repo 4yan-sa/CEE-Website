@@ -8,22 +8,35 @@ public_folder: "/uploads"
 locale: "ar"
 
 collections:
-  # القسم الأول: الفعاليات
-  - name: "events"
-    label: "الفعاليات"
-    folder: "events"
-    create: true
-    fields:
-      - {label: "عنوان الفعالية", name: "title", widget: "string"}
-      - {label: "التاريخ", name: "date", widget: "datetime"}
-      - {label: "رابط التسجيل", name: "registration_link", widget: "string", required: false}
-      - {label: "وصف الفعالية", name: "body", widget: "markdown"}
+  - name: "site_data"
+    label: "إدارة محتوى الموقع"
+    files:
+      - label: "الفعاليات"
+        name: "events"
+        file: "data/events.json"
+        fields:
+          - label: "قائمة الفعاليات"
+            name: "event_list"
+            widget: "list"
+            fields:
+              - {label: "عنوان الفعالية", name: "title", widget: "string"}
+              - {label: "التاريخ", name: "date", widget: "datetime"}
+              - {label: "رابط التسجيل", name: "link", widget: "string", required: false}
+              - {label: "وصف الفعالية", name: "body", widget: "text"}
+              
+      - label: "نقاط الأعضاء"
+        name: "points"
+        file: "data/points.json"
+        fields:
+          - label: "جدول النقاط"
+            name: "points_list"
+            widget: "list"
+            fields:
+              - {label: "اسم العضو", name: "member_name", widget: "string"}
+              - {label: "مجموع النقاط", name: "total_points", widget: "number"}
 
-  # القسم الثاني (اللي كان مسبب المشكلة وتم إصلاحه بإضافة سطر folder): أعضاء النادي
-  - name: "team"
-    label: "أعضاء النادي"
-    folder: "team" 
-    create: true
-    fields:
-      - {label: "الاسم", name: "name", widget: "string"}
-      - {label: "المنصب", name: "role", widget: "string"}
+      - label: "الإعدادات والروابط"
+        name: "settings"
+        file: "data/settings.json"
+        fields:
+          - {label: "رابط انضم إلينا", name: "join_link", widget: "string"}
