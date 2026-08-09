@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الشهادات | نادي الهندسة المدنية والبيئية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+        body { font-family: 'Tajawal', sans-serif; }
+        .bg-primary { background-color: #800000; }
+        .text-primary { color: #800000; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-2xl border-t-4 border-red-800">
+        <div class="text-center mb-8">
+            <img id="logo" src="" class="h-16 mx-auto mb-4 hidden" alt="شعار النادي">
+            <h2 class="text-3xl font-bold text-primary mb-2">بوابة إصدار الشهادات</h2>
+            <p class="text-gray-500 text-sm">أدخل رقمك الجامعي لتحميل شهادات حضور الورش والفعاليات</p>
+        </div>
+        
+        <div class="flex gap-2 mb-8">
+            <input type="text" id="student-id" class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-800" placeholder="الرقم الجامعي...">
+            <button onclick="checkCertificates()" class="bg-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-red-900 transition">
+                بحث
+            </button>
+        </div>
+
+        <!-- صندوق النتائج -->
+        <div id="results" class="hidden space-y-4">
+            <h3 class="font-bold text-lg text-gray-800 border-b pb-2">شهاداتك المعتمدة:</h3>
+            <div id="certs-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- تتولد الشهادات هنا -->
+            </div>
+        </div>
+        
+        <!-- رسالة الخطأ -->
+        <div id="error-msg" class="hidden text-center text-red-600 font-bold bg-red-50 p-4 rounded-lg">
+            عذراً، لم يتم العثور على شهادات تطابق هذا الرقم الجامعي. قد يستغرق الإصدار بعض الوقت بعد انتهاء الورشة.
+        </div>
+        
+        <div class="mt-8 text-center">
+            <a href="/" class="text-sm text-gray-400 hover:text-primary transition">العودة للموقع الرئيسي</a>
+        </div>
+    </div>
+
+    <script>
+        // جلب الشعار من الإعدادات عشان يطلع بالصفحة
+        fetch('/data/settings.json').then(res => res.json()).then(data => {
+            if(data.settings && data.settings.logo) {
+                const logo = document.getElementById('logo');
+                logo.src = data.settings.logo;
+                logo.classList.remove('hidden');
+            }
+        }).catch(e => console.log('No logo'));
+
+        function checkCertificates() {
+            const inputId = document.getElementById('student-id').value.trim();
+            const resultsBox = document.getElementById('results');
+            const certsCont = document.getElementById('certs-container');
+            const errorBox = document.getElementById('error-msg');
+
+            // تصفير النتائج قبل البحث الجديد
+            resultsBox.classList.add('hidden');
+            errorBox.classList.add('hidden');
+            certsCont.innerHTML = '';
+
+            if(!inputId) return;
+
+            fetch('/data/certificates.json')
+                .then(res => res.json())
+                .then(data => {
+                    if(data.certificates && data.certificates.list) {
+                        // جلب "كل" الشهادات الخاصة بهذا الرقم الجامعي
+                        const userCerts = data.certificates.list.filter(c => String(c.id).trim() === inputId);
+                        
+                        if(userCerts.length > 0) {
+                            userCerts.forEach(cert => {
+                                certsCont.innerHTML += `
+                                    <div class="border rounded-lg p-4 bg-gray-50 flex flex-col justify-between hover:shadow-md transition">
+                                        <div class="mb-4">
+                                            <h4 class="font-bold text-gray-900 mb-1 text-lg">${cert.event}</h4>
+                                            <p class="text-sm text-gray-500">الاسم: ${cert.name}</p>
+                                        </div>
+                                        <a href="${cert.cert_file}" target="_blank" download class="block text-center bg-green-600 text-white py-2 rounded font-bold hover:bg-green-700 transition">
+                                            ⬇️ تحميل الشهادة
+                                        </a>
+                                    </div>
+                                `;
+                            });
+                            resultsBox.classList.remove('hidden');
+                        } else {
+                            errorBox.classList.remove('hidden');
+                        }
+                    } else {
+                        errorBox.classList.remove('hidden');
+                    }
+                })
+                .catch(() => {
+                    errorBox.textContent = "جاري تحديث النظام، يرجى المحاولة لاحقاً.";
+                    errorBox.classList.remove('hidden');
+                });
+        }
+    </script>
+</body>
+</html>
