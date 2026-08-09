@@ -82,7 +82,7 @@ collections:
                 widget: "list"
                 field: {label: "صورة", name: "image", widget: "image"}
 
-      # 6. نقاط الأعضاء (مخفية في الموقع)
+      # 6. نقاط الأعضاء (إدارة داخلية)
       - label: "نقاط الأعضاء (إدارة داخلية)"
         name: "points"
         file: "data/points.json"
@@ -94,3 +94,17 @@ collections:
               - {label: "اسم العضو", name: "name", widget: "string"}
               - {label: "الرقم الجامعي", name: "id", widget: "string"}
               - {label: "النقاط", name: "points", widget: "number"}
+
+      # 7. شهادات الحضور (فريق التصميم)
+      - label: "شهادات الحضور (فريق التصميم)"
+        name: "certificates"
+        file: "data/certificates.json"
+        fields:
+          - label: "سجل الشهادات"
+            name: "list"
+            widget: "list"
+            fields:
+              - {label: "اسم الحاضر", name: "name", widget: "string"}
+              - {label: "الرقم الجامعي", name: "id", widget: "string"}
+              - {label: "اسم الورشة أو الفعالية", name: "event", widget: "string"}
+              - {label: "ملف الشهادة (صورة أو PDF)", name: "cert_file", widget: "file"}
