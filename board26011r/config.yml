@@ -1,51 +1,29 @@
-# إعدادات الربط ونظام الصلاحيات
 backend:
-  name: git-gateway # هذا اللي بيسمح لنا بعدين نوزع يوزرات بصلاحيات مختلفة للرؤساء
+  name: git-gateway
   branch: main
 
-# مسار حفظ الصور والشهادات
 media_folder: "uploads"
 public_folder: "/uploads"
 
+locale: "ar"
+
 collections:
-  # 1. إدارة الأعضاء والنقاط (مخصصة للرئاسة)
-  - name: "members"
-    label: "إدارة الأعضاء والنقاط"
-    folder: "data/members"
-    create: true
-    fields:
-      - {label: "اسم العضو", name: "title", widget: "string"}
-      - {label: "اللجنة", name: "department", widget: "select", options: ["العلاقات العامة", "الخدمات اللوجستية", "التصميم", "الميديا", "البودكاست", "التنظيم", "التقارير"]}
-      - {label: "رصيد النقاط", name: "points", widget: "number", default: 0}
-      - {label: "المنصب", name: "role", widget: "string", default: "عضو"}
-
-  # 2. نجم الشهر الذكي (مخصصة للرئاسة)
-  - name: "star_of_month"
-    label: "نجم الشهر"
-    file: "data/star.json"
-    fields:
-      # هذا الحقل بيسحب أسماء الأعضاء تلقائياً من القسم اللي فوق!
-      - {label: "اختر نجم الشهر", name: "star_member", widget: "relation", collection: "members", search_fields: ["title"], value_field: "title", display_fields: ["title"]}
-      - {label: "سبب التكريم (يظهر في الموقع)", name: "reason", widget: "text"}
-
-  # 3. إدارة الشهادات (متاحة لرؤساء الأقسام)
-  - name: "certificates"
-    label: "قوالب الشهادات"
-    folder: "data/certificates"
-    create: true
-    description: "قسم مخصص لرفع تصاميم الشهادات للفعاليات ليتم ربطها بنظام التحضير."
-    fields:
-      - {label: "اسم الفعالية / الورشة", name: "title", widget: "string"}
-      - {label: "تصميم الشهادة (PDF أو صورة)", name: "cert_file", widget: "file"}
-      - {label: "ملاحظات للجنة التنظيم", name: "notes", widget: "text", required: false}
-
-  # 4. إدارة الفعاليات (متاحة للجميع)
+  # القسم الأول: الفعاليات
   - name: "events"
-    label: "الفعاليات والأخبار"
-    folder: "data/events"
+    label: "الفعاليات"
+    folder: "events"
     create: true
     fields:
       - {label: "عنوان الفعالية", name: "title", widget: "string"}
-      - {label: "تاريخ الإقامة", name: "date", widget: "datetime"}
-      - {label: "صورة الإعلان", name: "image", widget: "image"}
-      - {label: "رابط التسجيل (Google Form)", name: "registration_link", widget: "string", required: false}
+      - {label: "التاريخ", name: "date", widget: "datetime"}
+      - {label: "رابط التسجيل", name: "registration_link", widget: "string", required: false}
+      - {label: "وصف الفعالية", name: "body", widget: "markdown"}
+
+  # القسم الثاني (اللي كان مسبب المشكلة وتم إصلاحه بإضافة سطر folder): أعضاء النادي
+  - name: "team"
+    label: "أعضاء النادي"
+    folder: "team" 
+    create: true
+    fields:
+      - {label: "الاسم", name: "name", widget: "string"}
+      - {label: "المنصب", name: "role", widget: "string"}
