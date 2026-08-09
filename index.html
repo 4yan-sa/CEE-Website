@@ -15,22 +15,18 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <!-- القائمة العلوية -->
     <nav class="bg-primary text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex items-center justify-between h-20">
-                <!-- الشعار -->
                 <div class="flex items-center cursor-pointer" onclick="showPage('page-home')">
                     <img id="nav-logo" src="" alt="شعار النادي" class="h-12 hidden">
                     <span id="nav-title" class="font-bold text-xl ml-3">CEE Club</span>
                 </div>
-                <!-- زر الجوال -->
                 <div class="md:hidden">
                     <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="p-2 hover:bg-red-900 rounded">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 </div>
-                <!-- روابط الكمبيوتر -->
                 <div class="hidden md:flex space-x-6 space-x-reverse items-center">
                     <button onclick="showPage('page-home')" class="hover:text-gray-300 font-bold focus:outline-none">الرئيسية</button>
                     <button onclick="showPage('page-podcast')" class="hover:text-gray-300 font-bold focus:outline-none">البودكاست</button>
@@ -40,7 +36,6 @@
                 </div>
             </div>
         </div>
-        <!-- قائمة الجوال -->
         <div id="mobile-menu" class="hidden md:hidden bg-primary border-t border-red-800">
             <div class="flex flex-col p-4 space-y-3">
                 <button onclick="showPage('page-home')" class="text-right font-bold focus:outline-none">الرئيسية</button>
@@ -52,10 +47,8 @@
         </div>
     </nav>
 
-    <!-- المحتوى المتغير -->
     <main class="main-content">
         
-        <!-- ================= الصفحة الرئيسية ================= -->
         <div id="page-home" class="page-section active block">
             <div class="bg-white py-12 border-b">
                 <div class="max-w-4xl mx-auto px-4 text-center">
@@ -71,7 +64,6 @@
             </div>
         </div>
 
-        <!-- ================= قسم البودكاست ================= -->
         <div id="page-podcast" class="page-section hidden py-12 bg-white">
             <div class="max-w-4xl mx-auto px-4 text-center">
                 <h2 class="text-3xl font-bold text-primary mb-6">🎙️ جديد بودكاست النادي</h2>
@@ -81,7 +73,6 @@
             </div>
         </div>
 
-        <!-- ================= قسم الفعاليات السابقة ================= -->
         <div id="page-past" class="page-section hidden py-12 bg-white">
             <div class="max-w-7xl mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center text-primary mb-8">الفعاليات السابقة</h2>
@@ -89,26 +80,20 @@
             </div>
         </div>
 
-        <!-- ================= قسم الهيكل الإداري ================= -->
+        <!-- الهيكل الإداري الجديد -->
         <div id="page-team" class="page-section hidden py-12 bg-gray-50">
             <div class="max-w-7xl mx-auto px-4 text-center">
-                <h2 class="text-3xl font-bold text-primary mb-8">الهيكل الإداري</h2>
-                <div id="team-container" class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
+                <h2 class="text-3xl font-bold text-primary mb-12">الهيكل الإداري</h2>
+                <div id="team-container" class="w-full"></div>
             </div>
         </div>
 
     </main>
 
-    <!-- الفوتر (الرعاة والروابط - ثابت في أسفل كل الصفحات) -->
     <footer class="bg-white border-t mt-auto">
         <div class="max-w-7xl mx-auto px-4 py-8">
             <h3 class="text-xl font-bold text-center text-gray-400 mb-6">شركاء النجاح والرعاة</h3>
-            <!-- مربعات الرعاة -->
-            <div id="sponsors-container" class="flex justify-center items-center gap-6 flex-wrap mb-8">
-                <!-- يتم تعبئة الرعاة هنا -->
-            </div>
-            
-            <!-- منصات التواصل الاجتماعي -->
+            <div id="sponsors-container" class="flex justify-center items-center gap-6 flex-wrap mb-8"></div>
             <div class="text-center border-t pt-6 flex justify-center gap-6 font-bold">
                 <a href="#" id="tw-link" class="text-gray-500 hover:text-black hidden transition" target="_blank">𝕏 منصة إكس</a>
                 <a href="#" id="ig-link" class="text-gray-500 hover:text-pink-600 hidden transition" target="_blank">📸 انستقرام</a>
@@ -118,7 +103,6 @@
         </div>
     </footer>
 
-    <!-- سكريبت التنقل وجلب البيانات (بعد التصحيح الجذري) -->
     <script>
         function showPage(pageId) {
             document.querySelectorAll('.page-section').forEach(page => {
@@ -131,36 +115,25 @@
             window.scrollTo(0, 0); 
         }
 
-        // 1. الإعدادات والرعاة والنبذة ومنصات التواصل
+        // الإعدادات
         fetch('/data/settings.json').then(res => res.json()).then(data => {
             if(data) {
-                if(data.about_club) {
-                    document.getElementById('about-text').textContent = data.about_club;
-                } else {
-                    document.getElementById('about-text').textContent = "مرحباً بكم في موقع النادي الرسمي.";
-                }
-                
+                if(data.about_club) document.getElementById('about-text').textContent = data.about_club;
                 if(data.join_link) {
-                    const btn1 = document.getElementById('join-btn');
-                    const btn2 = document.getElementById('join-btn-mobile');
-                    btn1.href = data.join_link; btn1.classList.remove('hidden');
-                    btn2.href = data.join_link; btn2.classList.remove('hidden');
+                    document.getElementById('join-btn').href = data.join_link; document.getElementById('join-btn').classList.remove('hidden');
+                    document.getElementById('join-btn-mobile').href = data.join_link; document.getElementById('join-btn-mobile').classList.remove('hidden');
                 }
-                
                 if(data.logo) {
                     document.getElementById('nav-logo').src = data.logo;
                     document.getElementById('nav-logo').classList.remove('hidden');
                     document.getElementById('nav-title').classList.add('hidden');
                 }
-                
                 if(data.twitter) { document.getElementById('tw-link').href = data.twitter; document.getElementById('tw-link').classList.remove('hidden'); }
                 if(data.instagram) { document.getElementById('ig-link').href = data.instagram; document.getElementById('ig-link').classList.remove('hidden'); }
                 if(data.tiktok) { document.getElementById('tk-link').href = data.tiktok; document.getElementById('tk-link').classList.remove('hidden'); }
                 if(data.linkedin) { document.getElementById('in-link').href = data.linkedin; document.getElementById('in-link').classList.remove('hidden'); }
-
                 if(data.sponsors) {
                     const spCont = document.getElementById('sponsors-container');
-                    spCont.innerHTML = '';
                     data.sponsors.forEach(sp => {
                         spCont.innerHTML += `
                             <div class="bg-gray-50 border p-4 rounded-xl shadow-sm w-32 h-32 flex flex-col justify-center items-center hover:shadow-md transition">
@@ -170,9 +143,9 @@
                     });
                 }
             }
-        }).catch(e => console.log("بانتظار إضافة إعدادات"));
+        });
 
-        // 2. الفعاليات القادمة
+        // الفعاليات القادمة
         fetch('/data/upcoming.json').then(res => res.json()).then(data => {
             const cont = document.getElementById('upcoming-container');
             if(data && data.events) {
@@ -188,9 +161,9 @@
                         </div>`;
                 });
             } else { cont.innerHTML = '<p class="col-span-3 text-center text-gray-500">لا توجد فعاليات مجدولة.</p>'; }
-        }).catch(e => console.log("بانتظار الفعاليات"));
+        });
 
-        // 3. البودكاست
+        // البودكاست
         fetch('/data/podcast.json').then(res => res.json()).then(data => {
             if(data && data.title) {
                 document.getElementById('podcast-content').innerHTML = `
@@ -200,9 +173,9 @@
                     <a href="${data.link}" target="_blank" class="inline-block bg-primary text-white px-8 py-3 rounded-full font-bold shadow hover:bg-red-900 transition">استمع الآن</a>
                 `;
             }
-        }).catch(e => console.log("بانتظار البودكاست"));
+        });
 
-        // 4. الفعاليات السابقة
+        // الفعاليات السابقة
         fetch('/data/past.json').then(res => res.json()).then(data => {
             const cont = document.getElementById('past-container');
             if(data && data.events) {
@@ -219,23 +192,72 @@
                         </div>`;
                 });
             } else { cont.innerHTML = '<p class="col-span-2 text-center text-gray-500">لم يتم إضافة فعاليات سابقة.</p>'; }
-        }).catch(e => console.log("بانتظار الفعاليات السابقة"));
+        });
 
-        // 5. الهيكل الإداري
+        // الهيكل الإداري الذكي والهرمي
         fetch('/data/team.json').then(res => res.json()).then(data => {
             const cont = document.getElementById('team-container');
-            if(data && data.members) {
+            if(data && data.members && data.members.length > 0) {
                 cont.innerHTML = '';
+                
+                // تحديد أولوية المناصب للرسم الهرمي
+                const roleOrder = {
+                    "رئيس / رئيسة النادي": 1,
+                    "نائب / نائبة الرئيس": 2,
+                    "أمين / أمينة الصندوق": 3,
+                    "مدير / مديرة العلاقات العامة": 4,
+                    "مدير / مديرة فريق التصميم": 5,
+                    "مدير / مديرة التنظيم": 6,
+                    "مشرف / مشرفة": 7,
+                    "عضو علاقات عامة": 8,
+                    "عضو فريق تصميم": 9,
+                    "عضو تنظيم": 10
+                };
+
+                // تجميع الأعضاء حسب المنصب
+                const grouped = {};
                 data.members.forEach(mem => {
-                    cont.innerHTML += `
-                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center hover:shadow-md transition">
-                            ${mem.image ? `<img src="${mem.image}" class="w-24 h-24 rounded-full object-cover mb-4 shadow-sm border-2 border-red-100">` : `<div class="w-24 h-24 rounded-full bg-gray-100 mb-4 flex items-center justify-center text-gray-400 font-bold border-2 border-gray-200">صورة</div>`}
-                            <h4 class="font-bold text-lg text-gray-900">${mem.name}</h4>
-                            <p class="text-primary text-sm font-semibold mt-1">${mem.role}</p>
-                        </div>`;
+                    if(!grouped[mem.role]) grouped[mem.role] = [];
+                    grouped[mem.role].push(mem);
                 });
-            } else { cont.innerHTML = '<p class="col-span-4 text-center text-gray-500">جاري تحديث الهيكل الإداري.</p>'; }
-        }).catch(e => console.log("بانتظار الهيكل"));
+
+                // ترتيب المناصب
+                const sortedRoles = Object.keys(grouped).sort((a, b) => (roleOrder[a] || 99) - (roleOrder[b] || 99));
+
+                sortedRoles.forEach(role => {
+                    let membersHTML = '';
+                    grouped[role].forEach(mem => {
+                        // استخراج أول حرفين من الاسم للأيقونة التلقائية
+                        const initials = mem.name.split(' ').map(n=>n[0]).join('').substring(0,2) || 'ع';
+                        
+                        const imgHTML = mem.image 
+                            ? `<img src="${mem.image}" class="w-24 h-24 rounded-full object-cover mb-4 shadow-md border-4 border-white">` 
+                            : `<div class="w-24 h-24 rounded-full bg-red-100 text-red-800 flex items-center justify-center text-2xl font-bold mb-4 shadow-md border-4 border-white">${initials}</div>`;
+                        
+                        membersHTML += `
+                            <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all flex flex-col items-center border border-gray-100 transform hover:-translate-y-1">
+                                ${imgHTML}
+                                <h4 class="font-bold text-lg text-gray-900 text-center">${mem.name}</h4>
+                                <span class="bg-gray-50 text-gray-500 text-xs font-bold px-3 py-1 rounded-full mt-2 border">${role}</span>
+                            </div>`;
+                    });
+
+                    // رسم قسم خاص لكل منصب
+                    cont.innerHTML += `
+                        <div class="mb-12">
+                            <div class="flex items-center justify-center mb-8">
+                                <div class="h-px bg-gray-300 flex-grow max-w-[50px] md:max-w-[150px]"></div>
+                                <h3 class="text-xl md:text-2xl font-bold text-primary px-4">${role}</h3>
+                                <div class="h-px bg-gray-300 flex-grow max-w-[50px] md:max-w-[150px]"></div>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 justify-center">
+                                ${membersHTML}
+                            </div>
+                        </div>
+                    `;
+                });
+            } else { cont.innerHTML = '<p class="text-center text-gray-500">جاري تحديث الهيكل الإداري.</p>'; }
+        });
     </script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </body>
