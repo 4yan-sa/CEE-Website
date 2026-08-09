@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نادي الهندسة المدنية والبيئية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { ceeRed: '#980908', ceeGold: '#e2a832' }, fontFamily: { sans: ['Cairo', 'sans-serif'] } }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- شريط التنقل -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <a href="index.html">
+                    <img src="D7022F20-D462-413F-8088-E089A81E2112_L0_001-٩__٢__٢٠٢٦، ٨_١٠_١٦ م.jpg" alt="الشعار" class="h-14 w-auto object-contain">
+                </a>
+            </div>
+            <nav class="hidden md:flex gap-6">
+                <a href="index.html" class="text-ceeRed font-bold transition border-b-2 border-ceeRed">الرئيسية</a>
+                <a href="#upcoming-events" class="text-gray-700 hover:text-ceeRed font-bold transition">الفعاليات القادمة</a>
+                <a href="team.html" class="text-gray-700 hover:text-ceeRed font-bold transition">الهيكل الإداري</a>
+            </nav>
+            <a href="#" class="bg-ceeRed text-white font-bold py-2 px-6 rounded-lg hover:bg-red-800 transition shadow-md">انضم إلينا</a>
+        </div>
+    </header>
+
+    <!-- القسم الترحيبي -->
+    <section class="bg-gradient-to-bl from-ceeRed to-red-900 text-white py-24 text-center relative overflow-hidden border-b-8 border-ceeGold">
+        <div class="container mx-auto px-4 relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">نادي الهندسة <span class="text-ceeGold">المدنية والبيئية</span></h1>
+            <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">المنصة الرسمية لطلاب الهندسة في جامعة الملك فيصل. نجمع بين التطوير الأكاديمي، والعمل الميداني، وصناعة القادة.</p>
+        </div>
+    </section>
+
+    <!-- الفعاليات القادمة -->
+    <section id="upcoming-events" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-extrabold text-ceeRed text-center mb-12">الفعاليات القادمة</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                <!-- قالب فعالية قادمة 1 -->
+                <div class="bg-gray-50 rounded-2xl p-6 shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                    <div class="bg-ceeGold text-ceeRed font-bold rounded-xl p-4 text-center min-w-[80px]">
+                        <span class="block text-2xl">15</span>
+                        <span class="text-sm">أكتوبر</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">عنوان الورشة القادمة</h3>
+                        <p class="text-gray-600 text-sm mb-4">وصف مختصر للورشة أو الفعالية التي سيقيمها النادي قريباً.</p>
+                        <!-- زر التسجيل للفعالية الأولى -->
+                        <a href="{{registration_link}}" target="_blank" class="mt-4 inline-block bg-ceeRed text-white font-bold py-2 px-6 rounded-lg hover:bg-red-800 transition shadow">
+                            سجل الآن <i class="fa-solid fa-arrow-left mr-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                 <!-- قالب فعالية قادمة 2 -->
+                 <div class="bg-gray-50 rounded-2xl p-6 shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                    <div class="bg-ceeGold text-ceeRed font-bold rounded-xl p-4 text-center min-w-[80px]">
+                        <span class="block text-2xl">22</span>
+                        <span class="text-sm">أكتوبر</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">عنوان الفعالية القادمة</h3>
+                        <p class="text-gray-600 text-sm mb-4">وصف مختصر للورشة أو الفعالية التي سيقيمها النادي قريباً.</p>
+                        <!-- زر التسجيل للفعالية الثانية -->
+                        <a href="{{registration_link}}" target="_blank" class="mt-4 inline-block bg-ceeRed text-white font-bold py-2 px-6 rounded-lg hover:bg-red-800 transition shadow">
+                            سجل الآن <i class="fa-solid fa-arrow-left mr-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- شركاء النجاح (الرعاة) -->
+    <section class="py-16 bg-gray-50 border-t border-gray-200">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-extrabold text-ceeRed mb-8">شركاء النجاح والرعاة</h2>
+            <div class="flex flex-wrap justify-center gap-8 items-center opacity-70">
+                <!-- استبدل الروابط بشعارات الرعاة لاحقاً -->
+                <div class="w-32 h-20 bg-gray-200 rounded-lg flex items-center justify-center font-bold text-gray-500">شعار الراعي 1</div>
+                <div class="w-32 h-20 bg-gray-200 rounded-lg flex items-center justify-center font-bold text-gray-500">شعار الراعي 2</div>
+                <div class="w-32 h-20 bg-gray-200 rounded-lg flex items-center justify-center font-bold text-gray-500">شعار الراعي 3</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="bg-ceeRed text-white pt-10 pb-6 border-t-4 border-ceeGold text-center">
+        <div class="container mx-auto px-4">
+            <h3 class="text-lg font-bold mb-4 text-ceeGold">تابعنا على منصات التواصل الاجتماعي</h3>
+            <div class="flex justify-center gap-4 mb-6">
+                <a href="#" class="w-10 h-10 bg-white text-ceeRed rounded-full flex items-center justify-center hover:bg-ceeGold transition"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="w-10 h-10 bg-white text-ceeRed rounded-full flex items-center justify-center hover:bg-ceeGold transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="w-10 h-10 bg-white text-ceeRed rounded-full flex items-center justify-center hover:bg-ceeGold transition"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

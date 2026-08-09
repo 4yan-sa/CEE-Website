@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الهيكل الإداري | نادي الهندسة المدنية والبيئية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { ceeRed: '#980908', ceeGold: '#e2a832' }, fontFamily: { sans: ['Cairo', 'sans-serif'] } } }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- شريط التنقل -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <a href="index.html">
+                    <img src="D7022F20-D462-413F-8088-E089A81E2112_L0_001-٩__٢__٢٠٢٦، ٨_١٠_١٦ م.jpg" alt="الشعار" class="h-14 w-auto object-contain">
+                </a>
+            </div>
+            <nav class="hidden md:flex gap-6">
+                <a href="index.html" class="text-gray-700 hover:text-ceeRed font-bold transition">الرئيسية</a>
+                <a href="team.html" class="text-ceeRed font-bold transition border-b-2 border-ceeRed">الهيكل الإداري</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- الهيكل الإداري -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-extrabold text-ceeRed text-center mb-12">الهيكل الإداري والتنظيمي</h1>
+            
+            <!-- القيادة العليا -->
+            <div class="flex flex-col md:flex-row justify-center gap-8 mb-16">
+                <div class="bg-white p-6 rounded-2xl shadow border-t-4 border-ceeRed text-center w-full md:w-1/3">
+                    <h3 class="font-bold text-xl text-gray-800">قريباً الإعلان</h3>
+                    <p class="text-ceeRed font-bold">رئيس النادي</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow border-t-4 border-ceeRed text-center w-full md:w-1/3">
+                    <h3 class="font-bold text-xl text-gray-800">ريان البناي</h3>
+                    <p class="text-ceeRed font-bold">نائب رئيس النادي</p>
+                </div>
+            </div>
+
+            <!-- اللجان والأقسام -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <!--   العلاقات العامة و اللوجستيات -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-r-4 border-ceeGold">
+                    <h3 class="font-bold text-lg text-ceeRed mb-4 border-b pb-2"><i class="fa-solid fa-handshake mr-2"></i>العلاقات العامة و اللوجستيات</h3>
+                    <p class="text-gray-700 font-semibold mb-1">الرئيس: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                    <p class="text-gray-700 font-semibold">النائب: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                </div>
+                
+               
+
+                <!-- التصميم -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-r-4 border-ceeGold">
+                    <h3 class="font-bold text-lg text-ceeRed mb-4 border-b pb-2"><i class="fa-solid fa-palette mr-2"></i>التصميم</h3>
+                    <p class="text-gray-700 font-semibold mb-1">الرئيس: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                    <p class="text-gray-700 font-semibold">النائب: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                </div>
+
+                <!-- الميديا -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-r-4 border-ceeGold">
+                    <h3 class="font-bold text-lg text-ceeRed mb-4 border-b pb-2"><i class="fa-solid fa-camera mr-2"></i>الميديا</h3>
+                    <p class="text-gray-700 font-semibold mb-1">الرئيس: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                    <p class="text-gray-700 font-semibold">النائب: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                </div>
+
+                <!-- البودكاست -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-r-4 border-ceeGold">
+                    <h3 class="font-bold text-lg text-ceeRed mb-4 border-b pb-2"><i class="fa-solid fa-microphone mr-2"></i>البودكاست</h3>
+                    <p class="text-gray-700 font-semibold mb-1">الرئيس: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                    <p class="text-gray-700 font-semibold">النائب: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                </div>
+
+                <!-- التنظيم -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-r-4 border-ceeGold">
+                    <h3 class="font-bold text-lg text-ceeRed mb-4 border-b pb-2"><i class="fa-solid fa-clipboard-list mr-2"></i>التنظيم</h3>
+                    <p class="text-gray-700 font-semibold mb-1">الرئيس: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                    <p class="text-gray-700 font-semibold">النائب: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                </div>
+
+                <!-- التقارير -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-r-4 border-ceeGold">
+                    <h3 class="font-bold text-lg text-ceeRed mb-4 border-b pb-2"><i class="fa-solid fa-file-signature mr-2"></i>التقارير</h3>
+                    <p class="text-gray-700 font-semibold mb-1">الرئيس: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                    <p class="text-gray-700 font-semibold">النائب: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
