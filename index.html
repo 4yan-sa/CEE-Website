@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CEE Club</title>
+    <title>CEE Club | نادي الهندسة المدنية والبيئية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-        body { font-family: 'Tajawal', sans-serif; }
+        body { font-family: 'Tajawal', sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
         .bg-primary { background-color: #800000; }
         .text-primary { color: #800000; }
+        .main-content { flex-grow: 1; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -19,7 +20,7 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex items-center justify-between h-20">
                 <!-- الشعار -->
-                <div class="flex items-center">
+                <div class="flex items-center cursor-pointer" onclick="showPage('page-home')">
                     <img id="nav-logo" src="" alt="شعار النادي" class="h-12 hidden">
                     <span id="nav-title" class="font-bold text-xl ml-3">CEE Club</span>
                 </div>
@@ -31,151 +32,213 @@
                 </div>
                 <!-- روابط الكمبيوتر -->
                 <div class="hidden md:flex space-x-6 space-x-reverse items-center">
-                    <a href="#podcast" class="hover:text-gray-300 font-bold">البودكاست</a>
-                    <a href="#upcoming" class="hover:text-gray-300 font-bold">الفعاليات القادمة</a>
-                    <a href="#past" class="hover:text-gray-300 font-bold">الفعاليات السابقة</a>
-                    <a href="#team" class="hover:text-gray-300 font-bold">الهيكل الإداري</a>
-                    <a href="#" id="join-btn" class="bg-white text-primary px-5 py-2 rounded-lg font-bold hover:bg-gray-100">انضم إلينا</a>
+                    <button onclick="showPage('page-home')" class="hover:text-gray-300 font-bold focus:outline-none">الرئيسية</button>
+                    <button onclick="showPage('page-podcast')" class="hover:text-gray-300 font-bold focus:outline-none">البودكاست</button>
+                    <button onclick="showPage('page-past')" class="hover:text-gray-300 font-bold focus:outline-none">الفعاليات السابقة</button>
+                    <button onclick="showPage('page-team')" class="hover:text-gray-300 font-bold focus:outline-none">الهيكل الإداري</button>
+                    <a href="#" id="join-btn" class="bg-white text-primary px-5 py-2 rounded-lg font-bold hover:bg-gray-100 hidden">انضم إلينا</a>
                 </div>
             </div>
         </div>
         <!-- قائمة الجوال -->
         <div id="mobile-menu" class="hidden md:hidden bg-primary border-t border-red-800">
             <div class="flex flex-col p-4 space-y-3">
-                <a href="#podcast" class="block font-bold">البودكاست</a>
-                <a href="#upcoming" class="block font-bold">الفعاليات القادمة</a>
-                <a href="#past" class="block font-bold">الفعاليات السابقة</a>
-                <a href="#team" class="block font-bold">الهيكل الإداري</a>
-                <a href="#" id="join-btn-mobile" class="bg-white text-primary text-center py-2 rounded font-bold">انضم إلينا</a>
+                <button onclick="showPage('page-home')" class="text-right font-bold focus:outline-none">الرئيسية</button>
+                <button onclick="showPage('page-podcast')" class="text-right font-bold focus:outline-none">البودكاست</button>
+                <button onclick="showPage('page-past')" class="text-right font-bold focus:outline-none">الفعاليات السابقة</button>
+                <button onclick="showPage('page-team')" class="text-right font-bold focus:outline-none">الهيكل الإداري</button>
+                <a href="#" id="join-btn-mobile" class="bg-white text-primary text-center py-2 rounded font-bold hidden">انضم إلينا</a>
             </div>
         </div>
     </nav>
 
-    <!-- قسم البودكاست -->
-    <div id="podcast" class="py-12 bg-white hidden">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold text-primary mb-6">🎙️ جديد بودكاست النادي</h2>
-            <div id="podcast-content" class="bg-gray-100 p-6 rounded-2xl shadow"></div>
+    <!-- المحتوى المتغير -->
+    <main class="main-content">
+        
+        <!-- ================= الصفحة الرئيسية ================= -->
+        <div id="page-home" class="page-section active block">
+            <!-- قسم النبذة -->
+            <div class="bg-white py-12 border-b">
+                <div class="max-w-4xl mx-auto px-4 text-center">
+                    <h1 class="text-4xl font-bold text-primary mb-6">مرحباً بكم في نادي الهندسة المدنية والبيئية</h1>
+                    <p id="about-text" class="text-lg text-gray-600 leading-relaxed">جاري تحميل نبذة النادي...</p>
+                </div>
+            </div>
+            <!-- الفعاليات القادمة -->
+            <div class="py-12 bg-gray-50">
+                <div class="max-w-7xl mx-auto px-4">
+                    <h2 class="text-3xl font-bold text-center text-primary mb-8">الفعاليات القادمة</h2>
+                    <div id="upcoming-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- الفعاليات القادمة -->
-    <div id="upcoming" class="py-12 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-primary mb-8">الفعاليات القادمة</h2>
-            <div id="upcoming-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+        <!-- ================= قسم البودكاست ================= -->
+        <div id="page-podcast" class="page-section hidden py-12 bg-white">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold text-primary mb-6">🎙️ جديد بودكاست النادي</h2>
+                <div id="podcast-content" class="bg-gray-100 p-6 rounded-2xl shadow">
+                    <p class="text-gray-500">لا توجد حلقات حالياً.</p>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- الفعاليات السابقة -->
-    <div id="past" class="py-12 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-primary mb-8">الفعاليات السابقة</h2>
-            <div id="past-container" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+        <!-- ================= قسم الفعاليات السابقة ================= -->
+        <div id="page-past" class="page-section hidden py-12 bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-primary mb-8">الفعاليات السابقة</h2>
+                <div id="past-container" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+            </div>
         </div>
-    </div>
 
-    <!-- الهيكل الإداري -->
-    <div id="team" class="py-12 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold text-primary mb-8">الهيكل الإداري</h2>
-            <div id="team-container" class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
+        <!-- ================= قسم الهيكل الإداري ================= -->
+        <div id="page-team" class="page-section hidden py-12 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold text-primary mb-8">الهيكل الإداري</h2>
+                <div id="team-container" class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
+            </div>
         </div>
-    </div>
 
-    <!-- الرعاة -->
-    <div class="py-8 bg-white border-t">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h3 class="text-xl font-bold text-gray-500 mb-6">شركاء النجاح والرعاة</h3>
-            <div id="sponsors-container" class="flex justify-center items-center gap-8 flex-wrap"></div>
+    </main>
+
+    <!-- الفوتر (الرعاة والروابط - ثابت في أسفل كل الصفحات) -->
+    <footer class="bg-white border-t mt-auto">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <h3 class="text-xl font-bold text-center text-gray-400 mb-6">شركاء النجاح والرعاة</h3>
+            <!-- مربعات الرعاة -->
+            <div id="sponsors-container" class="flex justify-center items-center gap-6 flex-wrap mb-8">
+                <!-- يتم تعبئة الرعاة هنا -->
+            </div>
+            
+            <div class="text-center border-t pt-6 flex justify-center gap-4">
+                <a href="#" id="tw-link" class="text-gray-400 hover:text-blue-500 hidden" target="_blank">Twitter (X)</a>
+                <a href="#" id="in-link" class="text-gray-400 hover:text-blue-700 hidden" target="_blank">LinkedIn</a>
+            </div>
         </div>
-    </div>
+    </footer>
 
-    <!-- الجافاسكريبت لجلب البيانات (بدون النقاط) -->
+    <!-- سكريبت التنقل وجلب البيانات -->
     <script>
-        // الإعدادات والرعاة
+        // دالة التنقل بين الأقسام
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('block');
+            });
+            document.getElementById(pageId).classList.remove('hidden');
+            document.getElementById(pageId).classList.add('block');
+            document.getElementById('mobile-menu').classList.add('hidden');
+            window.scrollTo(0, 0); // رفع الشاشة لأعلى
+        }
+
+        // 1. الإعدادات والرعاة والنبذة
         fetch('/data/settings.json').then(res => res.json()).then(data => {
             if(data.settings) {
-                if(data.settings.join_link) {
-                    document.getElementById('join-btn').href = data.settings.join_link;
-                    document.getElementById('join-btn-mobile').href = data.settings.join_link;
+                // النبذة
+                if(data.settings.about_club) {
+                    document.getElementById('about-text').textContent = data.settings.about_club;
+                } else {
+                    document.getElementById('about-text').textContent = "مرحباً بكم في موقع النادي الرسمي.";
                 }
+                
+                // زر الانضمام
+                if(data.settings.join_link) {
+                    const btn1 = document.getElementById('join-btn');
+                    const btn2 = document.getElementById('join-btn-mobile');
+                    btn1.href = data.settings.join_link; btn1.classList.remove('hidden');
+                    btn2.href = data.settings.join_link; btn2.classList.remove('hidden');
+                }
+                
+                // الشعار
                 if(data.settings.logo) {
                     document.getElementById('nav-logo').src = data.settings.logo;
                     document.getElementById('nav-logo').classList.remove('hidden');
                     document.getElementById('nav-title').classList.add('hidden');
                 }
+                
+                // مواقع التواصل
+                if(data.settings.twitter) { document.getElementById('tw-link').href = data.settings.twitter; document.getElementById('tw-link').classList.remove('hidden'); }
+                if(data.settings.linkedin) { document.getElementById('in-link').href = data.settings.linkedin; document.getElementById('in-link').classList.remove('hidden'); }
+
+                // مربعات الرعاة
                 if(data.settings.sponsors) {
                     const spCont = document.getElementById('sponsors-container');
+                    spCont.innerHTML = '';
                     data.settings.sponsors.forEach(sp => {
-                        spCont.innerHTML += `<img src="${sp.logo}" alt="${sp.name}" class="h-16 object-contain grayscale hover:grayscale-0 transition">`;
+                        spCont.innerHTML += `
+                            <div class="bg-gray-50 border p-4 rounded-xl shadow-sm w-32 h-32 flex flex-col justify-center items-center hover:shadow-md transition">
+                                <img src="${sp.logo}" alt="${sp.name}" class="max-h-16 object-contain mb-2">
+                                <span class="text-xs font-bold text-gray-600 text-center">${sp.name}</span>
+                            </div>`;
                     });
                 }
             }
         }).catch(e => console.log("لا توجد إعدادات بعد"));
 
-        // البودكاست
-        fetch('/data/podcast.json').then(res => res.json()).then(data => {
-            if(data.podcast && data.podcast.title) {
-                document.getElementById('podcast').classList.remove('hidden');
-                document.getElementById('podcast-content').innerHTML = `
-                    ${data.podcast.image ? `<img src="${data.podcast.image}" class="w-full md:w-1/2 mx-auto rounded-xl mb-4 shadow">` : ''}
-                    <h3 class="text-2xl font-bold mb-2">${data.podcast.title}</h3>
-                    <p class="text-gray-600 mb-4">${data.podcast.description}</p>
-                    <a href="${data.podcast.link}" target="_blank" class="inline-block bg-primary text-white px-6 py-2 rounded-full font-bold">استمع الآن</a>
-                `;
-            }
-        }).catch(e => console.log("لا يوجد بودكاست"));
-
-        // الفعاليات القادمة
+        // 2. الفعاليات القادمة
         fetch('/data/upcoming.json').then(res => res.json()).then(data => {
             const cont = document.getElementById('upcoming-container');
             if(data.upcoming_events && data.upcoming_events.events) {
+                cont.innerHTML = '';
                 data.upcoming_events.events.forEach(ev => {
                     const d = new Date(ev.date).toLocaleDateString('ar-SA');
                     cont.innerHTML += `
-                        <div class="bg-white p-6 rounded-xl shadow border">
-                            <h3 class="font-bold text-xl mb-2">${ev.title}</h3>
-                            <p class="text-red-600 font-bold mb-2">📅 ${d}</p>
-                            <p class="text-gray-600 mb-4">${ev.body}</p>
-                            ${ev.link ? `<a href="${ev.link}" class="block text-center bg-primary text-white py-2 rounded">التسجيل</a>` : ''}
+                        <div class="bg-white p-6 rounded-xl shadow border border-gray-100 hover:shadow-lg transition">
+                            <h3 class="font-bold text-xl mb-2 text-gray-900">${ev.title}</h3>
+                            <p class="text-red-600 font-bold mb-3">📅 ${d}</p>
+                            <p class="text-gray-600 mb-5 text-sm line-clamp-3">${ev.body}</p>
+                            ${ev.link ? `<a href="${ev.link}" target="_blank" class="block text-center bg-primary text-white py-2 rounded-lg font-bold">التسجيل</a>` : ''}
                         </div>`;
                 });
             } else { cont.innerHTML = '<p class="col-span-3 text-center text-gray-500">لا توجد فعاليات مجدولة.</p>'; }
-        }).catch(e => console.log("لا توجد فعاليات قادمة"));
+        });
 
-        // الفعاليات السابقة
+        // 3. البودكاست
+        fetch('/data/podcast.json').then(res => res.json()).then(data => {
+            if(data.podcast && data.podcast.title) {
+                document.getElementById('podcast-content').innerHTML = `
+                    ${data.podcast.image ? `<img src="${data.podcast.image}" class="w-full md:w-1/2 mx-auto rounded-xl mb-6 shadow-md">` : ''}
+                    <h3 class="text-2xl font-bold mb-3">${data.podcast.title}</h3>
+                    <p class="text-gray-600 mb-6">${data.podcast.description}</p>
+                    <a href="${data.podcast.link}" target="_blank" class="inline-block bg-primary text-white px-8 py-3 rounded-full font-bold shadow hover:bg-red-900 transition">استمع الآن</a>
+                `;
+            }
+        });
+
+        // 4. الفعاليات السابقة
         fetch('/data/past.json').then(res => res.json()).then(data => {
             const cont = document.getElementById('past-container');
             if(data.past_events && data.past_events.events) {
+                cont.innerHTML = '';
                 data.past_events.events.forEach(ev => {
                     let imgs = '';
                     if(ev.gallery) {
-                        ev.gallery.forEach(img => { imgs += `<img src="${img}" class="rounded-lg shadow h-48 w-full object-cover">`; });
+                        ev.gallery.forEach(img => { imgs += `<img src="${img}" class="rounded-lg shadow-sm h-48 w-full object-cover border border-gray-200">`; });
                     }
                     cont.innerHTML += `
-                        <div class="bg-gray-50 p-6 rounded-xl border">
+                        <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
                             <h3 class="font-bold text-xl mb-4 text-primary">${ev.title}</h3>
-                            <div class="grid grid-cols-2 gap-2">${imgs}</div>
+                            <div class="grid grid-cols-2 gap-3">${imgs}</div>
                         </div>`;
                 });
             } else { cont.innerHTML = '<p class="col-span-2 text-center text-gray-500">لم يتم إضافة فعاليات سابقة.</p>'; }
-        }).catch(e => console.log("لا توجد فعاليات سابقة"));
+        });
 
-        // الهيكل الإداري
+        // 5. الهيكل الإداري
         fetch('/data/team.json').then(res => res.json()).then(data => {
             const cont = document.getElementById('team-container');
             if(data.team && data.team.members) {
+                cont.innerHTML = '';
                 data.team.members.forEach(mem => {
                     cont.innerHTML += `
-                        <div class="bg-white p-4 rounded-xl shadow flex flex-col items-center">
-                            ${mem.image ? `<img src="${mem.image}" class="w-24 h-24 rounded-full object-cover mb-3 shadow">` : `<div class="w-24 h-24 rounded-full bg-gray-200 mb-3 flex items-center justify-center text-gray-400 font-bold">صورة</div>`}
-                            <h4 class="font-bold text-lg">${mem.name}</h4>
-                            <p class="text-gray-500 text-sm">${mem.role}</p>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center hover:shadow-md transition">
+                            ${mem.image ? `<img src="${mem.image}" class="w-24 h-24 rounded-full object-cover mb-4 shadow-sm border-2 border-red-100">` : `<div class="w-24 h-24 rounded-full bg-gray-100 mb-4 flex items-center justify-center text-gray-400 font-bold border-2 border-gray-200">صورة</div>`}
+                            <h4 class="font-bold text-lg text-gray-900">${mem.name}</h4>
+                            <p class="text-primary text-sm font-semibold mt-1">${mem.role}</p>
                         </div>`;
                 });
             } else { cont.innerHTML = '<p class="col-span-4 text-center text-gray-500">جاري تحديث الهيكل الإداري.</p>'; }
-        }).catch(e => console.log("لا يوجد هيكل"));
+        });
     </script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </body>
