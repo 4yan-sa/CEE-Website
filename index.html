@@ -57,14 +57,12 @@
         
         <!-- ================= الصفحة الرئيسية ================= -->
         <div id="page-home" class="page-section active block">
-            <!-- قسم النبذة -->
             <div class="bg-white py-12 border-b">
                 <div class="max-w-4xl mx-auto px-4 text-center">
                     <h1 class="text-4xl font-bold text-primary mb-6">مرحباً بكم في نادي الهندسة المدنية والبيئية</h1>
                     <p id="about-text" class="text-lg text-gray-600 leading-relaxed whitespace-pre-wrap">جاري تحميل نبذة النادي...</p>
                 </div>
             </div>
-            <!-- الفعاليات القادمة -->
             <div class="py-12 bg-gray-50">
                 <div class="max-w-7xl mx-auto px-4">
                     <h2 class="text-3xl font-bold text-center text-primary mb-8">الفعاليات القادمة</h2>
@@ -120,9 +118,8 @@
         </div>
     </footer>
 
-    <!-- سكريبت التنقل وجلب البيانات -->
+    <!-- سكريبت التنقل وجلب البيانات (بعد التصحيح الجذري) -->
     <script>
-        // دالة التنقل بين الأقسام
         function showPage(pageId) {
             document.querySelectorAll('.page-section').forEach(page => {
                 page.classList.add('hidden');
@@ -131,45 +128,40 @@
             document.getElementById(pageId).classList.remove('hidden');
             document.getElementById(pageId).classList.add('block');
             document.getElementById('mobile-menu').classList.add('hidden');
-            window.scrollTo(0, 0); // رفع الشاشة لأعلى
+            window.scrollTo(0, 0); 
         }
 
         // 1. الإعدادات والرعاة والنبذة ومنصات التواصل
         fetch('/data/settings.json').then(res => res.json()).then(data => {
-            if(data.settings) {
-                // النبذة
-                if(data.settings.about_club) {
-                    document.getElementById('about-text').textContent = data.settings.about_club;
+            if(data) {
+                if(data.about_club) {
+                    document.getElementById('about-text').textContent = data.about_club;
                 } else {
                     document.getElementById('about-text').textContent = "مرحباً بكم في موقع النادي الرسمي.";
                 }
                 
-                // زر الانضمام
-                if(data.settings.join_link) {
+                if(data.join_link) {
                     const btn1 = document.getElementById('join-btn');
                     const btn2 = document.getElementById('join-btn-mobile');
-                    btn1.href = data.settings.join_link; btn1.classList.remove('hidden');
-                    btn2.href = data.settings.join_link; btn2.classList.remove('hidden');
+                    btn1.href = data.join_link; btn1.classList.remove('hidden');
+                    btn2.href = data.join_link; btn2.classList.remove('hidden');
                 }
                 
-                // الشعار
-                if(data.settings.logo) {
-                    document.getElementById('nav-logo').src = data.settings.logo;
+                if(data.logo) {
+                    document.getElementById('nav-logo').src = data.logo;
                     document.getElementById('nav-logo').classList.remove('hidden');
                     document.getElementById('nav-title').classList.add('hidden');
                 }
                 
-                // مواقع التواصل الجديدة
-                if(data.settings.twitter) { document.getElementById('tw-link').href = data.settings.twitter; document.getElementById('tw-link').classList.remove('hidden'); }
-                if(data.settings.instagram) { document.getElementById('ig-link').href = data.settings.instagram; document.getElementById('ig-link').classList.remove('hidden'); }
-                if(data.settings.tiktok) { document.getElementById('tk-link').href = data.settings.tiktok; document.getElementById('tk-link').classList.remove('hidden'); }
-                if(data.settings.linkedin) { document.getElementById('in-link').href = data.settings.linkedin; document.getElementById('in-link').classList.remove('hidden'); }
+                if(data.twitter) { document.getElementById('tw-link').href = data.twitter; document.getElementById('tw-link').classList.remove('hidden'); }
+                if(data.instagram) { document.getElementById('ig-link').href = data.instagram; document.getElementById('ig-link').classList.remove('hidden'); }
+                if(data.tiktok) { document.getElementById('tk-link').href = data.tiktok; document.getElementById('tk-link').classList.remove('hidden'); }
+                if(data.linkedin) { document.getElementById('in-link').href = data.linkedin; document.getElementById('in-link').classList.remove('hidden'); }
 
-                // مربعات الرعاة
-                if(data.settings.sponsors) {
+                if(data.sponsors) {
                     const spCont = document.getElementById('sponsors-container');
                     spCont.innerHTML = '';
-                    data.settings.sponsors.forEach(sp => {
+                    data.sponsors.forEach(sp => {
                         spCont.innerHTML += `
                             <div class="bg-gray-50 border p-4 rounded-xl shadow-sm w-32 h-32 flex flex-col justify-center items-center hover:shadow-md transition">
                                 <img src="${sp.logo}" alt="${sp.name}" class="max-h-16 object-contain mb-2">
@@ -178,14 +170,14 @@
                     });
                 }
             }
-        }).catch(e => console.log("لا توجد إعدادات بعد"));
+        }).catch(e => console.log("بانتظار إضافة إعدادات"));
 
         // 2. الفعاليات القادمة
         fetch('/data/upcoming.json').then(res => res.json()).then(data => {
             const cont = document.getElementById('upcoming-container');
-            if(data.upcoming_events && data.upcoming_events.events) {
+            if(data && data.events) {
                 cont.innerHTML = '';
-                data.upcoming_events.events.forEach(ev => {
+                data.events.forEach(ev => {
                     const d = new Date(ev.date).toLocaleDateString('ar-SA');
                     cont.innerHTML += `
                         <div class="bg-white p-6 rounded-xl shadow border border-gray-100 hover:shadow-lg transition">
@@ -196,26 +188,26 @@
                         </div>`;
                 });
             } else { cont.innerHTML = '<p class="col-span-3 text-center text-gray-500">لا توجد فعاليات مجدولة.</p>'; }
-        });
+        }).catch(e => console.log("بانتظار الفعاليات"));
 
         // 3. البودكاست
         fetch('/data/podcast.json').then(res => res.json()).then(data => {
-            if(data.podcast && data.podcast.title) {
+            if(data && data.title) {
                 document.getElementById('podcast-content').innerHTML = `
-                    ${data.podcast.image ? `<img src="${data.podcast.image}" class="w-full md:w-1/2 mx-auto rounded-xl mb-6 shadow-md">` : ''}
-                    <h3 class="text-2xl font-bold mb-3">${data.podcast.title}</h3>
-                    <p class="text-gray-600 mb-6">${data.podcast.description}</p>
-                    <a href="${data.podcast.link}" target="_blank" class="inline-block bg-primary text-white px-8 py-3 rounded-full font-bold shadow hover:bg-red-900 transition">استمع الآن</a>
+                    ${data.image ? `<img src="${data.image}" class="w-full md:w-1/2 mx-auto rounded-xl mb-6 shadow-md">` : ''}
+                    <h3 class="text-2xl font-bold mb-3">${data.title}</h3>
+                    <p class="text-gray-600 mb-6">${data.description}</p>
+                    <a href="${data.link}" target="_blank" class="inline-block bg-primary text-white px-8 py-3 rounded-full font-bold shadow hover:bg-red-900 transition">استمع الآن</a>
                 `;
             }
-        });
+        }).catch(e => console.log("بانتظار البودكاست"));
 
         // 4. الفعاليات السابقة
         fetch('/data/past.json').then(res => res.json()).then(data => {
             const cont = document.getElementById('past-container');
-            if(data.past_events && data.past_events.events) {
+            if(data && data.events) {
                 cont.innerHTML = '';
-                data.past_events.events.forEach(ev => {
+                data.events.forEach(ev => {
                     let imgs = '';
                     if(ev.gallery) {
                         ev.gallery.forEach(img => { imgs += `<img src="${img}" class="rounded-lg shadow-sm h-48 w-full object-cover border border-gray-200">`; });
@@ -227,14 +219,14 @@
                         </div>`;
                 });
             } else { cont.innerHTML = '<p class="col-span-2 text-center text-gray-500">لم يتم إضافة فعاليات سابقة.</p>'; }
-        });
+        }).catch(e => console.log("بانتظار الفعاليات السابقة"));
 
         // 5. الهيكل الإداري
         fetch('/data/team.json').then(res => res.json()).then(data => {
             const cont = document.getElementById('team-container');
-            if(data.team && data.team.members) {
+            if(data && data.members) {
                 cont.innerHTML = '';
-                data.team.members.forEach(mem => {
+                data.members.forEach(mem => {
                     cont.innerHTML += `
                         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center hover:shadow-md transition">
                             ${mem.image ? `<img src="${mem.image}" class="w-24 h-24 rounded-full object-cover mb-4 shadow-sm border-2 border-red-100">` : `<div class="w-24 h-24 rounded-full bg-gray-100 mb-4 flex items-center justify-center text-gray-400 font-bold border-2 border-gray-200">صورة</div>`}
@@ -243,7 +235,7 @@
                         </div>`;
                 });
             } else { cont.innerHTML = '<p class="col-span-4 text-center text-gray-500">جاري تحديث الهيكل الإداري.</p>'; }
-        });
+        }).catch(e => console.log("بانتظار الهيكل"));
     </script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </body>
