@@ -61,7 +61,7 @@
             <div class="bg-white py-12 border-b">
                 <div class="max-w-4xl mx-auto px-4 text-center">
                     <h1 class="text-4xl font-bold text-primary mb-6">مرحباً بكم في نادي الهندسة المدنية والبيئية</h1>
-                    <p id="about-text" class="text-lg text-gray-600 leading-relaxed">جاري تحميل نبذة النادي...</p>
+                    <p id="about-text" class="text-lg text-gray-600 leading-relaxed whitespace-pre-wrap">جاري تحميل نبذة النادي...</p>
                 </div>
             </div>
             <!-- الفعاليات القادمة -->
@@ -110,9 +110,12 @@
                 <!-- يتم تعبئة الرعاة هنا -->
             </div>
             
-            <div class="text-center border-t pt-6 flex justify-center gap-4">
-                <a href="#" id="tw-link" class="text-gray-400 hover:text-blue-500 hidden" target="_blank">Twitter (X)</a>
-                <a href="#" id="in-link" class="text-gray-400 hover:text-blue-700 hidden" target="_blank">LinkedIn</a>
+            <!-- منصات التواصل الاجتماعي -->
+            <div class="text-center border-t pt-6 flex justify-center gap-6 font-bold">
+                <a href="#" id="tw-link" class="text-gray-500 hover:text-black hidden transition" target="_blank">𝕏 منصة إكس</a>
+                <a href="#" id="ig-link" class="text-gray-500 hover:text-pink-600 hidden transition" target="_blank">📸 انستقرام</a>
+                <a href="#" id="tk-link" class="text-gray-500 hover:text-black hidden transition" target="_blank">🎵 تيك توك</a>
+                <a href="#" id="in-link" class="text-gray-500 hover:text-blue-700 hidden transition" target="_blank">💼 لينكد إن</a>
             </div>
         </div>
     </footer>
@@ -131,7 +134,7 @@
             window.scrollTo(0, 0); // رفع الشاشة لأعلى
         }
 
-        // 1. الإعدادات والرعاة والنبذة
+        // 1. الإعدادات والرعاة والنبذة ومنصات التواصل
         fetch('/data/settings.json').then(res => res.json()).then(data => {
             if(data.settings) {
                 // النبذة
@@ -156,8 +159,10 @@
                     document.getElementById('nav-title').classList.add('hidden');
                 }
                 
-                // مواقع التواصل
+                // مواقع التواصل الجديدة
                 if(data.settings.twitter) { document.getElementById('tw-link').href = data.settings.twitter; document.getElementById('tw-link').classList.remove('hidden'); }
+                if(data.settings.instagram) { document.getElementById('ig-link').href = data.settings.instagram; document.getElementById('ig-link').classList.remove('hidden'); }
+                if(data.settings.tiktok) { document.getElementById('tk-link').href = data.settings.tiktok; document.getElementById('tk-link').classList.remove('hidden'); }
                 if(data.settings.linkedin) { document.getElementById('in-link').href = data.settings.linkedin; document.getElementById('in-link').classList.remove('hidden'); }
 
                 // مربعات الرعاة
