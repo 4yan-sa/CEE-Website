@@ -4,39 +4,90 @@ backend:
 
 media_folder: "uploads"
 public_folder: "/uploads"
-
 locale: "ar"
 
 collections:
-  - name: "site_data"
-    label: "إدارة محتوى الموقع"
+  - name: "content"
+    label: "إدارة محتوى النادي"
     files:
-      - label: "الفعاليات"
-        name: "events"
-        file: "data/events.json"
+      # 1. الإعدادات (الشعار، الرعاة، التواصل)
+      - label: "الإعدادات العامة والرعاة"
+        name: "settings"
+        file: "data/settings.json"
         fields:
-          - label: "قائمة الفعاليات"
-            name: "event_list"
+          - {label: "رابط انضم إلينا", name: "join_link", widget: "string"}
+          - {label: "شعار النادي (اللوقو)", name: "logo", widget: "image", required: false}
+          - {label: "رابط تويتر (X)", name: "twitter", widget: "string", required: false}
+          - {label: "رابط لينكد إن", name: "linkedin", widget: "string", required: false}
+          - label: "الرعاة والشركاء"
+            name: "sponsors"
+            widget: "list"
+            required: false
+            fields:
+              - {label: "اسم الراعي", name: "name", widget: "string"}
+              - {label: "شعار الراعي", name: "logo", widget: "image"}
+
+      # 2. حلقة البودكاست
+      - label: "البودكاست (أحدث حلقة)"
+        name: "podcast"
+        file: "data/podcast.json"
+        fields:
+          - {label: "عنوان الحلقة", name: "title", widget: "string"}
+          - {label: "وصف مختصر", name: "description", widget: "text"}
+          - {label: "رابط الاستماع", name: "link", widget: "string"}
+          - {label: "غلاف الحلقة", name: "image", widget: "image", required: false}
+
+      # 3. الهيكل الإداري
+      - label: "الهيكل الإداري"
+        name: "team"
+        file: "data/team.json"
+        fields:
+          - label: "الأعضاء"
+            name: "members"
+            widget: "list"
+            fields:
+              - {label: "الاسم", name: "name", widget: "string"}
+              - {label: "المنصب", name: "role", widget: "string"}
+              - {label: "الصورة", name: "image", widget: "image", required: false}
+
+      # 4. الفعاليات القادمة
+      - label: "الفعاليات القادمة"
+        name: "upcoming_events"
+        file: "data/upcoming.json"
+        fields:
+          - label: "الفعاليات"
+            name: "events"
             widget: "list"
             fields:
               - {label: "عنوان الفعالية", name: "title", widget: "string"}
               - {label: "التاريخ", name: "date", widget: "datetime"}
               - {label: "رابط التسجيل", name: "link", widget: "string", required: false}
-              - {label: "وصف الفعالية", name: "body", widget: "text"}
-              
-      - label: "نقاط الأعضاء"
+              - {label: "الوصف", name: "body", widget: "text"}
+
+      # 5. الفعاليات السابقة (مع الصور)
+      - label: "الفعاليات السابقة (معرض الصور)"
+        name: "past_events"
+        file: "data/past.json"
+        fields:
+          - label: "الفعاليات"
+            name: "events"
+            widget: "list"
+            fields:
+              - {label: "عنوان الفعالية", name: "title", widget: "string"}
+              - label: "ألبوم الصور"
+                name: "gallery"
+                widget: "list"
+                field: {label: "صورة", name: "image", widget: "image"}
+
+      # 6. نقاط الأعضاء (مخفية في الموقع، متاحة لك هنا فقط)
+      - label: "نقاط الأعضاء (إدارة داخلية)"
         name: "points"
         file: "data/points.json"
         fields:
-          - label: "جدول النقاط"
-            name: "points_list"
+          - label: "سجل النقاط"
+            name: "list"
             widget: "list"
             fields:
-              - {label: "اسم العضو", name: "member_name", widget: "string"}
-              - {label: "مجموع النقاط", name: "total_points", widget: "number"}
-
-      - label: "الإعدادات والروابط"
-        name: "settings"
-        file: "data/settings.json"
-        fields:
-          - {label: "رابط انضم إلينا", name: "join_link", widget: "string"}
+              - {label: "اسم العضو", name: "name", widget: "string"}
+              - {label: "الرقم الجامعي", name: "id", widget: "string"}
+              - {label: "النقاط", name: "points", widget: "number"}
