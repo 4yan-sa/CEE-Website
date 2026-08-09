@@ -40,7 +40,7 @@ collections:
           - {label: "رابط الاستماع", name: "link", widget: "string"}
           - {label: "غلاف الحلقة", name: "image", widget: "image", required: false}
 
-      # 3. الهيكل الإداري
+      # 3. الهيكل الإداري (تم التحديث لقائمة منسدلة)
       - label: "الهيكل الإداري"
         name: "team"
         file: "data/team.json"
@@ -50,8 +50,21 @@ collections:
             widget: "list"
             fields:
               - {label: "الاسم", name: "name", widget: "string"}
-              - {label: "المنصب", name: "role", widget: "string"}
-              - {label: "الصورة", name: "image", widget: "image", required: false}
+              - label: "المنصب / اللجنة"
+                name: "role"
+                widget: "select"
+                options:
+                  - "رئيس / رئيسة النادي"
+                  - "نائب / نائبة الرئيس"
+                  - "أمين / أمينة الصندوق"
+                  - "مدير / مديرة العلاقات العامة"
+                  - "عضو علاقات عامة"
+                  - "مدير / مديرة فريق التصميم"
+                  - "عضو فريق تصميم"
+                  - "مدير / مديرة التنظيم"
+                  - "عضو تنظيم"
+                  - "مشرف / مشرفة"
+              - {label: "الصورة (اختياري)", name: "image", widget: "image", required: false}
 
       # 4. الفعاليات القادمة
       - label: "الفعاليات القادمة"
