@@ -3,123 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نادي الهندسة المدنية والبيئية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>نادي الهندسة المدنية والبيئية | CEE Club</title>
+    <!-- استدعاء Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: { colors: { ceeRed: '#980908', ceeGold: '#e2a832' }, fontFamily: { sans: ['Cairo', 'sans-serif'] } }
-            }
-        }
-    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+        body { font-family: 'Tajawal', sans-serif; }
+        .bg-primary { background-color: #800000; } /* لون عنابي رسمي */
+        .text-primary { color: #800000; }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+<body class="bg-gray-50 text-gray-800">
 
-    <!-- شريط التنقل -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <a href="index.html">
-                    <img src="D7022F20-D462-413F-8088-E089A81E2112_L0_001-٩__٢__٢٠٢٦، ٨_١٠_١٦ م.jpg" alt="الشعار" class="h-14 w-auto object-contain">
-                </a>
-            </div>
-            <nav class="hidden md:flex gap-6">
-                <a href="index.html" class="text-ceeRed font-bold transition border-b-2 border-ceeRed">الرئيسية</a>
-                <a href="#upcoming-events" class="text-gray-700 hover:text-ceeRed font-bold transition">الفعاليات القادمة</a>
-                <a href="team.html" class="text-gray-700 hover:text-ceeRed font-bold transition">الهيكل الإداري</a>
-            </nav>
-            <a href="#" class="bg-ceeRed text-white font-bold py-2 px-6 rounded-lg hover:bg-red-800 transition shadow-md">انضم إلينا</a>
-        </div>
-    </header>
-
-    <!-- القسم الترحيبي -->
-    <section class="bg-gradient-to-bl from-ceeRed to-red-900 text-white py-24 text-center relative overflow-hidden border-b-8 border-ceeGold">
-        <div class="container mx-auto px-4 relative z-10">
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">نادي الهندسة <span class="text-ceeGold">المدنية والبيئية</span></h1>
-            <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">المنصة الرسمية لطلاب الهندسة في جامعة الملك فيصل. نجمع بين التطوير الأكاديمي، والعمل الميداني، وصناعة القادة.</p>
-        </div>
-    </section>
-
-    <!-- الفعاليات القادمة -->
-    <section id="upcoming-events" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-extrabold text-ceeRed text-center mb-12">الفعاليات القادمة</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                
-                <!-- قالب فعالية قادمة 1 -->
-                <div class="bg-gray-50 rounded-2xl p-6 shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
-                    <div class="bg-ceeGold text-ceeRed font-bold rounded-xl p-4 text-center min-w-[80px]">
-                        <span class="block text-2xl">15</span>
-                        <span class="text-sm">أكتوبر</span>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">عنوان الورشة القادمة</h3>
-                        <p class="text-gray-600 text-sm mb-4">وصف مختصر للورشة أو الفعالية التي سيقيمها النادي قريباً.</p>
-                        <!-- زر التسجيل للفعالية الأولى -->
-                        <a href="{{registration_link}}" target="_blank" class="mt-4 inline-block bg-ceeRed text-white font-bold py-2 px-6 rounded-lg hover:bg-red-800 transition shadow">
-                            سجل الآن <i class="fa-solid fa-arrow-left mr-2"></i>
-                        </a>
-                    </div>
+    <!-- القائمة العلوية -->
+    <nav class="bg-primary text-white shadow-lg relative z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- شعار النادي -->
+                <div class="flex items-center">
+                    <span class="font-bold text-xl">CEE Club</span>
                 </div>
-
-                 <!-- قالب فعالية قادمة 2 -->
-                 <div class="bg-gray-50 rounded-2xl p-6 shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
-                    <div class="bg-ceeGold text-ceeRed font-bold rounded-xl p-4 text-center min-w-[80px]">
-                        <span class="block text-2xl">22</span>
-                        <span class="text-sm">أكتوبر</span>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">عنوان الفعالية القادمة</h3>
-                        <p class="text-gray-600 text-sm mb-4">وصف مختصر للورشة أو الفعالية التي سيقيمها النادي قريباً.</p>
-                        <!-- زر التسجيل للفعالية الثانية -->
-                        <a href="{{registration_link}}" target="_blank" class="mt-4 inline-block bg-ceeRed text-white font-bold py-2 px-6 rounded-lg hover:bg-red-800 transition shadow">
-                            سجل الآن <i class="fa-solid fa-arrow-left mr-2"></i>
-                        </a>
-                    </div>
+                <!-- زر الجوال (الثلاث شرطات) -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md hover:bg-red-900 focus:outline-none">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
                 </div>
-
+                <!-- روابط الكمبيوتر -->
+                <div class="hidden md:flex items-center space-x-4 space-x-reverse">
+                    <a href="#" class="px-3 py-2 rounded-md font-medium hover:bg-red-900 transition">الرئيسية</a>
+                    <a href="#events" class="px-3 py-2 rounded-md font-medium hover:bg-red-900 transition">الفعاليات</a>
+                    <a href="#points" class="px-3 py-2 rounded-md font-medium hover:bg-red-900 transition">النقاط</a>
+                    <a href="#" id="join-btn" class="bg-white text-primary px-4 py-2 rounded-md font-bold mr-4 hover:bg-gray-100 transition">انضم إلينا</a>
+                </div>
             </div>
         </div>
-    </section>
-
-    <!-- شركاء النجاح (الرعاة) -->
-    <section class="py-16 bg-gray-50 border-t border-gray-200">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-extrabold text-ceeRed mb-8">شركاء النجاح والرعاة</h2>
-            <div class="flex flex-wrap justify-center gap-8 items-center opacity-70">
-                <!-- استبدل الروابط بشعارات الرعاة لاحقاً -->
-                <div class="w-32 h-20 bg-gray-200 rounded-lg flex items-center justify-center font-bold text-gray-500">شعار الراعي 1</div>
-                <div class="w-32 h-20 bg-gray-200 rounded-lg flex items-center justify-center font-bold text-gray-500">شعار الراعي 2</div>
-                <div class="w-32 h-20 bg-gray-200 rounded-lg flex items-center justify-center font-bold text-gray-500">شعار الراعي 3</div>
+        <!-- قائمة الجوال المنسدلة -->
+        <div class="hidden md:hidden absolute w-full bg-primary shadow-xl border-t border-red-800" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-red-900">الرئيسية</a>
+                <a href="#events" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-red-900">الفعاليات</a>
+                <a href="#points" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-red-900">النقاط</a>
+                <a href="#" id="join-btn-mobile" class="block px-3 py-2 rounded-md text-base font-bold bg-white text-primary mt-2 text-center">انضم إلينا</a>
             </div>
         </div>
-    </section>
+    </nav>
 
-    <!-- الفوتر -->
-    <footer class="bg-ceeRed text-white pt-10 pb-6 border-t-4 border-ceeGold text-center">
-        <div class="container mx-auto px-4">
-            <h3 class="text-lg font-bold mb-4 text-ceeGold">تابعنا على منصات التواصل الاجتماعي</h3>
-            <div class="flex justify-center gap-4 mb-6">
-                <a href="#" class="w-10 h-10 bg-white text-ceeRed rounded-full flex items-center justify-center hover:bg-ceeGold transition"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#" class="w-10 h-10 bg-white text-ceeRed rounded-full flex items-center justify-center hover:bg-ceeGold transition"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="w-10 h-10 bg-white text-ceeRed rounded-full flex items-center justify-center hover:bg-ceeGold transition"><i class="fa-brands fa-tiktok"></i></a>
+    <!-- قسم الفعاليات القادمة -->
+    <div id="events" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-center mb-10 text-primary">الفعاليات القادمة</h2>
+            <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- الفعاليات تظهر هنا -->
             </div>
         </div>
-    </footer>
-<!-- سكريبت تسجيل الدخول الخاص بـ Netlify -->
+    </div>
+
+    <!-- قسم لوحة الشرف والنقاط -->
+    <div id="points" class="py-12 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-center mb-10 text-primary">لوحة شرف الأعضاء</h2>
+            <div class="bg-white shadow overflow-hidden rounded-lg border">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-4 text-right text-sm font-bold text-gray-700">اسم العضو</th>
+                            <th class="px-6 py-4 text-left text-sm font-bold text-gray-700">مجموع النقاط</th>
+                        </tr>
+                    </thead>
+                    <tbody id="points-container" class="divide-y divide-gray-200">
+                        <!-- النقاط تظهر هنا -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- أكواد الجافاسكريبت لجلب البيانات وتفعيل التصميم -->
+    <script>
+        // دالة فتح وإغلاق قائمة الجوال
+        function toggleMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // 1. جلب الإعدادات (رابط انضم إلينا)
+        fetch('/data/settings.json')
+            .then(res => res.json())
+            .then(data => {
+                if(data.settings && data.settings.join_link) {
+                    document.getElementById('join-btn').href = data.settings.join_link;
+                    document.getElementById('join-btn-mobile').href = data.settings.join_link;
+                }
+            }).catch(() => console.log('بانتظار إضافة الإعدادات'));
+
+        // 2. جلب الفعاليات
+        fetch('/data/events.json')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('events-container');
+                if (data.events && data.events.event_list && data.events.event_list.length > 0) {
+                    data.events.event_list.forEach(event => {
+                        const dateStr = new Date(event.date).toLocaleDateString('ar-SA');
+                        container.innerHTML += `
+                            <div class="bg-white border rounded-xl shadow-sm hover:shadow-lg transition duration-300 p-6 flex flex-col">
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">${event.title}</h3>
+                                <p class="text-sm font-semibold text-red-600 mb-4">📅 ${dateStr}</p>
+                                <p class="text-gray-600 mb-6 flex-grow">${event.body}</p>
+                                ${event.link ? `<a href="${event.link}" target="_blank" class="bg-primary text-white text-center py-2 rounded-lg font-bold hover:bg-red-900 transition">التسجيل في الفعالية</a>` : ''}
+                            </div>
+                        `;
+                    });
+                } else {
+                    container.innerHTML = '<p class="text-center col-span-full text-gray-500">لا توجد فعاليات مجدولة حالياً.</p>';
+                }
+            }).catch(() => {
+                document.getElementById('events-container').innerHTML = '<p class="text-center col-span-full text-gray-500">لم يتم إضافة فعاليات بعد.</p>';
+            });
+
+        // 3. جلب النقاط وترتيبها
+        fetch('/data/points.json')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('points-container');
+                if (data.points && data.points.points_list && data.points.points_list.length > 0) {
+                    // ترتيب الأعضاء من الأعلى للأقل نقاط
+                    const sorted = data.points.points_list.sort((a,b) => b.total_points - a.total_points);
+                    sorted.forEach(member => {
+                        container.innerHTML += `
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4 whitespace-nowrap text-md font-medium text-gray-900">${member.member_name}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-left font-bold text-green-600 text-lg" dir="ltr">${member.total_points} ⭐️</td>
+                            </tr>
+                        `;
+                    });
+                } else {
+                    container.innerHTML = '<tr><td colspan="2" class="px-6 py-4 text-center text-gray-500">لا توجد نقاط مسجلة بعد.</td></tr>';
+                }
+            }).catch(() => console.log('بانتظار إضافة النقاط'));
+    </script>
+
+    <!-- سكريبت الدخول الخاص بـ Netlify (الباب السري) -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/board26011r/";
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/board26011r/";
+                    });
+                }
             });
-          }
-        });
-      }
+        }
     </script>
 </body>
 </html>
