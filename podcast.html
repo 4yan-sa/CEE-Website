@@ -14,32 +14,17 @@
         .text-cee-gold { color: #D4AF37; }
         .bg-cee-gold { background-color: #D4AF37; }
         
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            font-size: 1.2rem;
-            color: #8A1538;
-        }
-
-        .podcast-card:hover .play-overlay {
-            opacity: 1;
-        }
-        .podcast-card:hover .cover-img {
-            transform: scale(1.1);
-        }
+        .loading { text-align: center; padding: 2rem; font-size: 1.2rem; color: #8A1538; }
         
         @keyframes pulse-ring {
             0% { transform: scale(0.8); opacity: 1; }
             100% { transform: scale(1.4); opacity: 0; }
         }
-        .pulse-ring {
-            animation: pulse-ring 1.5s infinite;
-        }
+        .pulse-ring { animation: pulse-ring 1.5s infinite; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-    <!-- ==================== الهيدر ==================== -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -72,7 +57,6 @@
         </div>
     </header>
 
-    <!-- ==================== عنوان الصفحة ==================== -->
     <div class="bg-gray-900 py-16 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-10 right-10 w-64 h-64 bg-cee-red rounded-full blur-3xl"></div>
@@ -95,7 +79,6 @@
         </div>
     </div>
 
-    <!-- ==================== المحتوى الرئيسي ==================== -->
     <main class="flex-grow w-full py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -104,8 +87,7 @@
                 <p class="text-gray-600">جاري تحميل الحلقات...</p>
             </div>
 
-            <div id="podcast-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            </div>
+            <div id="podcast-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
 
             <div id="error-message" class="hidden text-center py-12">
                 <i class="fas fa-exclamation-triangle text-5xl text-red-400 mb-4 block"></i>
@@ -116,7 +98,6 @@
         </div>
     </main>
 
-    <!-- ==================== الفوتر ==================== -->
     <footer class="bg-white border-t border-gray-200 mt-auto pt-10 pb-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
             <div class="flex space-x-reverse space-x-6 text-2xl">
@@ -127,37 +108,25 @@
         </div>
     </footer>
 
-    <!-- ==================== السكربت ==================== -->
     <script>
         const sheetID = '2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
         const gid = '1104498095';
         const podcastSheetURL = `https://docs.google.com/spreadsheets/d/e/${sheetID}/pub?gid=${gid}&single=true&output=csv`;
 
-        // ✅ دالة استخراج ID من رابط اليوتيوب
+        // ✅ استخراج ID الفيديو من أي صيغة
         function getYouTubeID(url) {
             if (!url) return null;
-            
-            // أنماط روابط اليوتيوب المختلفة
             const patterns = [
-                /(?:youtube\.com\/watch\?v=)([^&]+)/,
-                /(?:youtu\.be\/)([^?]+)/,
-                /(?:youtube\.com\/embed\/)([^?]+)/,
-                /(?:youtube\.com\/shorts\/)([^?]+)/
+                /(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/,
+                /(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+                /(?:youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+                /(?:youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
+                /(?:youtube\.com\/live\/)([a-zA-Z0-9_-]{11})/,
+                /(?:m\.youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/
             ];
-            
             for (const pattern of patterns) {
                 const match = url.match(pattern);
                 if (match) return match[1];
-            }
-            return null;
-        }
-
-        // ✅ دالة جلب صورة الغلاف من اليوتيوب
-        function getYouTubeThumbnail(url) {
-            const videoID = getYouTubeID(url);
-            if (videoID) {
-                // صورة عالية الجودة (maxresdefault) مع احتياط (hqdefault)
-                return `https://img.youtube.com/vi/${videoID}/maxresdefault.jpg`;
             }
             return null;
         }
@@ -168,41 +137,64 @@
             const link = episode.link || '#';
             const description = episode.description || 'لا يوجد وصف';
             
-            // ✅ جلب صورة الغلاف من اليوتيوب
-            const thumbnailURL = getYouTubeThumbnail(link);
-            
-            // أيقونة احتياطية إذا ما فيه يوتيوب
+            // ✅ محاولة جلب صورة اليوتيوب
+            const videoID = getYouTubeID(link);
             const icons = ['fa-microphone-lines', 'fa-podcast', 'fa-headphones', 'fa-broadcast-tower', 'fa-music'];
             const icon = icons[index % icons.length];
+            const gradients = [
+                'from-cee-red to-red-900',
+                'from-red-800 to-red-950',
+                'from-gray-800 to-gray-950',
+                'from-cee-red to-gray-900',
+                'from-red-900 to-gray-900'
+            ];
+            const gradient = gradients[index % gradients.length];
 
-            // ✅ جزء الصورة: يا صورة اليوتيوب يا خلفية متدرجة
-            const coverSection = thumbnailURL 
-                ? `
-                    <img src="${thumbnailURL}" alt="${title}" 
-                         class="w-full h-full object-cover transition duration-500 group-hover:scale-110 cover-img"
-                         onerror="this.parentElement.innerHTML='<i class=\'fa-solid ${icon} text-6xl text-white opacity-30\'></i>'; this.parentElement.classList.add('bg-gradient-to-br', 'from-cee-red', 'to-red-900');">
-                `
-                : `<i class="fa-solid ${icon} text-6xl text-white opacity-30"></i>`;
+            // ✅ قسم الغلاف: صورة يوتيوب أو خلفية متدرجة
+            let coverHTML = '';
+            if (videoID) {
+                // نجرب maxresdefault أول، إذا فشل نستخدم hqdefault
+                coverHTML = `
+                    <img src="https://img.youtube.com/vi/${videoID}/maxresdefault.jpg" 
+                         alt="${title}"
+                         class="w-full h-full object-cover cover-img transition duration-500 group-hover:scale-110"
+                         onerror="
+                            if(this.src.includes('maxresdefault')) {
+                                this.src='https://img.youtube.com/vi/${videoID}/hqdefault.jpg';
+                            } else {
+                                this.style.display='none';
+                                this.nextElementSibling.style.display='flex';
+                            }
+                         ">
+                    <div style="display:none;" class="w-full h-full bg-gradient-to-br ${gradient} flex items-center justify-center">
+                        <i class="fa-solid ${icon} text-6xl text-white opacity-30"></i>
+                    </div>
+                `;
+            } else {
+                coverHTML = `
+                    <div class="w-full h-full bg-gradient-to-br ${gradient} flex items-center justify-center">
+                        <i class="fa-solid ${icon} text-6xl text-white opacity-30"></i>
+                    </div>
+                `;
+            }
 
             return `
                 <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full transform hover:-translate-y-2 transition duration-300 group podcast-card">
-                    <!-- ✅ غلاف الحلقة - صورة يوتيوب أو خلفية -->
-                    <div class="h-48 relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-cee-red to-red-900">
-                        ${coverSection}
+                    <div class="h-48 relative overflow-hidden flex items-center justify-center bg-gray-200">
+                        ${coverHTML}
                         
-                        <!-- اوفرلي عند التحويم -->
-                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition duration-300 flex items-center justify-center play-overlay" style="opacity: 0;">
-                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition duration-300 flex items-center justify-center" style="pointer-events:none;">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl opacity-0 group-hover:opacity-100 transition duration-300" style="pointer-events:auto;">
                                 <i class="fa-solid fa-play text-cee-red text-2xl mr-1"></i>
                             </div>
                         </div>
                         
-                        ${number ? `<span class="absolute top-3 right-3 bg-black bg-opacity-70 text-white text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">الحلقة ${number}</span>` : ''}
+                        ${number ? `<span class="absolute top-3 right-3 bg-black bg-opacity-70 text-white text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm z-10">الحلقة ${number}</span>` : ''}
+                        ${videoID ? `<span class="absolute bottom-3 left-3 bg-red-600 text-white text-xs px-2 py-1 rounded z-10"><i class="fa-brands fa-youtube ml-1"></i></span>` : ''}
                     </div>
                     
                     <div class="p-6 flex-grow flex flex-col">
                         <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">${title}</h3>
-                        
                         <p class="text-gray-600 text-sm mb-6 flex-grow line-clamp-3">${description}</p>
                         
                         <a href="${link}" target="_blank" rel="noopener noreferrer" 
@@ -221,15 +213,13 @@
             const errorMessage = document.getElementById('error-message');
 
             try {
-                console.log('🎧 جاري تحميل حلقات البودكاست...');
+                console.log('🎧 جاري تحميل الحلقات...');
                 const response = await fetch(podcastSheetURL);
-                
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 
                 const csvData = await response.text();
                 const rows = csvData.split('\n').filter(row => row.trim() !== '');
                 const dataRows = rows.slice(1);
-                
                 if (dataRows.length === 0) throw new Error('لا توجد حلقات');
 
                 const episodes = [];
@@ -239,12 +229,15 @@
                     console.log(`📋 حلقة ${index + 1}:`, columns);
                     
                     if (columns.length >= 4 && columns[0] !== '') {
-                        episodes.push({
+                        const ep = {
                             number: columns[0].replace(/"/g, '').trim(),
                             title: columns[1].replace(/"/g, '').trim(),
                             link: columns[2].replace(/"/g, '').trim(),
                             description: columns[3].replace(/"/g, '').trim()
-                        });
+                        };
+                        console.log(`🔗 الرابط: ${ep.link}`);
+                        console.log(`🆔 VideoID: ${getYouTubeID(ep.link)}`);
+                        episodes.push(ep);
                     }
                 });
 
@@ -271,18 +264,13 @@
             const columns = [];
             let currentColumn = '';
             let insideQuotes = false;
-            
             for (let i = 0; i < row.length; i++) {
                 const char = row[i];
-                
-                if (char === '"') {
-                    insideQuotes = !insideQuotes;
-                } else if (char === ',' && !insideQuotes) {
+                if (char === '"') insideQuotes = !insideQuotes;
+                else if (char === ',' && !insideQuotes) {
                     columns.push(currentColumn.trim());
                     currentColumn = '';
-                } else {
-                    currentColumn += char;
-                }
+                } else currentColumn += char;
             }
             columns.push(currentColumn.trim());
             return columns;
