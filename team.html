@@ -125,189 +125,156 @@
     </footer>
 
     <!-- ==================== السكربت ==================== -->
-    <script>
-        // رابط قوقل شيت بصيغة CSV
-        const sheetID = '2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
-        const gid = '1696676545';
-        const teamSheetURL = `https://docs.google.com/spreadsheets/d/e/${sheetID}/pub?gid=${gid}&single=true&output=csv`;
+   <script>
+    const sheetID = '2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
+    const gid = '1696676545';
+    const teamSheetURL = `https://docs.google.com/spreadsheets/d/e/${sheetID}/pub?gid=${gid}&single=true&output=csv`;
 
-        // ============ دالة إنشاء بطاقة العضو ============
-        function createMemberCard(member) {
-            const { name, role, imageURL, linkedin } = member;
+    function createMemberCard(member) {
+        const { name, role, imageURL, linkedin } = member;
+        const finalImageURL = (imageURL && imageURL.startsWith('http')) ? imageURL : 'https://via.placeholder.com/150';
+        
+        let linkedinButton = '';
+        if (linkedin && linkedin !== '' && linkedin !== '#') {
+            linkedinButton = `
+                <a href="${linkedin}" target="_blank" rel="noopener noreferrer" 
+                   class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 text-blue-600 hover:bg-blue-600 hover:text-white transition shadow-sm border border-gray-100">
+                    <i class="fa-brands fa-linkedin-in text-lg"></i>
+                </a>`;
+        }
+
+        return `
+            <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 transform hover:-translate-y-2 transition duration-300 group">
+                <div class="h-32 bg-gradient-to-r from-cee-red to-red-900 relative"></div>
+                <div class="flex justify-center -mt-16 relative z-10">
+                    <img src="${finalImageURL}" alt="${name}" 
+                         class="w-32 h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-cee-gold transition duration-300"
+                         onerror="this.src='https://via.placeholder.com/150'">
+                </div>
+                <div class="p-6 text-center flex flex-col items-center">
+                    <h3 class="text-xl font-bold text-gray-900 mb-1">${name}</h3>
+                    <p class="text-cee-gold font-bold mb-4 text-sm">${role}</p>
+                    ${linkedinButton}
+                </div>
+            </div>
+        `;
+    }
+
+    function createDepartmentSection(departmentName, members) {
+        const membersHTML = members.map(member => createMemberCard(member)).join('');
+        return `
+            <div class="mb-16">
+                <div class="text-center mb-10">
+                    <span class="inline-block bg-gray-200 text-gray-700 text-sm font-bold px-4 py-1 rounded-full mb-3">قسم</span>
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">${departmentName}</h3>
+                    <div class="w-16 h-1 bg-cee-gold mx-auto"></div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    ${membersHTML}
+                </div>
+            </div>
+        `;
+    }
+
+    async function fetchTeam() {
+        const loadingMessage = document.getElementById('loading-message');
+        const managementSection = document.getElementById('management-section');
+        const dividerSection = document.getElementById('divider-section');
+        const departmentsSection = document.getElementById('departments-section');
+        const errorMessage = document.getElementById('error-message');
+        const managementContainer = document.getElementById('management-container');
+        const departmentsContainer = document.getElementById('departments-container');
+
+        try {
+            console.log('🔄 جاري التحميل...');
+            const response = await fetch(teamSheetURL);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             
-            const finalImageURL = (imageURL && imageURL.startsWith('http')) ? imageURL : 'https://via.placeholder.com/150';
+            const csvData = await response.text();
+            const rows = csvData.split('\n').filter(row => row.trim() !== '');
+            const dataRows = rows.slice(1);
+            if (dataRows.length === 0) throw new Error('لا توجد بيانات');
+
+            const management = [];
+            const departments = {};
             
-            let linkedinButton = '';
-            if (linkedin && linkedin !== '' && linkedin !== '#') {
-                linkedinButton = `
-                    <a href="${linkedin}" target="_blank" rel="noopener noreferrer" 
-                       class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 text-blue-600 hover:bg-blue-600 hover:text-white transition shadow-sm border border-gray-100">
-                        <i class="fa-brands fa-linkedin-in text-lg"></i>
-                    </a>`;
+            dataRows.forEach(row => {
+                const columns = parseCSVRow(row);
+                if (columns.length >= 5 && columns[0] !== '') {
+                    const name = columns[0].replace(/"/g, '').trim();
+                    const role = columns[1].replace(/"/g, '').trim();
+                    const imageURL = columns[2] ? columns[2].replace(/"/g, '').trim() : '';
+                    const linkedin = columns[3] ? columns[3].replace(/"/g, '').trim() : '';
+                    const category = columns[4] ? columns[4].replace(/"/g, '').trim() : '';
+                    
+                    const member = { name, role, imageURL, linkedin };
+                    
+                    if (category === 'إدارة عليا' || category === 'ادارة عليا' || category === 'الإدارة العليا') {
+                        management.push(member);
+                    } else if (category !== '') {
+                        if (!departments[category]) departments[category] = [];
+                        departments[category].push(member);
+                    }
+                }
+            });
+
+            // ✅ إخفاء التحميل
+            loadingMessage.classList.add('hidden');
+
+            // ✅ عرض الإدارة العليا
+            if (management.length > 0) {
+                managementSection.classList.remove('hidden');
+                managementContainer.innerHTML = management.map(m => createMemberCard(m)).join('');
+            } else {
+                managementSection.classList.add('hidden');
             }
 
-            return `
-                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 transform hover:-translate-y-2 transition duration-300 group">
-                    <div class="h-32 bg-gradient-to-r from-cee-red to-red-900 relative">
-                        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white to-transparent"></div>
-                    </div>
-                    <div class="flex justify-center -mt-16 relative z-10">
-                        <div class="relative">
-                            <img src="${finalImageURL}" alt="${name}" 
-                                 class="w-32 h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-cee-gold transition duration-300"
-                                 onerror="this.src='https://via.placeholder.com/150'">
-                            <div class="absolute bottom-1 right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
-                        </div>
-                    </div>
-                    <div class="p-6 text-center flex flex-col items-center">
-                        <h3 class="text-xl font-bold text-gray-900 mb-1">${name}</h3>
-                        <p class="text-cee-gold font-bold mb-4 text-sm">${role}</p>
-                        ${linkedinButton}
-                    </div>
-                </div>
-            `;
-        }
-
-        // ============ دالة إنشاء قسم ============
-        function createDepartmentSection(departmentName, members) {
-            const membersHTML = members.map(member => createMemberCard(member)).join('');
-            
-            return `
-                <div class="mb-16">
-                    <div class="text-center mb-10">
-                        <span class="inline-block bg-gray-200 text-gray-700 text-sm font-bold px-4 py-1 rounded-full mb-3">قسم</span>
-                        <h3 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">${departmentName}</h3>
-                        <div class="w-16 h-1 bg-cee-gold mx-auto"></div>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        ${membersHTML}
-                    </div>
-                </div>
-            `;
-        }
-
-        // ============ الدالة الرئيسية ============
-        async function fetchTeam() {
-            const loadingMessage = document.getElementById('loading-message');
-            const managementSection = document.getElementById('management-section');
-            const dividerSection = document.getElementById('divider-section');
-            const departmentsSection = document.getElementById('departments-section');
-            const errorMessage = document.getElementById('error-message');
-            const managementContainer = document.getElementById('management-container');
-            const departmentsContainer = document.getElementById('departments-container');
-
-            try {
-                console.log('🔄 جاري تحميل البيانات من:', teamSheetURL);
-                const response = await fetch(teamSheetURL);
+            // ✅ عرض الفاصل دايمًا إذا فيه أقسام
+            const hasDepartments = Object.keys(departments).length > 0;
+            if (hasDepartments) {
+                dividerSection.classList.remove('hidden');
+                departmentsSection.classList.remove('hidden');
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                let departmentsHTML = '';
+                for (const [deptName, members] of Object.entries(departments)) {
+                    departmentsHTML += createDepartmentSection(deptName, members);
                 }
-                
-                const csvData = await response.text();
-                console.log('✅ تم استلام البيانات');
-                
-                // تقسيم البيانات إلى صفوف
-                const rows = csvData.split('\n').filter(row => row.trim() !== '');
-                const dataRows = rows.slice(1); // تخطي صف العناوين
-                
-                if (dataRows.length === 0) {
-                    throw new Error('لا توجد بيانات في الملف');
-                }
+                departmentsContainer.innerHTML = departmentsHTML;
+            } else {
+                dividerSection.classList.add('hidden');
+                departmentsSection.classList.add('hidden');
+            }
 
-                // تصنيف الأعضاء: إدارة عليا VS أقسام
-                const management = [];  // column[4] = "إدارة عليا"
-                const departments = {}; // column[4] = اسم القسم
-                
-                dataRows.forEach((row, index) => {
-                    const columns = parseCSVRow(row);
-                    console.log(`📋 صف ${index + 1}:`, columns);
-                    
-                    if (columns.length >= 5 && columns[0] !== '') {
-                        const name = columns[0].replace(/"/g, '').trim();
-                        const role = columns[1].replace(/"/g, '').trim();
-                        const imageURL = columns[2] ? columns[2].replace(/"/g, '').trim() : '';
-                        const linkedin = columns[3] ? columns[3].replace(/"/g, '').trim() : '';
-                        const category = columns[4] ? columns[4].replace(/"/g, '').trim() : '';
-                        
-                        const member = { name, role, imageURL, linkedin };
-                        
-                        if (category === 'إدارة عليا' || category === 'ادارة عليا' || category === 'الإدارة العليا') {
-                            management.push(member);
-                        } else if (category !== '') {
-                            if (!departments[category]) {
-                                departments[category] = [];
-                            }
-                            departments[category].push(member);
-                        }
-                    }
-                });
-
-                console.log(`👑 الإدارة العليا: ${management.length} عضو`);
-                console.log(`📂 الأقسام: ${Object.keys(departments).length} قسم`);
-
-                // إخفاء رسالة التحميل
-                loadingMessage.classList.add('hidden');
-
-                // === عرض الإدارة العليا ===
-                if (management.length > 0) {
-                    managementSection.classList.remove('hidden');
-                    managementContainer.innerHTML = management.map(member => createMemberCard(member)).join('');
-                }
-
-                // === عرض الفاصل (إذا فيه النوعين) ===
-                if (management.length > 0 && Object.keys(departments).length > 0) {
-                    dividerSection.classList.remove('hidden');
-                }
-
-                // === عرض الأقسام ===
-                if (Object.keys(departments).length > 0) {
-                    departmentsSection.classList.remove('hidden');
-                    
-                    let departmentsHTML = '';
-                    for (const [deptName, members] of Object.entries(departments)) {
-                        departmentsHTML += createDepartmentSection(deptName, members);
-                    }
-                    departmentsContainer.innerHTML = departmentsHTML;
-                }
-
-                // === إذا ما فيه أي بيانات ===
-                if (management.length === 0 && Object.keys(departments).length === 0) {
-                    errorMessage.classList.remove('hidden');
-                    errorMessage.querySelector('p:first-of-type').textContent = 'لا توجد بيانات متاحة حالياً';
-                }
-
-            } catch (error) {
-                console.error('❌ خطأ:', error);
-                loadingMessage.classList.add('hidden');
+            // ✅ إذا ما فيه ولا شيء
+            if (management.length === 0 && !hasDepartments) {
                 errorMessage.classList.remove('hidden');
+                errorMessage.querySelector('p:first-of-type').textContent = 'لا توجد بيانات متاحة حالياً';
             }
-        }
 
-        // ============ دالة مساعدة: تقسيم صف CSV ============
-        function parseCSVRow(row) {
-            const columns = [];
-            let currentColumn = '';
-            let insideQuotes = false;
-            
-            for (let i = 0; i < row.length; i++) {
-                const char = row[i];
-                
-                if (char === '"') {
-                    insideQuotes = !insideQuotes;
-                } else if (char === ',' && !insideQuotes) {
-                    columns.push(currentColumn.trim());
-                    currentColumn = '';
-                } else {
-                    currentColumn += char;
-                }
-            }
-            columns.push(currentColumn.trim());
-            return columns;
+        } catch (error) {
+            console.error('❌ خطأ:', error);
+            loadingMessage.classList.add('hidden');
+            errorMessage.classList.remove('hidden');
         }
+    }
 
-        // ============ تشغيل الدالة ============
-        document.addEventListener('DOMContentLoaded', fetchTeam);
-    </script>
+    function parseCSVRow(row) {
+        const columns = [];
+        let currentColumn = '';
+        let insideQuotes = false;
+        for (let i = 0; i < row.length; i++) {
+            const char = row[i];
+            if (char === '"') insideQuotes = !insideQuotes;
+            else if (char === ',' && !insideQuotes) {
+                columns.push(currentColumn.trim());
+                currentColumn = '';
+            } else currentColumn += char;
+        }
+        columns.push(currentColumn.trim());
+        return columns;
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchTeam);
+</script>
 </body>
 </html>
