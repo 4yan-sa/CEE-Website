@@ -11,11 +11,37 @@
         body { font-family: 'Tajawal', sans-serif; }
         .text-cee-red { color: #8A1538; } 
         .bg-cee-red { background-color: #8A1538; }
-        .text-cee-gold { color: #D4AF37; } 
+        .text-cee-gold { color: #D4AF37; }
+        .bg-cee-gold { background-color: #D4AF37; }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: #8A1538;
+        }
+
+        /* تأثير البودكاست */
+        .podcast-card:hover .play-overlay {
+            opacity: 1;
+        }
+        .podcast-card:hover .cover-img {
+            transform: scale(1.1);
+        }
+        
+        /* نبض الأيقونة */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        .pulse-ring {
+            animation: pulse-ring 1.5s infinite;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
+    <!-- ==================== الهيدر ==================== -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -41,7 +67,6 @@
                 </div>
             </div>
         </div>
-        <!-- قائمة الجوال -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full z-40">
             <a href="index.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الصفحة الرئيسية</a>
             <a href="podcast.html" class="block px-6 py-4 text-cee-red bg-gray-50 border-b font-bold">بودكاست صدى</a>
@@ -49,56 +74,210 @@
         </div>
     </header>
 
+    <!-- ==================== عنوان الصفحة ==================== -->
     <div class="bg-gray-900 py-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 right-10 w-64 h-64 bg-cee-red rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 left-10 w-80 h-80 bg-cee-gold rounded-full blur-3xl"></div>
+        </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between">
             <div class="text-center md:text-right mb-8 md:mb-0">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">بودكاست صدى <i class="fa-solid fa-microphone-lines text-cee-gold ml-2"></i></h1>
-                <div class="w-24 h-1 bg-cee-red mx-auto md:mx-0 mb-6"></div>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                    بودكاست صدى <i class="fa-solid fa-microphone-lines text-cee-gold ml-2"></i>
+                </h1>
+                <div class="w-24 h-1 bg-cee-gold mx-auto md:mx-0 mb-6"></div>
                 <p class="text-gray-300 max-w-2xl text-lg">لقاءات حصرية مع نخبة من المهندسين والخبراء لمناقشة أحدث التطورات في عالم الهندسة المدنية والبيئية.</p>
+            </div>
+            <div class="relative">
+                <div class="w-24 h-24 bg-cee-red rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-podcast text-4xl text-white"></i>
+                </div>
+                <div class="absolute inset-0 w-24 h-24 bg-cee-red rounded-full pulse-ring"></div>
             </div>
         </div>
     </div>
 
+    <!-- ==================== المحتوى الرئيسي ==================== -->
     <main class="flex-grow w-full py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div id="podcast-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- مثال توضيحي للحلقة (رجعناه) -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full transform hover:-translate-y-1 transition duration-300 group">
-                    <div class="h-48 bg-gray-200 relative overflow-hidden">
-                        <img src="https://via.placeholder.com/400x200?text=غلاف+الحلقة" alt="غلاف الحلقة" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                            <i class="fa-regular fa-circle-play text-5xl text-white"></i>
-                        </div>
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold bg-gray-100 text-cee-red px-2 py-1 rounded">الحلقة 1</span>
-                            <span class="text-xs text-gray-500"><i class="fa-regular fa-calendar ml-1"></i> 12 أكتوبر 2026</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-1">مستقبل الخرسانة المسلحة</h3>
-                        <p class="text-cee-gold font-bold text-sm mb-3"><i class="fa-solid fa-user-tie ml-1"></i> م. أحمد عبدالله</p>
-                        <p class="text-gray-600 text-sm mb-6 flex-grow">نناقش في هذه الحلقة أهم التطورات في تصميم الخرسانة المسلحة والتحديات التي تواجه المهندس الإنشائي حديث التخرج.</p>
-                        <a href="#" class="w-full text-center bg-gray-900 text-white py-2 rounded-lg text-sm font-bold hover:bg-cee-red transition duration-300 flex items-center justify-center gap-2">
-                            <span>استمع الآن</span> <i class="fa-solid fa-headphones"></i>
-                        </a>
-                    </div>
-                </div>
 
+            <!-- رسالة التحميل -->
+            <div id="loading-message" class="loading">
+                <i class="fas fa-spinner fa-spin text-4xl mb-4 block"></i>
+                <p class="text-gray-600">جاري تحميل الحلقات...</p>
             </div>
+
+            <!-- حاوية الحلقات -->
+            <div id="podcast-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- الحلقات تظهر هنا تلقائياً -->
+            </div>
+
+            <!-- رسالة الخطأ -->
+            <div id="error-message" class="hidden text-center py-12">
+                <i class="fas fa-exclamation-triangle text-5xl text-red-400 mb-4 block"></i>
+                <p class="text-red-500 text-lg font-bold">حدث خطأ في تحميل الحلقات</p>
+                <p class="text-gray-500 mt-2">الرجاء المحاولة لاحقاً</p>
+            </div>
+
         </div>
     </main>
 
+    <!-- ==================== الفوتر ==================== -->
     <footer class="bg-white border-t border-gray-200 mt-auto pt-10 pb-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <div class="flex space-x-reverse space-x-6 text-2xl"><a href="#" class="text-gray-400 hover:text-black"><i class="fa-brands fa-x-twitter"></i></a></div>
+            <div class="flex space-x-reverse space-x-6 text-2xl">
+                <a href="#" class="text-gray-400 hover:text-black"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
             <div class="text-gray-500 text-sm">&copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.</div>
             <img src="upload/logo.jpg" alt="CEE" class="h-10 opacity-50">
         </div>
     </footer>
 
+    <!-- ==================== السكربت ==================== -->
     <script>
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => { document.getElementById('mobile-menu').classList.toggle('hidden'); });
+        // ✅ رابط الشيت الجديد للبودكاست
+        const sheetID = '2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
+        const gid = '1104498095';
+        const podcastSheetURL = `https://docs.google.com/spreadsheets/d/e/${sheetID}/pub?gid=${gid}&single=true&output=csv`;
+
+        // ✅ ألوان مميزة لكل حلقة
+        const gradientColors = [
+            'from-cee-red to-red-900',
+            'from-red-800 to-red-950',
+            'from-gray-800 to-gray-950',
+            'from-cee-red to-gray-900',
+            'from-red-900 to-gray-900',
+        ];
+
+        function createPodcastCard(episode, index) {
+            const number = episode.number || '';
+            const title = episode.title || 'بدون عنوان';
+            const link = episode.link || '#';
+            const description = episode.description || 'لا يوجد وصف';
+            
+            // اختيار لون متدرج لكل حلقة
+            const gradient = gradientColors[index % gradientColors.length];
+            
+            // أيقونات عشوائية للتنويع
+            const icons = ['fa-microphone-lines', 'fa-podcast', 'fa-headphones', 'fa-broadcast-tower', 'fa-music'];
+            const icon = icons[index % icons.length];
+
+            return `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full transform hover:-translate-y-2 transition duration-300 group podcast-card">
+                    <!-- غلاف الحلقة -->
+                    <div class="h-48 bg-gradient-to-br ${gradient} relative overflow-hidden flex items-center justify-center">
+                        <i class="fa-solid ${icon} text-6xl text-white opacity-30"></i>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center play-overlay" style="opacity: 0;">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl">
+                                <i class="fa-solid fa-play text-cee-red text-2xl mr-1"></i>
+                            </div>
+                        </div>
+                        ${number ? `<span class="absolute top-3 right-3 bg-black bg-opacity-60 text-white text-xs font-bold px-3 py-1 rounded-full">الحلقة ${number}</span>` : ''}
+                    </div>
+                    
+                    <!-- محتوى البطاقة -->
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">${title}</h3>
+                        
+                        <p class="text-gray-600 text-sm mb-6 flex-grow line-clamp-3">${description}</p>
+                        
+                        <a href="${link}" target="_blank" rel="noopener noreferrer" 
+                           class="w-full text-center bg-gray-900 text-white py-3 rounded-xl text-sm font-bold hover:bg-cee-red transition duration-300 flex items-center justify-center gap-2 group/btn">
+                            <span>استمع الآن</span>
+                            <i class="fa-solid fa-headphones group-hover/btn:animate-bounce"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function fetchPodcast() {
+            const loadingMessage = document.getElementById('loading-message');
+            const podcastContainer = document.getElementById('podcast-container');
+            const errorMessage = document.getElementById('error-message');
+
+            try {
+                console.log('🎧 جاري تحميل حلقات البودكاست...');
+                const response = await fetch(podcastSheetURL);
+                
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const csvData = await response.text();
+                const rows = csvData.split('\n').filter(row => row.trim() !== '');
+                const dataRows = rows.slice(1); // تخطي صف العناوين
+                
+                if (dataRows.length === 0) {
+                    throw new Error('لا توجد حلقات في الملف');
+                }
+
+                console.log(`✅ تم العثور على ${dataRows.length} حلقات`);
+
+                // تحويل البيانات إلى كائنات
+                const episodes = [];
+                
+                dataRows.forEach((row, index) => {
+                    const columns = parseCSVRow(row);
+                    console.log(`📋 حلقة ${index + 1}:`, columns);
+                    
+                    if (columns.length >= 4 && columns[0] !== '') {
+                        episodes.push({
+                            number: columns[0].replace(/"/g, '').trim(),
+                            title: columns[1].replace(/"/g, '').trim(),
+                            link: columns[2].replace(/"/g, '').trim(),
+                            description: columns[3].replace(/"/g, '').trim()
+                        });
+                    }
+                });
+
+                // إخفاء التحميل
+                loadingMessage.classList.add('hidden');
+
+                if (episodes.length === 0) {
+                    errorMessage.classList.remove('hidden');
+                    errorMessage.querySelector('p:first-of-type').textContent = 'لا توجد حلقات متاحة حالياً';
+                    return;
+                }
+
+                // عرض الحلقات
+                podcastContainer.innerHTML = episodes
+                    .map((ep, i) => createPodcastCard(ep, i))
+                    .join('');
+
+            } catch (error) {
+                console.error('❌ خطأ:', error);
+                loadingMessage.classList.add('hidden');
+                errorMessage.classList.remove('hidden');
+            }
+        }
+
+        function parseCSVRow(row) {
+            const columns = [];
+            let currentColumn = '';
+            let insideQuotes = false;
+            
+            for (let i = 0; i < row.length; i++) {
+                const char = row[i];
+                
+                if (char === '"') {
+                    insideQuotes = !insideQuotes;
+                } else if (char === ',' && !insideQuotes) {
+                    columns.push(currentColumn.trim());
+                    currentColumn = '';
+                } else {
+                    currentColumn += char;
+                }
+            }
+            columns.push(currentColumn.trim());
+            return columns;
+        }
+
+        // تشغيل الدالة
+        document.addEventListener('DOMContentLoaded', fetchPodcast);
+
+        // زر القائمة للجوال
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
     </script>
 </body>
 </html>
