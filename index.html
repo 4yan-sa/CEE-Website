@@ -11,8 +11,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
         body { font-family: 'Tajawal', sans-serif; }
-        
-        /* تخصيص ألوان الشعار لتسهيل استخدامها في الكود */
         .text-cee-red { color: #8A1538; } 
         .bg-cee-red { background-color: #8A1538; }
         .text-cee-gold { color: #D4AF37; } 
@@ -22,34 +20,25 @@
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-    <!-- شريط التنقل (الهيدر) -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                
-                <!-- اللوقو -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="index.html" class="flex items-center gap-2">
-                        <img src="D7022F20-D462-413F-8088-E089A81E2112_L0_001-٩__٢__٢٠٢٦، ٨_١٠_١٦ م.jpg.jpg" alt="شعار النادي" class="h-14 object-contain">
+                        <!-- مسار الصورة المحدث -->
+                        <img src="upload/logo.jpg" alt="شعار النادي" class="h-14 object-contain">
                     </a>
                 </div>
-
-                <!-- قائمة اللابتوب -->
                 <nav class="hidden md:flex space-x-reverse space-x-6 items-center">
                     <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">الصفحة الرئيسية</a>
-                    <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition">البودكاست</a>
-                    <!-- تم تعديل الرابط ليذهب إلى صفحة منفصلة مستقبلاً -->
+                    <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition">بودكاست صدى</a>
                     <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition">الهيكل الإداري</a>
-                    <a href="#events" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات السابقة</a>
-                    
-                    <!-- أزرار الدخول -->
+                    <a href="index.html#events" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات السابقة</a>
                     <div class="border-r border-gray-300 pr-6 flex space-x-reverse space-x-4">
                         <a href="#" class="text-gray-700 hover:text-cee-red font-bold py-2 transition">سجل الدخول</a>
                         <a href="#" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a>
                     </div>
                 </nav>
-
-                <!-- زر قائمة الجوال -->
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-cee-red hover:text-red-900 focus:outline-none">
                         <i class="fa-solid fa-bars text-3xl"></i>
@@ -57,51 +46,37 @@
                 </div>
             </div>
         </div>
-
-        <!-- قائمة الجوال المنسدلة -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full z-40">
             <a href="index.html" class="block px-6 py-4 text-cee-red bg-gray-50 border-b font-bold">الصفحة الرئيسية</a>
-            <a href="podcast.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">البودكاست</a>
+            <a href="podcast.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">بودكاست صدى</a>
             <a href="team.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الهيكل الإداري</a>
-            <a href="#events" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الفعاليات السابقة</a>
+            <a href="index.html#events" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الفعاليات السابقة</a>
             <a href="#" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-bold">سجل الدخول</a>
             <a href="#" class="block px-6 py-4 bg-cee-red text-white font-bold text-center">انضم إلينا</a>
         </div>
     </header>
 
-    <!-- المحتوى الرئيسي -->
     <main class="flex-grow w-full">
-
-        <!-- قسم أهداف النادي -->
+        <!-- قسم الأهداف -->
         <section class="bg-white py-16 border-b border-gray-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-extrabold text-gray-900 mb-4">أهداف النادي</h2>
                     <p class="text-gray-500 max-w-2xl mx-auto">نسعى في نادي الهندسة المدنية والبيئية لبناء بيئة متكاملة تجمع بين التفوق الأكاديمي والتطبيق العملي.</p>
                 </div>
-                
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- الهدف الأول -->
                     <div class="bg-gray-50 rounded-xl p-8 text-center border-b-4 border-cee-red hover:shadow-lg transition">
-                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow text-cee-red text-2xl">
-                            <i class="fa-solid fa-hard-hat"></i>
-                        </div>
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow text-cee-red text-2xl"><i class="fa-solid fa-hard-hat"></i></div>
                         <h3 class="text-xl font-bold mb-2">التطوير المهني</h3>
                         <p class="text-gray-600 text-sm">تأهيل الطلاب لسوق العمل عبر ورش عمل ودورات متخصصة في أحدث البرامج الهندسية.</p>
                     </div>
-                    <!-- الهدف الثاني -->
                     <div class="bg-gray-50 rounded-xl p-8 text-center border-b-4 text-cee-gold border-cee-gold hover:shadow-lg transition">
-                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow text-2xl">
-                            <i class="fa-solid fa-users-gear"></i>
-                        </div>
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow text-2xl"><i class="fa-solid fa-users-gear"></i></div>
                         <h3 class="text-xl font-bold mb-2 text-gray-900">بناء العلاقات</h3>
                         <p class="text-gray-600 text-sm">ربط الطلاب بالخبراء والشركات الهندسية الرائدة لبناء شبكة علاقات قوية قبل التخرج.</p>
                     </div>
-                    <!-- الهدف الثالث -->
                     <div class="bg-gray-50 rounded-xl p-8 text-center border-b-4 border-black hover:shadow-lg transition">
-                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow text-black text-2xl">
-                            <i class="fa-solid fa-leaf"></i>
-                        </div>
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow text-black text-2xl"><i class="fa-solid fa-leaf"></i></div>
                         <h3 class="text-xl font-bold mb-2">الاستدامة البيئية</h3>
                         <p class="text-gray-600 text-sm">تعزيز الوعي بأهمية الهندسة البيئية وتطبيق معايير الاستدامة في المشاريع العمرانية.</p>
                     </div>
@@ -114,9 +89,7 @@
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-3xl font-bold text-gray-900 border-r-4 border-cee-red pr-3">آخر الأخبار</h2>
             </div>
-            
             <div id="latest-news-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- سيتم جلب الأخبار هنا من قوقل شيت -->
                 <div class="bg-white rounded-lg shadow p-6 text-center text-gray-400 border border-gray-100 w-full col-span-full">
                     <i class="fa-solid fa-spinner fa-spin text-2xl mb-2 text-cee-red"></i><br>
                     جاري سحب الأخبار من قاعدة البيانات...
@@ -124,7 +97,7 @@
             </div>
         </section>
 
-        <!-- قسم الفعاليات القادمة (الجديد) -->
+        <!-- قسم الفعاليات القادمة -->
         <section class="bg-gray-900 py-16">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
@@ -132,138 +105,50 @@
                     <div class="w-24 h-1 bg-cee-gold mx-auto"></div>
                     <p class="text-gray-400 mt-4">لا تفوت فرصتك وسجل الآن في برامجنا وورش العمل القادمة</p>
                 </div>
-                
-                <!-- حاوية الفعاليات التي سيتم تغذيتها من الشيت -->
                 <div id="upcoming-events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
-                    <!-- مثال توضيحي لشكل بطاقة الفعالية (سيتم استبداله برمجياً) -->
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-xl flex flex-col h-full transform hover:-translate-y-2 transition duration-300">
-                        <div class="h-48 bg-gray-200 relative">
-                            <!-- صورة الفعالية -->
-                            <img src="https://via.placeholder.com/400x200?text=صورة+الفعالية" alt="الفعالية" class="w-full h-full object-cover">
-                            <!-- شريط التاريخ -->
-                            <div class="absolute top-4 right-4 bg-white text-cee-red font-bold px-3 py-1 rounded-md shadow text-sm">
-                                25 أكتوبر
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow flex flex-col">
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">دورة أوتوكاد المتقدمة</h3>
-                            <p class="text-gray-600 text-sm mb-4 flex-grow">ورشة عمل مكثفة لتطوير مهارات الرسم الهندسي باستخدام أحدث أدوات برنامج AutoCAD.</p>
-                            
-                            <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-                                <span class="text-xs font-bold text-gray-500"><i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i> القاعة الكبرى</span>
-                                <a href="#" class="bg-cee-red text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-red-900 transition shadow">سجل الآن</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- نهاية المثال التوضيحي -->
-
+                    <!-- سيتم السحب من الشيت -->
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- الفوتر (منصات التواصل والرعاة) -->
     <footer class="bg-white border-t border-gray-200 mt-auto pt-10 pb-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
             <div class="text-center mb-10">
                 <h3 class="text-lg font-bold text-gray-600 mb-6">شركاء النجاح والرعاة</h3>
                 <div id="sponsors-container" class="flex flex-wrap justify-center gap-6 items-center">
                     <div class="w-32 h-16 bg-gray-50 border border-gray-100 rounded flex items-center justify-center text-sm text-gray-400">شعار الراعي</div>
                 </div>
             </div>
-
             <hr class="border-gray-100 mb-6">
-
             <div class="flex flex-col md:flex-row justify-between items-center relative">
-                <!-- منصات التواصل -->
                 <div class="flex space-x-reverse space-x-6 text-2xl mb-4 md:mb-0">
                     <a href="#" class="text-gray-400 hover:text-blue-600 transition"><i class="fa-brands fa-linkedin"></i></a>
                     <a href="#" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-x-twitter"></i></a>
                     <a href="#" class="text-gray-400 hover:text-pink-600 transition"><i class="fa-brands fa-instagram"></i></a>
                     <a href="#" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
-
-                <!-- الحقوق -->
                 <div class="text-gray-500 text-sm font-medium">
                     &copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.
                 </div>
-
-                <!-- اللوقو الصغير -->
                 <div class="hidden md:block absolute left-0 opacity-50 grayscale hover:grayscale-0 transition">
-                    <img src="D7022F20-D462-413F-8088-E089A81E2112_L0_001-٩__٢__٢٠٢٦، ٨_١٠_١٦ م.jpg.jpg" alt="CEE" class="h-10">
+                    <!-- مسار الصورة المحدث -->
+                    <img src="upload/logo.jpg" alt="CEE" class="h-10">
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- سكربت الجافاسكريبت -->
     <script>
-        // تشغيل قائمة الجوال
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
 
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-
-        // --------------------------------------------------------
-        // كود سحب البيانات من قوقل شيت (الفعاليات القادمة كمثال)
-        // --------------------------------------------------------
-        
-        // ضع هنا رابط ה-CSV الخاص بتبويب "الفعاليات القادمة"
+        // كود سحب البيانات (اتركه معطلاً حتى نربط الشيت)
+        /*
         const upcomingEventsSheetURL = 'رابط_ملف_CSV_الفعاليات_هنا'; 
-
-        async function fetchUpcomingEvents() {
-            try {
-                if(upcomingEventsSheetURL === 'رابط_ملف_CSV_الفعاليات_هنا') return;
-
-                const response = await fetch(upcomingEventsSheetURL);
-                const data = await response.text();
-                
-                const rows = data.split('\n').slice(1); // تخطي صف العناوين الأول
-                const container = document.getElementById('upcoming-events-container');
-                container.innerHTML = ''; // مسح المثال التوضيحي
-
-                rows.forEach(row => {
-                    // افتراض ترتيب الأعمدة في الشيت: 0:الاسم, 1:الوصف, 2:التاريخ, 3:القاعة, 4:رابط الصورة, 5:رابط التسجيل
-                    const columns = row.split(',');
-                    if (columns.length >= 2 && columns[0].trim() !== '') {
-                        const title = columns[0].trim();
-                        const desc = columns[1] ? columns[1].trim() : '';
-                        const date = columns[2] ? columns[2].trim() : '';
-                        const location = columns[3] ? columns[3].trim() : '';
-                        const imageURL = columns[4] ? columns[4].trim() : 'https://via.placeholder.com/400x200?text=صورة+الفعالية';
-                        const registerLink = columns[5] ? columns[5].trim() : '#';
-
-                        const cardHTML = `
-                            <div class="bg-white rounded-2xl overflow-hidden shadow-xl flex flex-col h-full transform hover:-translate-y-2 transition duration-300">
-                                <div class="h-48 bg-gray-200 relative">
-                                    <img src="${imageURL}" alt="${title}" class="w-full h-full object-cover">
-                                    ${date ? `<div class="absolute top-4 right-4 bg-white text-cee-red font-bold px-3 py-1 rounded-md shadow text-sm">${date}</div>` : ''}
-                                </div>
-                                <div class="p-6 flex-grow flex flex-col">
-                                    <h3 class="text-xl font-bold text-gray-900 mb-2">${title}</h3>
-                                    <p class="text-gray-600 text-sm mb-4 flex-grow">${desc}</p>
-                                    
-                                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-                                        <span class="text-xs font-bold text-gray-500"><i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i> ${location}</span>
-                                        <a href="${registerLink}" target="_blank" class="bg-cee-red text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-red-900 transition shadow">سجل الآن</a>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        container.innerHTML += cardHTML;
-                    }
-                });
-            } catch (error) {
-                console.error('خطأ في سحب بيانات الفعاليات القادمة:', error);
-            }
-        }
-
-        // fetchUpcomingEvents(); // قم بإزالة الشرطتين (//) لتفعيل الكود بعد وضع الرابط
+        async function fetchUpcomingEvents() { ... }
+        */
     </script>
 </body>
 </html>
