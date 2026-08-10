@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البودكاست | نادي الهندسة المدنية والبيئية</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+        body { font-family: 'Tajawal', sans-serif; }
+        
+        .text-cee-red { color: #8A1538; } 
+        .bg-cee-red { background-color: #8A1538; }
+        .text-cee-gold { color: #D4AF37; } 
+        .border-cee-gold { border-color: #D4AF37; }
+        .border-cee-red { border-color: #8A1538; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <!-- شريط التنقل (الهيدر) -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="flex items-center gap-2">
+                        <img src="D7022F20-D462-413F-8088-E089A81E2112_L0_001-٩__٢__٢٠٢٦، ٨_١٠_١٦ م.jpg.jpg" alt="شعار النادي" class="h-14 object-contain">
+                    </a>
+                </div>
+
+                <nav class="hidden md:flex space-x-reverse space-x-6 items-center">
+                    <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition">الصفحة الرئيسية</a>
+                    <!-- تم تفعيل الخط السفلي هنا ليدل على الصفحة الحالية -->
+                    <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">البودكاست</a>
+                    <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition">الهيكل الإداري</a>
+                    <a href="index.html#events" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات السابقة</a>
+                    
+                    <div class="border-r border-gray-300 pr-6 flex space-x-reverse space-x-4">
+                        <a href="#" class="text-gray-700 hover:text-cee-red font-bold py-2 transition">سجل الدخول</a>
+                        <a href="#" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a>
+                    </div>
+                </nav>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-cee-red hover:text-red-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- قائمة الجوال -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full z-40">
+            <a href="index.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الصفحة الرئيسية</a>
+            <a href="podcast.html" class="block px-6 py-4 text-cee-red bg-gray-50 border-b font-bold">البودكاست</a>
+            <a href="team.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الهيكل الإداري</a>
+            <a href="index.html#events" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الفعاليات السابقة</a>
+            <a href="#" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-bold">سجل الدخول</a>
+            <a href="#" class="block px-6 py-4 bg-cee-red text-white font-bold text-center">انضم إلينا</a>
+        </div>
+    </header>
+
+    <!-- ترويسة البودكاست (Banner) -->
+    <div class="bg-gray-900 py-16 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between">
+            <div class="text-center md:text-right mb-8 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">بودكاست النادي <i class="fa-solid fa-microphone-lines text-cee-gold ml-2"></i></h1>
+                <div class="w-24 h-1 bg-cee-red mx-auto md:mx-0 mb-6"></div>
+                <p class="text-gray-300 max-w-2xl text-lg">لقاءات حصرية مع نخبة من المهندسين والخبراء لمناقشة أحدث التطورات في عالم الهندسة المدنية والبيئية.</p>
+            </div>
+            <div class="text-white text-6xl opacity-20 hidden md:block">
+                <i class="fa-solid fa-podcast"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- شبكة الحلقات -->
+    <main class="flex-grow w-full py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div id="podcast-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- بطاقة توضيحية للحلقة (سيتم استبدالها برمجياً) -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full transform hover:-translate-y-1 transition duration-300 group">
+                    <!-- غلاف الحلقة -->
+                    <div class="h-48 bg-gray-200 relative overflow-hidden">
+                        <img src="https://via.placeholder.com/400x200?text=غلاف+الحلقة" alt="غلاف الحلقة" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fa-regular fa-circle-play text-5xl text-white"></i>
+                        </div>
+                    </div>
+                    <!-- تفاصيل الحلقة -->
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold bg-gray-100 text-cee-red px-2 py-1 rounded">الحلقة 1</span>
+                            <span class="text-xs text-gray-500"><i class="fa-regular fa-calendar ml-1"></i> 12 أكتوبر 2026</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">مستقبل الخرسانة المسلحة</h3>
+                        <p class="text-cee-gold font-bold text-sm mb-3"><i class="fa-solid fa-user-tie ml-1"></i> م. أحمد عبدالله</p>
+                        <p class="text-gray-600 text-sm mb-6 flex-grow">نناقش في هذه الحلقة أهم التطورات في تصميم الخرسانة المسلحة والتحديات التي تواجه المهندس الإنشائي حديث التخرج.</p>
+                        
+                        <a href="#" class="w-full text-center bg-gray-900 text-white py-2 rounded-lg text-sm font-bold hover:bg-cee-red transition duration-300 flex items-center justify-center gap-2">
+                            <span>استمع الآن</span> <i class="fa-solid fa-headphones"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- نهاية البطاقة التوضيحية -->
+
+            </div>
+        </div>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="bg-white border-t border-gray-200 mt-auto pt-10 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center relative">
+                <div class="flex space-x-reverse space-x-6 text-2xl mb-4 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-blue-600 transition"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-pink-600 transition"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <div class="text-gray-500 text-sm font-medium">
+                    &copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.
+                </div>
+                <div class="hidden md:block absolute left-0 opacity-50 grayscale hover:grayscale-0 transition">
+                    <img src="D7022F20-D462-413F-8088-E089A81E2112_L0_001-٩__٢__٢٠٢٦، ٨_١٠_١٦ م.jpg.jpg" alt="CEE" class="h-10">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- سكربت الجافاسكريبت لسحب الحلقات -->
+    <script>
+        // تشغيل قائمة الجوال
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // --------------------------------------------------------
+        // كود سحب البيانات من قوقل شيت (قسم البودكاست)
+        // --------------------------------------------------------
+        
+        // ضع رابط الـ CSV الخاص بتبويب "البودكاست" هنا
+        const podcastSheetURL = 'رابط_ملف_CSV_البودكاست_هنا'; 
+
+        async function fetchPodcastEpisodes() {
+            try {
+                if(podcastSheetURL === 'رابط_ملف_CSV_البودكاست_هنا') return;
+
+                const response = await fetch(podcastSheetURL);
+                const data = await response.text();
+                
+                const rows = data.split('\n').slice(1); // تخطي صف العناوين
+                const container = document.getElementById('podcast-container');
+                container.innerHTML = ''; // مسح المثال التوضيحي
+
+                rows.forEach(row => {
+                    const columns = row.split(',');
+                    
+                    if (columns.length >= 3 && columns[0].trim() !== '') {
+                        const episodeNum = columns[0].trim(); // العمود A: رقم الحلقة
+                        const title = columns[1].trim(); // العمود B: عنوان الحلقة
+                        const guest = columns[2] ? columns[2].trim() : ''; // العمود C: اسم الضيف
+                        const desc = columns[3] ? columns[3].trim() : ''; // العمود D: وصف الحلقة
+                        const date = columns[4] ? columns[4].trim() : ''; // العمود E: تاريخ النشر
+                        const imageURL = columns[5] && columns[5].trim() !== '' ? columns[5].trim() : 'https://via.placeholder.com/400x200?text=غلاف+الحلقة'; // العمود F: رابط الصورة
+                        const listenLink = columns[6] ? columns[6].trim() : '#'; // العمود G: رابط الاستماع
+
+                        const cardHTML = `
+                            <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full transform hover:-translate-y-1 transition duration-300 group">
+                                <div class="h-48 bg-gray-200 relative overflow-hidden">
+                                    <img src="${imageURL}" alt="${title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                                        <i class="fa-regular fa-circle-play text-5xl text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="p-6 flex-grow flex flex-col">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-xs font-bold bg-gray-100 text-cee-red px-2 py-1 rounded">${episodeNum}</span>
+                                        <span class="text-xs text-gray-500"><i class="fa-regular fa-calendar ml-1"></i> ${date}</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-900 mb-1">${title}</h3>
+                                    ${guest ? `<p class="text-cee-gold font-bold text-sm mb-3"><i class="fa-solid fa-user-tie ml-1"></i> ${guest}</p>` : ''}
+                                    <p class="text-gray-600 text-sm mb-6 flex-grow">${desc}</p>
+                                    
+                                    <a href="${listenLink}" target="_blank" class="w-full text-center bg-gray-900 text-white py-2 rounded-lg text-sm font-bold hover:bg-cee-red transition duration-300 flex items-center justify-center gap-2">
+                                        <span>استمع الآن</span> <i class="fa-solid fa-headphones"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        container.innerHTML += cardHTML;
+                    }
+                });
+            } catch (error) {
+                console.error('خطأ في سحب حلقات البودكاست:', error);
+            }
+        }
+
+        // fetchPodcastEpisodes(); // احذف الشرطتين لتفعيل السحب بعد إضافة الرابط
+    </script>
+</body>
+</html>
