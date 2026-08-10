@@ -12,8 +12,6 @@
         .text-cee-red { color: #8A1538; } 
         .bg-cee-red { background-color: #8A1538; }
         .text-cee-gold { color: #D4AF37; } 
-        .border-cee-gold { border-color: #D4AF37; }
-        .border-cee-red { border-color: #8A1538; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
@@ -23,7 +21,6 @@
             <div class="flex justify-between items-center h-20">
                 <div class="flex-shrink-0 flex items-center">
                     <a href="index.html" class="flex items-center gap-2">
-                        <!-- مسار الصورة المحدث -->
                         <img src="upload/logo.jpg" alt="شعار النادي" class="h-14 object-contain">
                     </a>
                 </div>
@@ -44,13 +41,11 @@
                 </div>
             </div>
         </div>
+        <!-- قائمة الجوال -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full z-40">
             <a href="index.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الصفحة الرئيسية</a>
             <a href="podcast.html" class="block px-6 py-4 text-cee-red bg-gray-50 border-b font-bold">بودكاست صدى</a>
             <a href="team.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الهيكل الإداري</a>
-            <a href="index.html#events" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الفعاليات السابقة</a>
-            <a href="#" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-bold">سجل الدخول</a>
-            <a href="#" class="block px-6 py-4 bg-cee-red text-white font-bold text-center">انضم إلينا</a>
         </div>
     </header>
 
@@ -61,48 +56,49 @@
                 <div class="w-24 h-1 bg-cee-red mx-auto md:mx-0 mb-6"></div>
                 <p class="text-gray-300 max-w-2xl text-lg">لقاءات حصرية مع نخبة من المهندسين والخبراء لمناقشة أحدث التطورات في عالم الهندسة المدنية والبيئية.</p>
             </div>
-            <div class="text-white text-6xl opacity-20 hidden md:block">
-                <i class="fa-solid fa-podcast"></i>
-            </div>
         </div>
     </div>
 
     <main class="flex-grow w-full py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div id="podcast-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- سيتم سحب الحلقات هنا -->
+                
+                <!-- مثال توضيحي للحلقة (رجعناه) -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full transform hover:-translate-y-1 transition duration-300 group">
+                    <div class="h-48 bg-gray-200 relative overflow-hidden">
+                        <img src="https://via.placeholder.com/400x200?text=غلاف+الحلقة" alt="غلاف الحلقة" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fa-regular fa-circle-play text-5xl text-white"></i>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold bg-gray-100 text-cee-red px-2 py-1 rounded">الحلقة 1</span>
+                            <span class="text-xs text-gray-500"><i class="fa-regular fa-calendar ml-1"></i> 12 أكتوبر 2026</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">مستقبل الخرسانة المسلحة</h3>
+                        <p class="text-cee-gold font-bold text-sm mb-3"><i class="fa-solid fa-user-tie ml-1"></i> م. أحمد عبدالله</p>
+                        <p class="text-gray-600 text-sm mb-6 flex-grow">نناقش في هذه الحلقة أهم التطورات في تصميم الخرسانة المسلحة والتحديات التي تواجه المهندس الإنشائي حديث التخرج.</p>
+                        <a href="#" class="w-full text-center bg-gray-900 text-white py-2 rounded-lg text-sm font-bold hover:bg-cee-red transition duration-300 flex items-center justify-center gap-2">
+                            <span>استمع الآن</span> <i class="fa-solid fa-headphones"></i>
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
 
     <footer class="bg-white border-t border-gray-200 mt-auto pt-10 pb-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center relative">
-                <div class="flex space-x-reverse space-x-6 text-2xl mb-4 md:mb-0">
-                    <a href="#" class="text-gray-400 hover:text-blue-600 transition"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-pink-600 transition"><i class="fa-brands fa-instagram"></i></a>
-                </div>
-                <div class="text-gray-500 text-sm font-medium">
-                    &copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.
-                </div>
-                <div class="hidden md:block absolute left-0 opacity-50 grayscale hover:grayscale-0 transition">
-                    <!-- مسار الصورة المحدث -->
-                    <img src="upload/logo.jpg" alt="CEE" class="h-10">
-                </div>
-            </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex space-x-reverse space-x-6 text-2xl"><a href="#" class="text-gray-400 hover:text-black"><i class="fa-brands fa-x-twitter"></i></a></div>
+            <div class="text-gray-500 text-sm">&copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.</div>
+            <img src="upload/logo.jpg" alt="CEE" class="h-10 opacity-50">
         </div>
     </footer>
 
     <script>
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
-
-        /*
-        const podcastSheetURL = 'رابط_ملف_CSV_البودكاست_هنا'; 
-        async function fetchPodcastEpisodes() { ... }
-        */
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => { document.getElementById('mobile-menu').classList.toggle('hidden'); });
     </script>
 </body>
 </html>
