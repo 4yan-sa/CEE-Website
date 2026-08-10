@@ -21,7 +21,6 @@
             color: #8A1538;
         }
 
-        /* تأثير البودكاست */
         .podcast-card:hover .play-overlay {
             opacity: 1;
         }
@@ -29,7 +28,6 @@
             transform: scale(1.1);
         }
         
-        /* نبض الأيقونة */
         @keyframes pulse-ring {
             0% { transform: scale(0.8); opacity: 1; }
             100% { transform: scale(1.4); opacity: 0; }
@@ -101,18 +99,14 @@
     <main class="flex-grow w-full py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <!-- رسالة التحميل -->
             <div id="loading-message" class="loading">
                 <i class="fas fa-spinner fa-spin text-4xl mb-4 block"></i>
                 <p class="text-gray-600">جاري تحميل الحلقات...</p>
             </div>
 
-            <!-- حاوية الحلقات -->
             <div id="podcast-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- الحلقات تظهر هنا تلقائياً -->
             </div>
 
-            <!-- رسالة الخطأ -->
             <div id="error-message" class="hidden text-center py-12">
                 <i class="fas fa-exclamation-triangle text-5xl text-red-400 mb-4 block"></i>
                 <p class="text-red-500 text-lg font-bold">حدث خطأ في تحميل الحلقات</p>
@@ -135,19 +129,38 @@
 
     <!-- ==================== السكربت ==================== -->
     <script>
-        // ✅ رابط الشيت الجديد للبودكاست
         const sheetID = '2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
         const gid = '1104498095';
         const podcastSheetURL = `https://docs.google.com/spreadsheets/d/e/${sheetID}/pub?gid=${gid}&single=true&output=csv`;
 
-        // ✅ ألوان مميزة لكل حلقة
-        const gradientColors = [
-            'from-cee-red to-red-900',
-            'from-red-800 to-red-950',
-            'from-gray-800 to-gray-950',
-            'from-cee-red to-gray-900',
-            'from-red-900 to-gray-900',
-        ];
+        // ✅ دالة استخراج ID من رابط اليوتيوب
+        function getYouTubeID(url) {
+            if (!url) return null;
+            
+            // أنماط روابط اليوتيوب المختلفة
+            const patterns = [
+                /(?:youtube\.com\/watch\?v=)([^&]+)/,
+                /(?:youtu\.be\/)([^?]+)/,
+                /(?:youtube\.com\/embed\/)([^?]+)/,
+                /(?:youtube\.com\/shorts\/)([^?]+)/
+            ];
+            
+            for (const pattern of patterns) {
+                const match = url.match(pattern);
+                if (match) return match[1];
+            }
+            return null;
+        }
+
+        // ✅ دالة جلب صورة الغلاف من اليوتيوب
+        function getYouTubeThumbnail(url) {
+            const videoID = getYouTubeID(url);
+            if (videoID) {
+                // صورة عالية الجودة (maxresdefault) مع احتياط (hqdefault)
+                return `https://img.youtube.com/vi/${videoID}/maxresdefault.jpg`;
+            }
+            return null;
+        }
 
         function createPodcastCard(episode, index) {
             const number = episode.number || '';
@@ -155,27 +168,38 @@
             const link = episode.link || '#';
             const description = episode.description || 'لا يوجد وصف';
             
-            // اختيار لون متدرج لكل حلقة
-            const gradient = gradientColors[index % gradientColors.length];
+            // ✅ جلب صورة الغلاف من اليوتيوب
+            const thumbnailURL = getYouTubeThumbnail(link);
             
-            // أيقونات عشوائية للتنويع
+            // أيقونة احتياطية إذا ما فيه يوتيوب
             const icons = ['fa-microphone-lines', 'fa-podcast', 'fa-headphones', 'fa-broadcast-tower', 'fa-music'];
             const icon = icons[index % icons.length];
 
+            // ✅ جزء الصورة: يا صورة اليوتيوب يا خلفية متدرجة
+            const coverSection = thumbnailURL 
+                ? `
+                    <img src="${thumbnailURL}" alt="${title}" 
+                         class="w-full h-full object-cover transition duration-500 group-hover:scale-110 cover-img"
+                         onerror="this.parentElement.innerHTML='<i class=\'fa-solid ${icon} text-6xl text-white opacity-30\'></i>'; this.parentElement.classList.add('bg-gradient-to-br', 'from-cee-red', 'to-red-900');">
+                `
+                : `<i class="fa-solid ${icon} text-6xl text-white opacity-30"></i>`;
+
             return `
                 <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full transform hover:-translate-y-2 transition duration-300 group podcast-card">
-                    <!-- غلاف الحلقة -->
-                    <div class="h-48 bg-gradient-to-br ${gradient} relative overflow-hidden flex items-center justify-center">
-                        <i class="fa-solid ${icon} text-6xl text-white opacity-30"></i>
-                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center play-overlay" style="opacity: 0;">
-                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl">
+                    <!-- ✅ غلاف الحلقة - صورة يوتيوب أو خلفية -->
+                    <div class="h-48 relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-cee-red to-red-900">
+                        ${coverSection}
+                        
+                        <!-- اوفرلي عند التحويم -->
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition duration-300 flex items-center justify-center play-overlay" style="opacity: 0;">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition">
                                 <i class="fa-solid fa-play text-cee-red text-2xl mr-1"></i>
                             </div>
                         </div>
-                        ${number ? `<span class="absolute top-3 right-3 bg-black bg-opacity-60 text-white text-xs font-bold px-3 py-1 rounded-full">الحلقة ${number}</span>` : ''}
+                        
+                        ${number ? `<span class="absolute top-3 right-3 bg-black bg-opacity-70 text-white text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">الحلقة ${number}</span>` : ''}
                     </div>
                     
-                    <!-- محتوى البطاقة -->
                     <div class="p-6 flex-grow flex flex-col">
                         <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">${title}</h3>
                         
@@ -204,15 +228,10 @@
                 
                 const csvData = await response.text();
                 const rows = csvData.split('\n').filter(row => row.trim() !== '');
-                const dataRows = rows.slice(1); // تخطي صف العناوين
+                const dataRows = rows.slice(1);
                 
-                if (dataRows.length === 0) {
-                    throw new Error('لا توجد حلقات في الملف');
-                }
+                if (dataRows.length === 0) throw new Error('لا توجد حلقات');
 
-                console.log(`✅ تم العثور على ${dataRows.length} حلقات`);
-
-                // تحويل البيانات إلى كائنات
                 const episodes = [];
                 
                 dataRows.forEach((row, index) => {
@@ -229,7 +248,6 @@
                     }
                 });
 
-                // إخفاء التحميل
                 loadingMessage.classList.add('hidden');
 
                 if (episodes.length === 0) {
@@ -238,7 +256,6 @@
                     return;
                 }
 
-                // عرض الحلقات
                 podcastContainer.innerHTML = episodes
                     .map((ep, i) => createPodcastCard(ep, i))
                     .join('');
@@ -271,10 +288,8 @@
             return columns;
         }
 
-        // تشغيل الدالة
         document.addEventListener('DOMContentLoaded', fetchPodcast);
 
-        // زر القائمة للجوال
         document.getElementById('mobile-menu-btn').addEventListener('click', () => {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
