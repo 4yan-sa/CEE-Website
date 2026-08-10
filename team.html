@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الهيكل الإداري | نادي الهندسة المدنية والبيئية</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
         body { font-family: 'Tajawal', sans-serif; }
-        
         .text-cee-red { color: #8A1538; } 
         .bg-cee-red { background-color: #8A1538; }
         .text-cee-gold { color: #D4AF37; } 
@@ -21,30 +18,25 @@
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-    <!-- شريط التنقل (الهيدر) - متطابق مع الرئيسية لتوحيد الهوية -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                
                 <div class="flex-shrink-0 flex items-center">
                     <a href="index.html" class="flex items-center gap-2">
-                        <img src="D7022F20-D462-413F-8088-E089A81E2112_L0_001-٩__٢__٢٠٢٦، ٨_١٠_١٦ م.jpg.jpg" alt="شعار النادي" class="h-14 object-contain">
+                        <!-- مسار الصورة المحدث -->
+                        <img src="upload/logo.jpg" alt="شعار النادي" class="h-14 object-contain">
                     </a>
                 </div>
-
                 <nav class="hidden md:flex space-x-reverse space-x-6 items-center">
                     <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition">الصفحة الرئيسية</a>
-                    <a href="index.html#podcast" class="text-gray-700 hover:text-cee-red font-medium transition">البودكاست</a>
-                    <!-- تفعيل خط أسفل الرابط ليدل أننا في هذه الصفحة -->
+                    <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition">بودكاست صدى</a>
                     <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">الهيكل الإداري</a>
                     <a href="index.html#events" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات السابقة</a>
-                    
                     <div class="border-r border-gray-300 pr-6 flex space-x-reverse space-x-4">
                         <a href="#" class="text-gray-700 hover:text-cee-red font-bold py-2 transition">سجل الدخول</a>
                         <a href="#" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a>
                     </div>
                 </nav>
-
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-cee-red hover:text-red-900 focus:outline-none">
                         <i class="fa-solid fa-bars text-3xl"></i>
@@ -52,11 +44,9 @@
                 </div>
             </div>
         </div>
-
-        <!-- قائمة الجوال -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full z-40">
             <a href="index.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الصفحة الرئيسية</a>
-            <a href="index.html#podcast" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">البودكاست</a>
+            <a href="podcast.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">بودكاست صدى</a>
             <a href="team.html" class="block px-6 py-4 text-cee-red bg-gray-50 border-b font-bold">الهيكل الإداري</a>
             <a href="index.html#events" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الفعاليات السابقة</a>
             <a href="#" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-bold">سجل الدخول</a>
@@ -64,10 +54,7 @@
         </div>
     </header>
 
-    <!-- ترويسة الصفحة (Banner) -->
     <div class="bg-gray-900 py-16 relative overflow-hidden">
-        <!-- تأثير زخرفي خفيف في الخلفية -->
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">قيادات النادي</h1>
             <div class="w-24 h-1 bg-cee-gold mx-auto mb-6"></div>
@@ -75,34 +62,14 @@
         </div>
     </div>
 
-    <!-- المحتوى الرئيسي (شبكة الأعضاء) -->
     <main class="flex-grow w-full py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
             <div id="team-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                
-                <!-- بطاقة توضيحية (سيتم مسحها برمجياً واستبدالها ببيانات الشيت) -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 transform hover:-translate-y-2 transition duration-300 group">
-                    <div class="h-32 bg-gradient-to-r from-cee-red to-red-900 relative"></div>
-                    <div class="flex justify-center -mt-16 relative z-10">
-                        <img src="https://via.placeholder.com/150" alt="ريان البناي" class="w-32 h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-cee-gold transition duration-300">
-                    </div>
-                    <div class="p-6 text-center flex flex-col items-center">
-                        <h3 class="text-xl font-bold text-gray-900 mb-1">ريان إبراهيم البناي</h3>
-                        <p class="text-cee-gold font-bold mb-4 text-sm">نائب رئيس النادي</p>
-                        
-                        <!-- زر لينكد إن -->
-                        <a href="#" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 text-blue-600 hover:bg-blue-600 hover:text-white transition duration-300 shadow-sm border border-gray-100">
-                            <i class="fa-brands fa-linkedin-in text-lg"></i>
-                        </a>
-                    </div>
-                </div>
-
+                <!-- سيتم سحب الأعضاء هنا -->
             </div>
         </div>
     </main>
 
-    <!-- الفوتر متطابق مع الرئيسية -->
     <footer class="bg-white border-t border-gray-200 mt-auto pt-10 pb-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center relative">
@@ -115,83 +82,22 @@
                     &copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.
                 </div>
                 <div class="hidden md:block absolute left-0 opacity-50 grayscale hover:grayscale-0 transition">
-                    <img src="D7022F20-D462-413F-8088-E089A81E2112_L0_001-٩__٢__٢٠٢٦، ٨_١٠_١٦ م.jpg.jpg" alt="CEE" class="h-10">
+                    <!-- مسار الصورة المحدث -->
+                    <img src="upload/logo.jpg" alt="CEE" class="h-10">
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- سكربت الجافاسكريبت -->
     <script>
-        // تشغيل قائمة الجوال
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
+        btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
 
-        // --------------------------------------------------------
-        // كود سحب البيانات من قوقل شيت (الهيكل الإداري)
-        // --------------------------------------------------------
-        
-        // ضع رابط الـ CSV هنا
+        /* 
         const teamSheetURL = 'رابط_ملف_CSV_الهيكل_الإداري_هنا'; 
-
-        async function fetchTeam() {
-            try {
-                if(teamSheetURL === 'رابط_ملف_CSV_الهيكل_الإداري_هنا') return;
-
-                const response = await fetch(teamSheetURL);
-                const data = await response.text();
-                
-                const rows = data.split('\n').slice(1); // تخطي العنوان
-                const container = document.getElementById('team-container');
-                container.innerHTML = ''; // مسح المثال التوضيحي
-
-                rows.forEach(row => {
-                    // ترتيب الأعمدة المطلوب في الشيت: 
-                    // العمود A: الاسم | B: المنصب | C: رابط الصورة | D: رابط لينكد إن
-                    const columns = row.split(',');
-                    
-                    if (columns.length >= 2 && columns[0].trim() !== '') {
-                        const name = columns[0].trim();
-                        const role = columns[1] ? columns[1].trim() : '';
-                        const imageURL = columns[2] && columns[2].trim() !== '' ? columns[2].trim() : 'https://via.placeholder.com/150';
-                        const linkedin = columns[3] ? columns[3].trim().replace('\r', '') : ''; // تنظيف الرابط من المسافات المخفية
-
-                        // برمجة زر لينكد إن ليظهر فقط إذا كان هناك رابط في الشيت
-                        let linkedinButton = '';
-                        if (linkedin && linkedin !== '#') {
-                            linkedinButton = `
-                                <a href="${linkedin}" target="_blank" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 text-blue-600 hover:bg-blue-600 hover:text-white transition duration-300 shadow-sm border border-gray-100">
-                                    <i class="fa-brands fa-linkedin-in text-lg"></i>
-                                </a>
-                            `;
-                        }
-
-                        // بناء البطاقة
-                        const cardHTML = `
-                            <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 transform hover:-translate-y-2 transition duration-300 group">
-                                <div class="h-32 bg-gradient-to-r from-cee-red to-red-900 relative"></div>
-                                <div class="flex justify-center -mt-16 relative z-10">
-                                    <img src="${imageURL}" alt="${name}" class="w-32 h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-cee-gold transition duration-300">
-                                </div>
-                                <div class="p-6 text-center flex flex-col items-center">
-                                    <h3 class="text-xl font-bold text-gray-900 mb-1">${name}</h3>
-                                    <p class="text-cee-gold font-bold mb-4 text-sm">${role}</p>
-                                    ${linkedinButton}
-                                </div>
-                            </div>
-                        `;
-                        container.innerHTML += cardHTML;
-                    }
-                });
-            } catch (error) {
-                console.error('خطأ في سحب بيانات الهيكل الإداري:', error);
-            }
-        }
-
-        // fetchTeam(); // احذف الشرطتين (//) لتفعيل السحب بعد وضع الرابط
+        async function fetchTeam() { ... }
+        */
     </script>
 </body>
 </html>
