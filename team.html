@@ -4,96 +4,194 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الهيكل الإداري | نادي الهندسة المدنية والبيئية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: { extend: { colors: { ceeRed: '#980908', ceeGold: '#e2a832' }, fontFamily: { sans: ['Cairo', 'sans-serif'] } } }
-        }
-    </script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+        body { font-family: 'Tajawal', sans-serif; }
+        
+        .text-cee-red { color: #8A1538; } 
+        .bg-cee-red { background-color: #8A1538; }
+        .text-cee-gold { color: #D4AF37; } 
+        .border-cee-gold { border-color: #D4AF37; }
+        .border-cee-red { border-color: #8A1538; }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-    <!-- شريط التنقل -->
+    <!-- شريط التنقل (الهيدر) - متطابق مع الرئيسية لتوحيد الهوية -->
     <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <a href="index.html">
-                    <img src="D7022F20-D462-413F-8088-E089A81E2112_L0_001-٩__٢__٢٠٢٦، ٨_١٠_١٦ م.jpg" alt="الشعار" class="h-14 w-auto object-contain">
-                </a>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="flex items-center gap-2">
+                        <img src="D7022F20-D462-413F-8088-E089A81E2112_L0_001-٩__٢__٢٠٢٦، ٨_١٠_١٦ م.jpg.jpg" alt="شعار النادي" class="h-14 object-contain">
+                    </a>
+                </div>
+
+                <nav class="hidden md:flex space-x-reverse space-x-6 items-center">
+                    <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition">الصفحة الرئيسية</a>
+                    <a href="index.html#podcast" class="text-gray-700 hover:text-cee-red font-medium transition">البودكاست</a>
+                    <!-- تفعيل خط أسفل الرابط ليدل أننا في هذه الصفحة -->
+                    <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">الهيكل الإداري</a>
+                    <a href="index.html#events" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات السابقة</a>
+                    
+                    <div class="border-r border-gray-300 pr-6 flex space-x-reverse space-x-4">
+                        <a href="#" class="text-gray-700 hover:text-cee-red font-bold py-2 transition">سجل الدخول</a>
+                        <a href="#" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a>
+                    </div>
+                </nav>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-cee-red hover:text-red-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-3xl"></i>
+                    </button>
+                </div>
             </div>
-            <nav class="hidden md:flex gap-6">
-                <a href="index.html" class="text-gray-700 hover:text-ceeRed font-bold transition">الرئيسية</a>
-                <a href="team.html" class="text-ceeRed font-bold transition border-b-2 border-ceeRed">الهيكل الإداري</a>
-            </nav>
+        </div>
+
+        <!-- قائمة الجوال -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full z-40">
+            <a href="index.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الصفحة الرئيسية</a>
+            <a href="index.html#podcast" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">البودكاست</a>
+            <a href="team.html" class="block px-6 py-4 text-cee-red bg-gray-50 border-b font-bold">الهيكل الإداري</a>
+            <a href="index.html#events" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الفعاليات السابقة</a>
+            <a href="#" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-bold">سجل الدخول</a>
+            <a href="#" class="block px-6 py-4 bg-cee-red text-white font-bold text-center">انضم إلينا</a>
         </div>
     </header>
 
-    <!-- الهيكل الإداري -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl font-extrabold text-ceeRed text-center mb-12">الهيكل الإداري والتنظيمي</h1>
+    <!-- ترويسة الصفحة (Banner) -->
+    <div class="bg-gray-900 py-16 relative overflow-hidden">
+        <!-- تأثير زخرفي خفيف في الخلفية -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">قيادات النادي</h1>
+            <div class="w-24 h-1 bg-cee-gold mx-auto mb-6"></div>
+            <p class="text-gray-300 max-w-2xl mx-auto text-lg">فريق عمل طموح يسعى للارتقاء ببيئة الهندسة المدنية والبيئية وتطوير مهارات الطلاب.</p>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي (شبكة الأعضاء) -->
+    <main class="flex-grow w-full py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <!-- القيادة العليا -->
-            <div class="flex flex-col md:flex-row justify-center gap-8 mb-16">
-                <div class="bg-white p-6 rounded-2xl shadow border-t-4 border-ceeRed text-center w-full md:w-1/3">
-                    <h3 class="font-bold text-xl text-gray-800">قريباً الإعلان</h3>
-                    <p class="text-ceeRed font-bold">رئيس النادي</p>
-                </div>
-                <div class="bg-white p-6 rounded-2xl shadow border-t-4 border-ceeRed text-center w-full md:w-1/3">
-                    <h3 class="font-bold text-xl text-gray-800">ريان البناي</h3>
-                    <p class="text-ceeRed font-bold">نائب رئيس النادي</p>
-                </div>
-            </div>
-
-            <!-- اللجان والأقسام -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                <!--   العلاقات العامة و اللوجستيات -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border-r-4 border-ceeGold">
-                    <h3 class="font-bold text-lg text-ceeRed mb-4 border-b pb-2"><i class="fa-solid fa-handshake mr-2"></i>العلاقات العامة و اللوجستيات</h3>
-                    <p class="text-gray-700 font-semibold mb-1">الرئيس: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
-                    <p class="text-gray-700 font-semibold">النائب: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
-                </div>
+            <div id="team-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 
-               
-
-                <!-- التصميم -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border-r-4 border-ceeGold">
-                    <h3 class="font-bold text-lg text-ceeRed mb-4 border-b pb-2"><i class="fa-solid fa-palette mr-2"></i>التصميم</h3>
-                    <p class="text-gray-700 font-semibold mb-1">الرئيس: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
-                    <p class="text-gray-700 font-semibold">النائب: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                <!-- بطاقة توضيحية (سيتم مسحها برمجياً واستبدالها ببيانات الشيت) -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 transform hover:-translate-y-2 transition duration-300 group">
+                    <div class="h-32 bg-gradient-to-r from-cee-red to-red-900 relative"></div>
+                    <div class="flex justify-center -mt-16 relative z-10">
+                        <img src="https://via.placeholder.com/150" alt="ريان البناي" class="w-32 h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-cee-gold transition duration-300">
+                    </div>
+                    <div class="p-6 text-center flex flex-col items-center">
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">ريان إبراهيم البناي</h3>
+                        <p class="text-cee-gold font-bold mb-4 text-sm">نائب رئيس النادي</p>
+                        
+                        <!-- زر لينكد إن -->
+                        <a href="#" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 text-blue-600 hover:bg-blue-600 hover:text-white transition duration-300 shadow-sm border border-gray-100">
+                            <i class="fa-brands fa-linkedin-in text-lg"></i>
+                        </a>
+                    </div>
                 </div>
 
-                <!-- الميديا -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border-r-4 border-ceeGold">
-                    <h3 class="font-bold text-lg text-ceeRed mb-4 border-b pb-2"><i class="fa-solid fa-camera mr-2"></i>الميديا</h3>
-                    <p class="text-gray-700 font-semibold mb-1">الرئيس: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
-                    <p class="text-gray-700 font-semibold">النائب: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
-                </div>
+            </div>
+        </div>
+    </main>
 
-                <!-- البودكاست -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border-r-4 border-ceeGold">
-                    <h3 class="font-bold text-lg text-ceeRed mb-4 border-b pb-2"><i class="fa-solid fa-microphone mr-2"></i>البودكاست</h3>
-                    <p class="text-gray-700 font-semibold mb-1">الرئيس: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
-                    <p class="text-gray-700 font-semibold">النائب: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+    <!-- الفوتر متطابق مع الرئيسية -->
+    <footer class="bg-white border-t border-gray-200 mt-auto pt-10 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center relative">
+                <div class="flex space-x-reverse space-x-6 text-2xl mb-4 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-blue-600 transition"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-pink-600 transition"><i class="fa-brands fa-instagram"></i></a>
                 </div>
-
-                <!-- التنظيم -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border-r-4 border-ceeGold">
-                    <h3 class="font-bold text-lg text-ceeRed mb-4 border-b pb-2"><i class="fa-solid fa-clipboard-list mr-2"></i>التنظيم</h3>
-                    <p class="text-gray-700 font-semibold mb-1">الرئيس: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
-                    <p class="text-gray-700 font-semibold">النائب: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                <div class="text-gray-500 text-sm font-medium">
+                    &copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.
                 </div>
-
-                <!-- التقارير -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border-r-4 border-ceeGold">
-                    <h3 class="font-bold text-lg text-ceeRed mb-4 border-b pb-2"><i class="fa-solid fa-file-signature mr-2"></i>التقارير</h3>
-                    <p class="text-gray-700 font-semibold mb-1">الرئيس: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
-                    <p class="text-gray-700 font-semibold">النائب: <span class="text-gray-500 font-normal">الاسم هنا</span></p>
+                <div class="hidden md:block absolute left-0 opacity-50 grayscale hover:grayscale-0 transition">
+                    <img src="D7022F20-D462-413F-8088-E089A81E2112_L0_001-٩__٢__٢٠٢٦، ٨_١٠_١٦ م.jpg.jpg" alt="CEE" class="h-10">
                 </div>
             </div>
         </div>
-    </section>
+    </footer>
+
+    <!-- سكربت الجافاسكريبت -->
+    <script>
+        // تشغيل قائمة الجوال
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // --------------------------------------------------------
+        // كود سحب البيانات من قوقل شيت (الهيكل الإداري)
+        // --------------------------------------------------------
+        
+        // ضع رابط الـ CSV هنا
+        const teamSheetURL = 'رابط_ملف_CSV_الهيكل_الإداري_هنا'; 
+
+        async function fetchTeam() {
+            try {
+                if(teamSheetURL === 'رابط_ملف_CSV_الهيكل_الإداري_هنا') return;
+
+                const response = await fetch(teamSheetURL);
+                const data = await response.text();
+                
+                const rows = data.split('\n').slice(1); // تخطي العنوان
+                const container = document.getElementById('team-container');
+                container.innerHTML = ''; // مسح المثال التوضيحي
+
+                rows.forEach(row => {
+                    // ترتيب الأعمدة المطلوب في الشيت: 
+                    // العمود A: الاسم | B: المنصب | C: رابط الصورة | D: رابط لينكد إن
+                    const columns = row.split(',');
+                    
+                    if (columns.length >= 2 && columns[0].trim() !== '') {
+                        const name = columns[0].trim();
+                        const role = columns[1] ? columns[1].trim() : '';
+                        const imageURL = columns[2] && columns[2].trim() !== '' ? columns[2].trim() : 'https://via.placeholder.com/150';
+                        const linkedin = columns[3] ? columns[3].trim().replace('\r', '') : ''; // تنظيف الرابط من المسافات المخفية
+
+                        // برمجة زر لينكد إن ليظهر فقط إذا كان هناك رابط في الشيت
+                        let linkedinButton = '';
+                        if (linkedin && linkedin !== '#') {
+                            linkedinButton = `
+                                <a href="${linkedin}" target="_blank" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 text-blue-600 hover:bg-blue-600 hover:text-white transition duration-300 shadow-sm border border-gray-100">
+                                    <i class="fa-brands fa-linkedin-in text-lg"></i>
+                                </a>
+                            `;
+                        }
+
+                        // بناء البطاقة
+                        const cardHTML = `
+                            <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 transform hover:-translate-y-2 transition duration-300 group">
+                                <div class="h-32 bg-gradient-to-r from-cee-red to-red-900 relative"></div>
+                                <div class="flex justify-center -mt-16 relative z-10">
+                                    <img src="${imageURL}" alt="${name}" class="w-32 h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-cee-gold transition duration-300">
+                                </div>
+                                <div class="p-6 text-center flex flex-col items-center">
+                                    <h3 class="text-xl font-bold text-gray-900 mb-1">${name}</h3>
+                                    <p class="text-cee-gold font-bold mb-4 text-sm">${role}</p>
+                                    ${linkedinButton}
+                                </div>
+                            </div>
+                        `;
+                        container.innerHTML += cardHTML;
+                    }
+                });
+            } catch (error) {
+                console.error('خطأ في سحب بيانات الهيكل الإداري:', error);
+            }
+        }
+
+        // fetchTeam(); // احذف الشرطتين (//) لتفعيل السحب بعد وضع الرابط
+    </script>
 </body>
 </html>
