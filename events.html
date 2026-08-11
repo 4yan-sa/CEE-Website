@@ -27,12 +27,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 md:h-20">
                 <div class="flex-shrink-0 flex items-center"><a href="index.html" class="flex items-center gap-2"><img src="upload/logo.jpg" alt="شعار النادي" class="h-12 md:h-14 object-contain"></a></div>
-                <nav class="hidden md:flex space-x-reverse space-x-6 items-center">
+                <nav class="hidden md:flex space-x-reverse space-x-4 items-center text-sm">
                     <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition">الرئيسية</a>
                     <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition">بودكاست صدى</a>
                     <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition">الهيكل الإداري</a>
-                    <a href="events.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">الفعاليات</a>
-                    <div class="border-r border-gray-300 pr-6"><a href="#" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a></div>
+                    <a href="events.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">الفعاليات والورش</a>
+                    <div class="border-r border-gray-300 pr-4"><a href="#" class="bg-cee-red text-white px-4 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a></div>
                 </nav>
                 <div class="md:hidden flex items-center"><button id="mobile-menu-btn" class="text-cee-red hover:text-red-900 focus:outline-none"><i class="fa-solid fa-bars text-2xl"></i></button></div>
             </div>
@@ -41,7 +41,7 @@
             <a href="index.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الرئيسية</a>
             <a href="podcast.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">بودكاست صدى</a>
             <a href="team.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الهيكل الإداري</a>
-            <a href="events.html" class="block px-6 py-3 text-cee-red bg-gray-50 border-b font-bold text-sm">الفعاليات</a>
+            <a href="events.html" class="block px-6 py-3 text-cee-red bg-gray-50 border-b font-bold text-sm">الفعاليات والورش</a>
         </div>
     </header>
 
@@ -70,7 +70,7 @@
             </div>
 
             <div class="flex justify-center gap-3 mt-8 fade-in">
-                <button onclick="sharePage('twitter')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-400 hover:text-white transition"><i class="fa-brands fa-x-twitter text-sm"></i></button>
+                <button onclick="sharePage('twitter')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-400 hover:text-white transition"><i class="fa-brands fa-twitter text-sm"></i></button>
                 <button onclick="sharePage('whatsapp')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition"><i class="fa-brands fa-whatsapp text-sm"></i></button>
                 <button onclick="copyPageLink()" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-300 transition"><i class="fa-solid fa-link text-sm"></i></button>
             </div>
@@ -92,7 +92,7 @@
                     <button id="event-detail-attendance" onclick="openAttendanceModal()" class="flex-1 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition hidden">تأكيد التحضير</button>
                 </div>
                 <div class="flex justify-center gap-3 mt-4">
-                    <button onclick="shareEvent()" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-400 hover:text-white transition"><i class="fa-brands fa-x-twitter text-xs"></i></button>
+                    <button onclick="shareEvent()" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-400 hover:text-white transition"><i class="fa-brands fa-twitter text-xs"></i></button>
                     <button onclick="shareEvent('whatsapp')" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition"><i class="fa-brands fa-whatsapp text-xs"></i></button>
                     <button onclick="copyPageLink()" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-300 transition"><i class="fa-solid fa-link text-xs"></i></button>
                 </div>
@@ -201,7 +201,9 @@
                     const event={type:c[0]?.trim()||'',name:c[1]?.trim()||'',image:c[2]?.trim()||'',desc:c[3]?.trim()||'',dateStr:c[4]?.trim()||'',time:c[5]?.trim()||'',location:c[6]?.trim()||'',regLink:c[7]?.trim()||'#',status:c[8]?.trim()||'',sponsor1:c[9]?.trim()||'',sponsor2:c[10]?.trim()||'',sponsor3:c[11]?.trim()||''};
                     const ed=new Date(event.dateStr); if(isNaN(ed.getTime())) return;
                     allEvents.push(event); const card=createEventCard(event,allEvents.length-1);
+                    // ✅ التصنيف حسب الحالة أولاً
                     if(event.status==='ملغية'){ cHTML+=card; cCount++; }
+                    else if(event.status==='منتهية'){ pHTML+=card; pCount++; }
                     else if(ed>=today){ uHTML+=card; uCount++; }
                     else { pHTML+=card; pCount++; }
                 });
