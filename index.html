@@ -134,6 +134,24 @@
         </div>
     </footer>
 
+    <!-- نافذة تفاصيل الفعالية (مثل events.html) -->
+    <div id="event-detail-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl modal">
+            <div id="event-detail-image" class="h-48 bg-gradient-to-r from-cee-red to-red-900 rounded-t-2xl flex items-center justify-center"><i class="fa-solid fa-calendar-check text-5xl text-white opacity-50"></i></div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-4"><div><span id="event-detail-type" class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded"></span><h2 id="event-detail-title" class="text-xl font-bold text-gray-900 mt-2"></h2></div><button onclick="closeEventDetail()" class="text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button></div>
+                <div class="space-y-2 text-sm text-gray-600 bg-gray-50 rounded-xl p-4"><p><i class="fa-solid fa-calendar ml-2 text-cee-red"></i> <span id="event-detail-date"></span></p><p><i class="fa-solid fa-clock ml-2 text-cee-red"></i> <span id="event-detail-time"></span></p><p><i class="fa-solid fa-location-dot ml-2 text-cee-red"></i> <span id="event-detail-location"></span></p></div>
+                <p id="event-detail-desc" class="mt-4 text-gray-600 text-sm leading-relaxed"></p>
+                <div id="event-detail-sponsors" class="mt-4"></div>
+                <div class="flex gap-3 mt-6">
+                    <a id="event-detail-register" href="#" target="_blank" class="flex-1 text-center bg-cee-red text-white py-3 rounded-xl font-bold hover:bg-red-900 transition">سجل الآن</a>
+                    <button id="event-detail-attendance" onclick="openAttendanceModalFromDetail()" class="flex-1 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition hidden">تأكيد التحضير</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة التحضير -->
     <div id="attendance-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full text-center shadow-2xl modal">
             <button onclick="closeAttendanceModal()" class="float-left text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
@@ -161,7 +179,7 @@
         function getSheetURL(gid){ return `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${gid}&single=true&output=csv`; }
         function parseCSVRow(row){ const c=[]; let col='', q=false; for(let i=0;i<row.length;i++){ const ch=row[i]; if(ch==='"') q=!q; else if(ch===','&&!q){ c.push(col.trim()); col=''; } else col+=ch; } c.push(col.trim()); return c; }
 
-        let currentAttendanceCode = '', currentEvalLink = '';
+        let allIndexEvents = [], currentDetailEvent = null, currentAttendanceCode = '', currentEvalLink = '';
 
         function handleScroll(){ 
             document.querySelectorAll('.fade-in').forEach(el=>{ const rect=el.getBoundingClientRect(); if(rect.top<window.innerHeight-100) el.classList.add('show'); });
@@ -180,20 +198,42 @@
         function copyPageLink(){ navigator.clipboard.writeText(window.location.href); alert('تم نسخ الرابط ✅'); }
         window.sharePage=sharePage; window.copyPageLink=copyPageLink;
 
-        function openAttendanceModal(code, evalLink){
-            currentAttendanceCode = code;
-            currentEvalLink = evalLink;
+        // ✅ نافذة التفاصيل (مثل events.html)
+        function openEventDetail(index){
+            const event = allIndexEvents[index]; if(!event) return;
+            currentDetailEvent = event;
+            document.getElementById('event-detail-title').textContent = event.name;
+            document.getElementById('event-detail-type').textContent = event.type;
+            document.getElementById('event-detail-date').textContent = event.dateStr;
+            document.getElementById('event-detail-time').textContent = event.time;
+            document.getElementById('event-detail-location').textContent = event.location;
+            document.getElementById('event-detail-desc').textContent = event.desc;
+            const imgDiv = document.getElementById('event-detail-image');
+            if(event.image&&event.image.startsWith('http')){ imgDiv.innerHTML=`<img src="${event.image}" alt="${event.name}" class="w-full h-full object-cover rounded-t-2xl" onerror="this.parentElement.innerHTML='<i class=\'fa-solid fa-calendar-check text-5xl text-white opacity-50\'></i>'">`; }
+            else { imgDiv.innerHTML='<i class="fa-solid fa-calendar-check text-5xl text-white opacity-50"></i>'; }
+            const spDiv = document.getElementById('event-detail-sponsors');
+            const sponsors = [event.sponsor1,event.sponsor2,event.sponsor3].filter(s=>s);
+            spDiv.innerHTML = sponsors.length>0?`<p class="text-sm font-bold text-gray-700 mb-2">🤝 برعاية:</p><div class="flex flex-wrap gap-2">${sponsors.map(s=>`<span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${s}</span>`).join('')}</div>`:'';
+            document.getElementById('event-detail-register').href = event.regLink||'#';
+            const isWorkshop = event.type==='ورشة' && event.attendanceCode;
+            document.getElementById('event-detail-attendance').classList.toggle('hidden', !isWorkshop);
+            if(isWorkshop){ currentAttendanceCode = event.attendanceCode; }
+            document.getElementById('event-detail-modal').classList.remove('hidden');
+            document.body.style.overflow='hidden';
+        }
+        function closeEventDetail(){ document.getElementById('event-detail-modal').classList.add('hidden'); document.body.style.overflow=''; }
+        window.openEventDetail = openEventDetail;
+        window.closeEventDetail = closeEventDetail;
+
+        function openAttendanceModalFromDetail(){
             document.getElementById('attendance-modal').classList.remove('hidden');
             document.getElementById('code-error').classList.add('hidden');
             document.querySelectorAll('.code-input').forEach(i=>i.value='');
             document.querySelector('.code-input').focus();
             document.body.style.overflow='hidden';
         }
-        function closeAttendanceModal(){ 
-            document.getElementById('attendance-modal').classList.add('hidden'); 
-            document.body.style.overflow='';
-        }
-        window.openAttendanceModal = openAttendanceModal;
+        function closeAttendanceModal(){ document.getElementById('attendance-modal').classList.add('hidden'); document.body.style.overflow=''; }
+        window.openAttendanceModalFromDetail = openAttendanceModalFromDetail;
         window.closeAttendanceModal = closeAttendanceModal;
 
         async function verifyAttendanceCode(){
@@ -202,7 +242,7 @@
             try{
                 const r=await fetch(`${SCRIPT_URL}?code=${encodeURIComponent(code)}`);
                 const data=await r.json();
-                if(data.success){ closeAttendanceModal(); window.open(currentEvalLink||'#','_blank'); } 
+                if(data.success){ closeAttendanceModal(); closeEventDetail(); window.open(currentEvalLink||'#','_blank'); } 
                 else { document.getElementById('code-error').classList.remove('hidden'); inputs.forEach(i=>i.value=''); inputs[0].focus(); }
             }catch(e){ document.getElementById('code-error').classList.remove('hidden'); document.getElementById('code-error').textContent='حدث خطأ'; }
         }
@@ -214,6 +254,7 @@
                 inp.addEventListener('keydown',(e)=>{ if(e.key==='Backspace'&&inp.value===''&&i>0) inputs[i-1].focus(); }); 
             }); 
         });
+        document.getElementById('event-detail-modal').addEventListener('click',function(e){ if(e.target===this) closeEventDetail(); });
         document.getElementById('attendance-modal').addEventListener('click',function(e){ if(e.target===this) closeAttendanceModal(); });
 
         async function loadSettings(){
@@ -243,18 +284,21 @@
                 const cont=document.getElementById('upcoming-container');
                 let html='', wc=0, count=0;
                 const today=new Date(); today.setHours(0,0,0,0);
+                allIndexEvents = [];
                 rows.forEach(row=>{
                     const c=parseCSVRow(row); if(c.length<3||!c[1]) return;
                     const type=c[0]?.trim()||'', name=c[1]?.trim()||'', image=c[2]?.trim()||'', desc=c[3]?.trim()||'';
                     const dateStr=c[4]?.trim()||'', time=c[5]?.trim()||'', location=c[6]?.trim()||'', regLink=c[7]?.trim()||'#', status=c[8]?.trim()||'';
                     const attendanceCode=c[12]?.trim()||'';
+                    const sponsor1=c[9]?.trim()||'', sponsor2=c[10]?.trim()||'', sponsor3=c[11]?.trim()||'';
                     const ed=new Date(dateStr); if(isNaN(ed.getTime())||status==='ملغية'||status==='منتهية'||ed<today) return;
                     if(type==='ورشة') wc++;
                     const day=dateStr.split('/')[2]||'', month=dateStr.split('/')[1]||'';
-                    const attendanceBtn = (type==='ورشة'&&attendanceCode) ? `<button onclick="event.stopPropagation();openAttendanceModal('${attendanceCode}','${currentEvalLink}')" class="bg-gray-900 text-white px-2 py-1 rounded-lg text-xs font-bold hover:bg-gray-800 transition shadow ml-2">تحضير</button>` : '';
-                    html+=`<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300">
+                    const eventData = {type,name,image,desc,dateStr,time,location,regLink,status,attendanceCode,sponsor1,sponsor2,sponsor3};
+                    allIndexEvents.push(eventData);
+                    html+=`<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openEventDetail(${allIndexEvents.length-1})">
                         ${image&&image.startsWith('http')?`<div class="h-40 md:h-48 bg-gray-200 relative"><img src="${image}" alt="${name}" class="w-full h-full object-cover" onerror="this.style.display='none'"><div class="absolute top-3 right-3 bg-white text-cee-red font-bold px-2 py-1 rounded-md shadow text-xs">${day} / ${month}</div></div>`:`<div class="h-20 md:h-28 bg-gradient-to-r from-cee-red to-red-900 relative flex items-center justify-center"><i class="fa-solid fa-calendar-check text-3xl text-white opacity-50"></i><div class="absolute top-3 right-3 bg-white text-cee-red font-bold px-2 py-1 rounded-md shadow text-xs">${day} / ${month}</div></div>`}
-                        <div class="p-4 md:p-6 flex-grow flex flex-col"><div class="flex justify-between items-start mb-2"><span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded">${type}</span><span class="text-xs text-gray-500"><i class="fa-regular fa-clock ml-1"></i> ${time}</span></div><h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">${name}</h3><p class="text-gray-600 text-xs md:text-sm mb-3 flex-grow">${desc}</p><div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100"><span class="text-xs font-bold text-gray-500"><i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i> ${location}</span><div class="flex items-center"><a href="${regLink}" target="_blank" class="bg-cee-red text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-red-900 transition shadow">سجل الآن</a>${attendanceBtn}</div></div></div></div>`; count++;
+                        <div class="p-4 md:p-6 flex-grow flex flex-col"><div class="flex justify-between items-start mb-2"><span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded">${type}</span><span class="text-xs text-gray-500"><i class="fa-regular fa-clock ml-1"></i> ${time}</span></div><h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">${name}</h3><p class="text-gray-600 text-xs md:text-sm mb-3 flex-grow">${desc}</p><div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100"><span class="text-xs font-bold text-gray-500"><i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i> ${location}</span><span class="text-cee-red text-xs font-bold">اضغط للتفاصيل <i class="fa-solid fa-arrow-left mr-1"></i></span></div></div></div>`; count++;
                 });
                 cont.innerHTML=count>0?html:'<div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد فعاليات قادمة حالياً</div>';
                 animateCounter('stat-workshops',wc||0);
