@@ -15,12 +15,7 @@
         .bg-cee-gold { background-color: #D4AF37; }
         .border-cee-gold { border-color: #D4AF37; }
         
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            font-size: 1.2rem;
-            color: #8A1538;
-        }
+        .loading { text-align: center; padding: 2rem; font-size: 1.2rem; color: #8A1538; }
 
         .divider-line {
             height: 2px;
@@ -32,66 +27,75 @@
 
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+            <div class="flex justify-between items-center h-16 md:h-20">
                 <div class="flex-shrink-0 flex items-center">
                     <a href="index.html" class="flex items-center gap-2">
-                        <img src="upload/logo.jpg" alt="شعار النادي" class="h-14 object-contain">
+                        <img src="upload/logo.jpg" alt="شعار النادي" class="h-12 md:h-14 object-contain">
                     </a>
                 </div>
                 <nav class="hidden md:flex space-x-reverse space-x-6 items-center">
-                    <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition">الصفحة الرئيسية</a>
+                    <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition">الرئيسية</a>
                     <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition">بودكاست صدى</a>
                     <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">الهيكل الإداري</a>
                     <div class="border-r border-gray-300 pr-6 flex space-x-reverse space-x-4">
                         <a href="#" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition">انضم إلينا</a>
                     </div>
                 </nav>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-cee-red hover:text-red-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full z-40">
+            <a href="index.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الرئيسية</a>
+            <a href="podcast.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">بودكاست صدى</a>
+            <a href="team.html" class="block px-6 py-3 text-cee-red bg-gray-50 border-b font-bold text-sm">الهيكل الإداري</a>
         </div>
     </header>
 
-    <div class="bg-gray-900 py-16 relative overflow-hidden">
+    <div class="bg-gray-900 py-12 md:py-16 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-10 right-10 w-64 h-64 bg-cee-red rounded-full blur-3xl"></div>
-            <div class="absolute bottom-10 left-10 w-80 h-80 bg-cee-gold rounded-full blur-3xl"></div>
+            <div class="absolute top-10 right-10 w-48 h-48 md:w-64 md:h-64 bg-cee-red rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 left-10 w-48 h-48 md:w-80 md:h-80 bg-cee-gold rounded-full blur-3xl"></div>
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">الهيكل الإداري</h1>
-            <p class="text-gray-300 text-lg">قيادات النادي وأقسامه</p>
-            <div class="w-24 h-1 bg-cee-gold mx-auto mt-6"></div>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3">الهيكل الإداري</h1>
+            <p class="text-gray-300 text-sm md:text-lg">قيادات النادي وأقسامه</p>
+            <div class="w-20 h-1 bg-cee-gold mx-auto mt-4"></div>
         </div>
     </div>
 
-    <main class="flex-grow w-full py-16 bg-gray-50">
+    <main class="flex-grow w-full py-10 md:py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div id="loading-message" class="loading">
-                <i class="fas fa-spinner fa-spin text-4xl mb-4 block"></i>
-                <p class="text-gray-600">جاري تحميل الهيكل الإداري...</p>
+                <i class="fas fa-spinner fa-spin text-3xl md:text-4xl mb-3 block"></i>
+                <p class="text-gray-600 text-sm">جاري تحميل الهيكل الإداري...</p>
             </div>
 
-            <!-- ✅ كل شي يصير هنا تلقائي -->
             <div id="all-sections-container"></div>
 
             <div id="error-message" class="hidden text-center py-12">
-                <i class="fas fa-exclamation-triangle text-5xl text-red-400 mb-4 block"></i>
-                <p class="text-red-500 text-lg font-bold">حدث خطأ في تحميل البيانات</p>
-                <p class="text-gray-500 mt-2">الرجاء المحاولة لاحقاً</p>
+                <i class="fas fa-exclamation-triangle text-4xl md:text-5xl text-red-400 mb-3 block"></i>
+                <p class="text-red-500 text-base md:text-lg font-bold">حدث خطأ في تحميل البيانات</p>
+                <p class="text-gray-500 mt-2 text-sm">الرجاء المحاولة لاحقاً</p>
             </div>
 
         </div>
     </main>
 
-    <footer class="bg-white border-t border-gray-200 mt-auto pt-10 pb-6">
+    <footer class="bg-white border-t border-gray-200 mt-auto pt-8 pb-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="text-gray-500 text-sm">&copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.</div>
+            <div class="text-gray-500 text-xs md:text-sm">&copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.</div>
         </div>
     </footer>
 
     <script>
-        const sheetID = '2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
-        const gid = '1696676545';
-        const teamSheetURL = `https://docs.google.com/spreadsheets/d/e/${sheetID}/pub?gid=${gid}&single=true&output=csv`;
+        const SHEET_ID = '2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
+        const GID = '1696676545';
+        const teamSheetURL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${GID}&single=true&output=csv`;
 
         function createMemberCard(member) {
             const { name, role, imageURL, linkedin } = member;
@@ -101,29 +105,28 @@
             if (linkedin && linkedin !== '' && linkedin !== '#') {
                 linkedinButton = `
                     <a href="${linkedin}" target="_blank" rel="noopener noreferrer" 
-                       class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 text-blue-600 hover:bg-blue-600 hover:text-white transition shadow-sm border border-gray-100">
-                        <i class="fa-brands fa-linkedin-in text-lg"></i>
+                       class="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-50 text-blue-600 hover:bg-blue-600 hover:text-white transition shadow-sm border border-gray-100">
+                        <i class="fa-brands fa-linkedin-in text-sm md:text-lg"></i>
                     </a>`;
             }
 
             return `
-                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 transform hover:-translate-y-2 transition duration-300 group">
-                    <div class="h-32 bg-gradient-to-r from-cee-red to-red-900 relative"></div>
-                    <div class="flex justify-center -mt-16 relative z-10">
+                <div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-md md:shadow-lg border border-gray-100 transform hover:-translate-y-1 md:hover:-translate-y-2 transition duration-300 group">
+                    <div class="h-24 md:h-32 bg-gradient-to-r from-cee-red to-red-900 relative"></div>
+                    <div class="flex justify-center -mt-12 md:-mt-16 relative z-10">
                         <img src="${finalImageURL}" alt="${name}" 
-                             class="w-32 h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-cee-gold transition duration-300"
+                             class="w-24 h-24 md:w-32 md:h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-cee-gold transition duration-300"
                              onerror="this.src='https://via.placeholder.com/150'">
                     </div>
-                    <div class="p-6 text-center flex flex-col items-center">
-                        <h3 class="text-xl font-bold text-gray-900 mb-1">${name}</h3>
-                        <p class="text-cee-gold font-bold mb-4 text-sm">${role}</p>
+                    <div class="p-4 md:p-6 text-center flex flex-col items-center">
+                        <h3 class="text-base md:text-xl font-bold text-gray-900 mb-0.5">${name}</h3>
+                        <p class="text-cee-gold font-bold mb-3 text-xs md:text-sm">${role}</p>
                         ${linkedinButton}
                     </div>
                 </div>
             `;
         }
 
-        // ✅ دالة إنشاء قسم واحد (تشتغل للكل: إدارة عليا ولا أقسام)
         function createSectionBlock(sectionName, members, isManagement = false) {
             const badgeText = isManagement ? 'القيادة' : 'قسم';
             const badgeClass = isManagement ? 'bg-cee-red text-white' : 'bg-gray-200 text-gray-700';
@@ -132,28 +135,27 @@
             const membersHTML = members.map(m => createMemberCard(m)).join('');
             
             return `
-                <div class="mb-20">
-                    <div class="text-center mb-10">
-                        <span class="inline-block ${badgeClass} text-sm font-bold px-4 py-1 rounded-full mb-3">${badgeText}</span>
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">${sectionName}</h2>
-                        <div class="w-20 h-1 bg-cee-gold mx-auto"></div>
+                <div class="mb-14 md:mb-20">
+                    <div class="text-center mb-8 md:mb-10">
+                        <span class="inline-block ${badgeClass} text-xs md:text-sm font-bold px-3 py-1 rounded-full mb-3">${badgeText}</span>
+                        <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-2">${sectionName}</h2>
+                        <div class="w-16 md:w-20 h-1 bg-cee-gold mx-auto"></div>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${gridCols} gap-8">
+                    <div class="grid grid-cols-2 md:grid-cols-3 ${gridCols} gap-3 md:gap-6 lg:gap-8">
                         ${membersHTML}
                     </div>
                 </div>
             `;
         }
 
-        // ✅ دالة إنشاء الفاصل
         function createDivider() {
             return `
-                <div class="mb-20">
+                <div class="mb-14 md:mb-20">
                     <div class="relative flex items-center justify-center">
                         <div class="flex-grow divider-line"></div>
-                        <div class="mx-8 bg-white rounded-full px-6 py-2 shadow-md border border-gray-200">
-                            <span class="text-cee-red font-bold text-lg">
-                                <i class="fas fa-layer-group ml-2"></i>الأقسام
+                        <div class="mx-4 md:mx-8 bg-white rounded-full px-4 md:px-6 py-1.5 md:py-2 shadow-md border border-gray-200">
+                            <span class="text-cee-red font-bold text-sm md:text-lg">
+                                <i class="fas fa-layer-group ml-1 md:ml-2"></i>الأقسام
                             </span>
                         </div>
                         <div class="flex-grow divider-line"></div>
@@ -168,7 +170,6 @@
             const errorMessage = document.getElementById('error-message');
 
             try {
-                console.log('🔄 جاري التحميل...');
                 const response = await fetch(teamSheetURL);
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 
@@ -177,8 +178,7 @@
                 const dataRows = rows.slice(1);
                 if (dataRows.length === 0) throw new Error('لا توجد بيانات');
 
-                // ✅ كل التصنيفات هنا - نحافظ على الترتيب
-                const allSections = []; // [{ name: 'اسم التصنيف', members: [], isManagement: true/false }]
+                const allSections = [];
                 const seenCategories = new Set();
 
                 dataRows.forEach(row => {
@@ -195,7 +195,6 @@
                         const member = { name, role, imageURL, linkedin };
                         const isManagement = (category === 'إدارة عليا' || category === 'ادارة عليا' || category === 'الإدارة العليا');
                         
-                        // إذا التصنيف جديد، أضفه كـ section جديد
                         if (!seenCategories.has(category)) {
                             seenCategories.add(category);
                             allSections.push({
@@ -204,14 +203,11 @@
                                 isManagement: isManagement
                             });
                         } else {
-                            // أضف العضو للـ section الموجود
                             const section = allSections.find(s => s.name === category);
                             if (section) section.members.push(member);
                         }
                     }
                 });
-
-                console.log('📂 التصنيفات:', allSections.map(s => s.name));
 
                 loadingMessage.classList.add('hidden');
 
@@ -221,17 +217,14 @@
                     return;
                 }
 
-                // ✅ بناء HTML: كل تصنيف في Section + فواصل بين الإدارة والأقسام
                 let html = '';
                 let dividerAdded = false;
 
-                allSections.forEach((section, index) => {
-                    // أضف الفاصل قبل أول قسم غير إداري
+                allSections.forEach((section) => {
                     if (!section.isManagement && !dividerAdded) {
                         html += createDivider();
                         dividerAdded = true;
                     }
-                    
                     html += createSectionBlock(section.name, section.members, section.isManagement);
                 });
 
@@ -261,6 +254,10 @@
         }
 
         document.addEventListener('DOMContentLoaded', fetchTeam);
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
     </script>
 </body>
 </html>
