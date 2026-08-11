@@ -33,8 +33,7 @@
                     <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition">بودكاست صدى</a>
                     <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition">الهيكل الإداري</a>
                     <a href="events.html" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات</a>
-                    <div class="border-r border-gray-300 pr-6 flex space-x-reverse space-x-4">
-                        <a href="#" id="login-btn" class="text-gray-700 hover:text-cee-red font-bold py-2 transition">سجل الدخول</a>
+                    <div class="border-r border-gray-300 pr-6">
                         <a href="#" id="join-btn" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a>
                     </div>
                 </nav>
@@ -48,10 +47,7 @@
             <a href="podcast.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">بودكاست صدى</a>
             <a href="team.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الهيكل الإداري</a>
             <a href="events.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الفعاليات</a>
-            <div class="flex gap-2 p-4">
-                <a href="#" id="mobile-login-btn" class="flex-1 text-center border border-gray-300 text-gray-700 py-2 rounded-lg font-bold text-sm">سجل الدخول</a>
-                <a href="#" id="mobile-join-btn" class="flex-1 text-center bg-cee-red text-white py-2 rounded-lg font-bold text-sm">انضم إلينا</a>
-            </div>
+            <a href="#" id="mobile-join-btn" class="block px-6 py-4 bg-cee-red text-white font-bold text-center text-sm">انضم إلينا</a>
         </div>
     </header>
 
@@ -138,7 +134,6 @@
     <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-4 right-4 bg-cee-red text-white w-10 h-10 rounded-full shadow-lg hover:bg-red-900 transition z-50 hidden text-sm" id="scrollTopBtn"><i class="fa-solid fa-arrow-up"></i></button>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxj0JHUJ_mK54Ay83z9inTWvvFmE81baPFq4sZm7DznfkDAYeSAwn-5pJEu02VYQ7PbPQ/exec';
         const SHEET_ID = '2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
         const GIDS = { settings: '913996604', events: '1271537226', sponsors: '1058957318' };
         function getSheetURL(gid){ return `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${gid}&single=true&output=csv`; }
@@ -156,9 +151,8 @@
                 if(s['رابط_لينكد_ان']&&s['رابط_لينكد_ان']!=='#') soc+=`<a href="${s['رابط_لينكد_ان']}" target="_blank" class="text-gray-400 hover:text-blue-600 transition"><i class="fa-brands fa-linkedin"></i></a>`;
                 if(s['رابط_تيك_توك']&&s['رابط_تيك_توك']!=='#') soc+=`<a href="${s['رابط_تيك_توك']}" target="_blank" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-tiktok"></i></a>`;
                 document.getElementById('social-links').innerHTML=soc||'';
-                const j=s['رابط_الانضمام']||'#', l=s['رابط_تسجيل_الدخول']||'#';
+                const j=s['رابط_الانضمام']||'#';
                 document.querySelectorAll('#join-btn,#mobile-join-btn,#hero-join-btn').forEach(b=>b.href=j);
-                document.querySelectorAll('#login-btn,#mobile-login-btn').forEach(b=>b.href=l);
             }catch(e){ console.error(e); }
         }
 
@@ -208,7 +202,7 @@
 
         window.addEventListener('scroll',()=>{ document.getElementById('scrollTopBtn').classList.toggle('hidden',window.scrollY<300); });
         document.getElementById('mobile-menu-btn').addEventListener('click',()=>{ document.getElementById('mobile-menu').classList.toggle('hidden'); });
-        async function init(){ await Promise.all([loadSettings(),loadEvents(),loadSponsors()]); console.log('✅ تم'); }
+        async function init(){ await Promise.all([loadSettings(),loadEvents(),loadSponsors()]); }
         document.addEventListener('DOMContentLoaded',init);
     </script>
 </body>
