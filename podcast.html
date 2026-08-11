@@ -12,363 +12,102 @@
         .text-cee-red { color: #8A1538; } 
         .bg-cee-red { background-color: #8A1538; }
         .text-cee-gold { color: #D4AF37; }
-        .bg-cee-gold { background-color: #D4AF37; }
-        
         .loading { text-align: center; padding: 2rem; font-size: 1.2rem; color: #8A1538; }
-        
-        @keyframes pulse-ring {
-            0% { transform: scale(0.8); opacity: 1; }
-            100% { transform: scale(1.4); opacity: 0; }
-        }
+        @keyframes pulse-ring { 0%{ transform:scale(0.8); opacity:1; } 100%{ transform:scale(1.4); opacity:0; } }
         .pulse-ring { animation: pulse-ring 1.5s infinite; }
-
-        /* ✅ الوصف المختصر */
-        .desc-preview {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .desc-full {
-            display: none;
-        }
-        .desc-full.show {
-            display: block;
-        }
-        .desc-preview.hide {
-            display: none;
-        }
-
-        /* ✅ تأثير الفتح */
-        .details-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, opacity 0.4s ease;
-            opacity: 0;
-        }
-        .details-content.open {
-            max-height: 500px;
-            opacity: 1;
-        }
+        .desc-preview { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .desc-preview.hide { display: none; }
+        .details-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s ease; opacity: 0; }
+        .details-content.open { max-height: 500px; opacity: 1; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="index.html" class="flex items-center gap-2">
-                        <img src="upload/logo.jpg" alt="شعار النادي" class="h-14 object-contain">
-                    </a>
-                </div>
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <div class="flex-shrink-0 flex items-center"><a href="index.html" class="flex items-center gap-2"><img src="upload/logo.jpg" alt="شعار النادي" class="h-12 md:h-14 object-contain"></a></div>
                 <nav class="hidden md:flex space-x-reverse space-x-6 items-center">
-                    <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition">الصفحة الرئيسية</a>
+                    <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition">الرئيسية</a>
                     <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">بودكاست صدى</a>
                     <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition">الهيكل الإداري</a>
-                    <a href="index.html#events" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات السابقة</a>
-                    <div class="border-r border-gray-300 pr-6 flex space-x-reverse space-x-4">
-                        <a href="#" class="text-gray-700 hover:text-cee-red font-bold py-2 transition">سجل الدخول</a>
-                        <a href="#" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a>
-                    </div>
+                    <a href="events.html" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات</a>
+                    <div class="border-r border-gray-300 pr-6"><a href="#" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a></div>
                 </nav>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-cee-red hover:text-red-900 focus:outline-none">
-                        <i class="fa-solid fa-bars text-3xl"></i>
-                    </button>
-                </div>
+                <div class="md:hidden flex items-center"><button id="mobile-menu-btn" class="text-cee-red hover:text-red-900 focus:outline-none"><i class="fa-solid fa-bars text-2xl"></i></button></div>
             </div>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full z-40">
-            <a href="index.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الصفحة الرئيسية</a>
-            <a href="podcast.html" class="block px-6 py-4 text-cee-red bg-gray-50 border-b font-bold">بودكاست صدى</a>
-            <a href="team.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الهيكل الإداري</a>
+            <a href="index.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الرئيسية</a>
+            <a href="podcast.html" class="block px-6 py-3 text-cee-red bg-gray-50 border-b font-bold text-sm">بودكاست صدى</a>
+            <a href="team.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الهيكل الإداري</a>
+            <a href="events.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الفعاليات</a>
         </div>
     </header>
 
-    <div class="bg-gray-900 py-16 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-10 right-10 w-64 h-64 bg-cee-red rounded-full blur-3xl"></div>
-            <div class="absolute bottom-10 left-10 w-80 h-80 bg-cee-gold rounded-full blur-3xl"></div>
-        </div>
+    <div class="bg-gray-900 py-12 md:py-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10"><div class="absolute top-10 right-10 w-64 h-64 bg-cee-red rounded-full blur-3xl"></div><div class="absolute bottom-10 left-10 w-64 h-64 bg-cee-gold rounded-full blur-3xl"></div></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between">
-            <div class="text-center md:text-right mb-8 md:mb-0">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
-                    بودكاست صدى <i class="fa-solid fa-microphone-lines text-cee-gold ml-2"></i>
-                </h1>
-                <div class="w-24 h-1 bg-cee-gold mx-auto md:mx-0 mb-6"></div>
-                <p class="text-gray-300 max-w-2xl text-lg">لقاءات حصرية مع نخبة من المهندسين والخبراء لمناقشة أحدث التطورات في عالم الهندسة المدنية والبيئية.</p>
-            </div>
-            <div class="relative">
-                <div class="w-24 h-24 bg-cee-red rounded-full flex items-center justify-center">
-                    <i class="fa-solid fa-podcast text-4xl text-white"></i>
-                </div>
-                <div class="absolute inset-0 w-24 h-24 bg-cee-red rounded-full pulse-ring"></div>
-            </div>
+            <div class="text-center md:text-right mb-8 md:mb-0"><h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3">بودكاست صدى <i class="fa-solid fa-microphone-lines text-cee-gold ml-2"></i></h1><div class="w-20 h-1 bg-cee-gold mx-auto md:mx-0 mb-4"></div><p class="text-gray-300 text-sm md:text-lg">لقاءات حصرية مع نخبة من المهندسين والخبراء</p></div>
+            <div class="relative"><div class="w-20 h-20 md:w-24 md:h-24 bg-cee-red rounded-full flex items-center justify-center"><i class="fa-solid fa-podcast text-3xl md:text-4xl text-white"></i></div><div class="absolute inset-0 w-20 h-20 md:w-24 md:h-24 bg-cee-red rounded-full pulse-ring"></div></div>
         </div>
     </div>
 
-    <main class="flex-grow w-full py-16 bg-gray-50">
+    <main class="flex-grow w-full py-10 md:py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            <div id="loading-message" class="loading">
-                <i class="fas fa-spinner fa-spin text-4xl mb-4 block"></i>
-                <p class="text-gray-600">جاري تحميل الحلقات...</p>
-            </div>
-
-            <div id="podcast-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-
-            <div id="error-message" class="hidden text-center py-12">
-                <i class="fas fa-exclamation-triangle text-5xl text-red-400 mb-4 block"></i>
-                <p class="text-red-500 text-lg font-bold">حدث خطأ في تحميل الحلقات</p>
-                <p class="text-gray-500 mt-2">الرجاء المحاولة لاحقاً</p>
-            </div>
-
+            <div id="loading-message" class="loading"><i class="fas fa-spinner fa-spin text-3xl md:text-4xl mb-3 block"></i><p class="text-gray-600 text-sm">جاري تحميل الحلقات...</p></div>
+            <div id="podcast-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div id="error-message" class="hidden text-center py-12"><i class="fas fa-exclamation-triangle text-4xl text-red-400 mb-3 block"></i><p class="text-red-500 font-bold">حدث خطأ</p></div>
         </div>
     </main>
 
-    <footer class="bg-white border-t border-gray-200 mt-auto pt-10 pb-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <div class="flex space-x-reverse space-x-6 text-2xl">
-                <a href="#" class="text-gray-400 hover:text-black"><i class="fa-brands fa-x-twitter"></i></a>
-            </div>
-            <div class="text-gray-500 text-sm">&copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.</div>
-            <img src="upload/logo.jpg" alt="CEE" class="h-10 opacity-50">
-        </div>
-    </footer>
+    <footer class="bg-white border-t border-gray-200 mt-auto pt-8 pb-6"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"><div class="text-gray-500 text-xs md:text-sm">&copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.</div></div></footer>
 
     <script>
-        const sheetID = '2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
-        const gid = '1104498095';
-        const podcastSheetURL = `https://docs.google.com/spreadsheets/d/e/${sheetID}/pub?gid=${gid}&single=true&output=csv`;
+        const SHEET_ID='2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
+        const GID='1104498095';
+        const url=`https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${GID}&single=true&output=csv`;
 
-        function getYouTubeID(url) {
-            if (!url) return null;
-            const patterns = [
-                /(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/,
-                /(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/,
-                /(?:youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
-                /(?:youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
-                /(?:youtube\.com\/live\/)([a-zA-Z0-9_-]{11})/,
-                /(?:m\.youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/
-            ];
-            for (const pattern of patterns) {
-                const match = url.match(pattern);
-                if (match) return match[1];
-            }
-            return null;
-        }
+        function getYouTubeID(url){ if(!url) return null; const p=[/(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/,/(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/,/(?:youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,/(?:youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,/(?:youtube\.com\/live\/)([a-zA-Z0-9_-]{11})/,/(?:m\.youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/]; for(const pt of p){ const m=url.match(pt); if(m) return m[1]; } return null; }
+        function truncateText(text,wordLimit=15){ const words=text.split(/\s+/); if(words.length<=wordLimit) return {preview:text,hasMore:false}; return {preview:words.slice(0,wordLimit).join(' ')+'...',hasMore:true}; }
 
-        // ✅ دالة قص النص لأول 15 كلمة
-        function truncateText(text, wordLimit = 15) {
-            const words = text.split(/\s+/);
-            if (words.length <= wordLimit) return { preview: text, hasMore: false };
-            const preview = words.slice(0, wordLimit).join(' ') + '...';
-            return { preview, hasMore: true, full: text };
-        }
-
-        function createPodcastCard(episode, index) {
-            const number = episode.number || '';
-            const title = episode.title || 'بدون عنوان';
-            const link = episode.link || '#';
-            const description = episode.description || 'لا يوجد وصف';
-            
-            const videoID = getYouTubeID(link);
-            const cardID = `podcast-${index}`;
-            const icons = ['fa-microphone-lines', 'fa-podcast', 'fa-headphones', 'fa-broadcast-tower', 'fa-music'];
-            const icon = icons[index % icons.length];
-            const gradients = [
-                'from-cee-red to-red-900',
-                'from-red-800 to-red-950',
-                'from-gray-800 to-gray-950',
-                'from-cee-red to-gray-900',
-                'from-red-900 to-gray-900'
-            ];
-            const gradient = gradients[index % gradients.length];
-
-            // ✅ معالجة الوصف
-            const { preview, hasMore } = truncateText(description, 15);
-
-            // قسم الغلاف
-            let coverHTML = '';
-            if (videoID) {
-                coverHTML = `
-                    <img src="https://img.youtube.com/vi/${videoID}/maxresdefault.jpg" 
-                         alt="${title}"
-                         class="w-full h-full object-cover cover-img transition duration-500 group-hover:scale-110"
-                         onerror="
-                            if(this.src.includes('maxresdefault')) {
-                                this.src='https://img.youtube.com/vi/${videoID}/hqdefault.jpg';
-                            } else {
-                                this.style.display='none';
-                                this.nextElementSibling.style.display='flex';
-                            }
-                         ">
-                    <div style="display:none;" class="w-full h-full bg-gradient-to-br ${gradient} flex items-center justify-center">
-                        <i class="fa-solid ${icon} text-6xl text-white opacity-30"></i>
-                    </div>
-                `;
-            } else {
-                coverHTML = `
-                    <div class="w-full h-full bg-gradient-to-br ${gradient} flex items-center justify-center">
-                        <i class="fa-solid ${icon} text-6xl text-white opacity-30"></i>
-                    </div>
-                `;
-            }
-
-            // ✅ زر عرض التفاصيل
-            const detailsButton = hasMore ? `
-                <button onclick="toggleDetails('${cardID}')" 
-                        class="text-cee-red font-bold text-sm hover:underline flex items-center gap-1 mt-3 transition">
-                    <span id="${cardID}-btn-text">عرض التفاصيل</span>
-                    <i id="${cardID}-btn-icon" class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
-                </button>
-            ` : '';
-
-            return `
-                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full transform hover:-translate-y-2 transition duration-300 group podcast-card" id="${cardID}-card">
-                    <div class="h-48 relative overflow-hidden flex items-center justify-center bg-gray-200">
-                        ${coverHTML}
-                        
-                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition duration-300 flex items-center justify-center" style="pointer-events:none;">
-                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl opacity-0 group-hover:opacity-100 transition duration-300" style="pointer-events:auto;">
-                                <a href="${link}" target="_blank" rel="noopener noreferrer">
-                                    <i class="fa-solid fa-play text-cee-red text-2xl mr-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        ${number ? `<span class="absolute top-3 right-3 bg-black bg-opacity-70 text-white text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm z-10">الحلقة ${number}</span>` : ''}
-                        ${videoID ? `<span class="absolute bottom-3 left-3 bg-red-600 text-white text-xs px-2 py-1 rounded z-10"><i class="fa-brands fa-youtube ml-1"></i></span>` : ''}
-                    </div>
-                    
-                    <div class="p-6 flex-grow flex flex-col">
-                        <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">${title}</h3>
-                        
-                        <!-- ✅ الوصف المختصر -->
-                        <p class="text-gray-600 text-sm mb-3 desc-preview" id="${cardID}-preview">${preview}</p>
-                        
-                        <!-- ✅ الوصف الكامل (مخفي) -->
-                        ${hasMore ? `
-                            <div class="details-content" id="${cardID}-details">
-                                <p class="text-gray-600 text-sm mb-3 leading-relaxed">${description}</p>
-                            </div>
-                        ` : ''}
-                        
-                        ${detailsButton}
-                        
-                        <div class="flex-grow"></div>
-                        
-                        <a href="${link}" target="_blank" rel="noopener noreferrer" 
-                           class="w-full text-center bg-gray-900 text-white py-3 rounded-xl text-sm font-bold hover:bg-cee-red transition duration-300 flex items-center justify-center gap-2 group/btn mt-4">
-                            <span>استمع الآن</span>
-                            <i class="fa-solid fa-headphones group-hover/btn:animate-bounce"></i>
-                        </a>
-                    </div>
+        function createPodcastCard(ep,index){
+            const n=ep.number||'',t=ep.title||'بدون عنوان',l=ep.link||'#',d=ep.description||'لا يوجد وصف';
+            const vid=getYouTubeID(l),cid=`pod-${index}`;
+            const icons=['fa-microphone-lines','fa-podcast','fa-headphones','fa-broadcast-tower','fa-music'],icon=icons[index%icons.length];
+            const grads=['from-cee-red to-red-900','from-red-800 to-red-950','from-gray-800 to-gray-950','from-cee-red to-gray-900','from-red-900 to-gray-900'],grad=grads[index%grads.length];
+            const {preview,hasMore}=truncateText(d,15);
+            let coverHTML='';
+            if(vid){ coverHTML=`<img src="https://img.youtube.com/vi/${vid}/maxresdefault.jpg" alt="${t}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="if(this.src.includes('maxresdefault')){this.src='https://img.youtube.com/vi/${vid}/hqdefault.jpg';}else{this.style.display='none';this.nextElementSibling.style.display='flex';}"><div style="display:none;" class="w-full h-full bg-gradient-to-br ${grad} flex items-center justify-center"><i class="fa-solid ${icon} text-5xl text-white opacity-30"></i></div>`; }
+            else { coverHTML=`<div class="w-full h-full bg-gradient-to-br ${grad} flex items-center justify-center"><i class="fa-solid ${icon} text-5xl text-white opacity-30"></i></div>`; }
+            const detBtn=hasMore?`<button onclick="toggleDetails('${cid}')" class="text-cee-red font-bold text-sm hover:underline flex items-center gap-1 mt-3"><span id="${cid}-btn-text">عرض التفاصيل</span><i id="${cid}-btn-icon" class="fas fa-chevron-down text-xs transition-transform duration-300"></i></button>`:'';
+            return `<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300 group" id="${cid}-card">
+                <div class="h-40 md:h-48 relative overflow-hidden flex items-center justify-center bg-gray-200">${coverHTML}
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition duration-300 flex items-center justify-center" style="pointer-events:none;"><a href="${l}" target="_blank" class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-xl opacity-0 group-hover:opacity-100 transition" style="pointer-events:auto;"><i class="fa-solid fa-play text-cee-red text-xl mr-1"></i></a></div>
+                    ${n?`<span class="absolute top-3 right-3 bg-black bg-opacity-70 text-white text-xs font-bold px-2 py-1 rounded-full backdrop-blur-sm z-10">الحلقة ${n}</span>`:''}${vid?`<span class="absolute bottom-3 left-3 bg-red-600 text-white text-xs px-2 py-1 rounded z-10"><i class="fa-brands fa-youtube ml-1"></i></span>`:''}
                 </div>
-            `;
+                <div class="p-4 md:p-6 flex-grow flex flex-col">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 line-clamp-2">${t}</h3>
+                    <p class="text-gray-600 text-xs md:text-sm mb-2 desc-preview" id="${cid}-preview">${preview}</p>
+                    ${hasMore?`<div class="details-content" id="${cid}-details"><p class="text-gray-600 text-xs md:text-sm mb-2 leading-relaxed">${d}</p></div>`:''}${detBtn}
+                    <div class="flex-grow"></div>
+                    <a href="${l}" target="_blank" class="w-full text-center bg-gray-900 text-white py-2.5 rounded-xl text-sm font-bold hover:bg-cee-red transition flex items-center justify-center gap-2 mt-3"><span>استمع الآن</span><i class="fa-solid fa-headphones"></i></a>
+                </div></div>`;
         }
 
-        // ✅ دالة توسيع/إخفاء التفاصيل
-        function toggleDetails(cardID) {
-            const details = document.getElementById(`${cardID}-details`);
-            const preview = document.getElementById(`${cardID}-preview`);
-            const btnText = document.getElementById(`${cardID}-btn-text`);
-            const btnIcon = document.getElementById(`${cardID}-btn-icon`);
-            
-            if (!details) return;
-            
-            const isOpen = details.classList.contains('open');
-            
-            if (isOpen) {
-                // إغلاق
-                details.classList.remove('open');
-                preview.classList.remove('hide');
-                btnText.textContent = 'عرض التفاصيل';
-                btnIcon.classList.remove('fa-chevron-up');
-                btnIcon.classList.add('fa-chevron-down');
-            } else {
-                // فتح
-                details.classList.add('open');
-                preview.classList.add('hide');
-                btnText.textContent = 'إخفاء التفاصيل';
-                btnIcon.classList.remove('fa-chevron-down');
-                btnIcon.classList.add('fa-chevron-up');
-            }
+        function toggleDetails(cid){ const det=document.getElementById(`${cid}-details`),prev=document.getElementById(`${cid}-preview`),btnT=document.getElementById(`${cid}-btn-text`),btnI=document.getElementById(`${cid}-btn-icon`); if(!det) return; const isOpen=det.classList.contains('open'); if(isOpen){ det.classList.remove('open'); prev.classList.remove('hide'); btnT.textContent='عرض التفاصيل'; btnI.classList.remove('fa-chevron-up'); btnI.classList.add('fa-chevron-down'); } else { det.classList.add('open'); prev.classList.add('hide'); btnT.textContent='إخفاء التفاصيل'; btnI.classList.remove('fa-chevron-down'); btnI.classList.add('fa-chevron-up'); } }
+        window.toggleDetails=toggleDetails;
+
+        function parseCSVRow(row){ const c=[]; let col='',q=false; for(let i=0;i<row.length;i++){ const ch=row[i]; if(ch==='"') q=!q; else if(ch===','&&!q){ c.push(col.trim()); col=''; } else col+=ch; } c.push(col.trim()); return c; }
+
+        async function fetchPodcast(){
+            const lm=document.getElementById('loading-message'),cont=document.getElementById('podcast-container'),em=document.getElementById('error-message');
+            try{ const r=await fetch(url); const d=await r.text(); const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1); if(rows.length===0) throw new Error('لا توجد حلقات'); const eps=[]; rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length>=4&&c[0]!=='') eps.push({number:c[0].replace(/"/g,'').trim(),title:c[1].replace(/"/g,'').trim(),link:c[2].replace(/"/g,'').trim(),description:c[3].replace(/"/g,'').trim()}); }); lm.classList.add('hidden'); if(eps.length===0){ em.classList.remove('hidden'); return; } cont.innerHTML=eps.map((ep,i)=>createPodcastCard(ep,i)).join(''); }
+            catch(e){ console.error(e); lm.classList.add('hidden'); em.classList.remove('hidden'); }
         }
 
-        // ✅ نجعل الدالة عالمية
-        window.toggleDetails = toggleDetails;
-
-        async function fetchPodcast() {
-            const loadingMessage = document.getElementById('loading-message');
-            const podcastContainer = document.getElementById('podcast-container');
-            const errorMessage = document.getElementById('error-message');
-
-            try {
-                console.log('🎧 جاري تحميل الحلقات...');
-                const response = await fetch(podcastSheetURL);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                
-                const csvData = await response.text();
-                const rows = csvData.split('\n').filter(row => row.trim() !== '');
-                const dataRows = rows.slice(1);
-                if (dataRows.length === 0) throw new Error('لا توجد حلقات');
-
-                const episodes = [];
-                
-                dataRows.forEach((row, index) => {
-                    const columns = parseCSVRow(row);
-                    if (columns.length >= 4 && columns[0] !== '') {
-                        episodes.push({
-                            number: columns[0].replace(/"/g, '').trim(),
-                            title: columns[1].replace(/"/g, '').trim(),
-                            link: columns[2].replace(/"/g, '').trim(),
-                            description: columns[3].replace(/"/g, '').trim()
-                        });
-                    }
-                });
-
-                loadingMessage.classList.add('hidden');
-
-                if (episodes.length === 0) {
-                    errorMessage.classList.remove('hidden');
-                    errorMessage.querySelector('p:first-of-type').textContent = 'لا توجد حلقات متاحة حالياً';
-                    return;
-                }
-
-                podcastContainer.innerHTML = episodes
-                    .map((ep, i) => createPodcastCard(ep, i))
-                    .join('');
-
-            } catch (error) {
-                console.error('❌ خطأ:', error);
-                loadingMessage.classList.add('hidden');
-                errorMessage.classList.remove('hidden');
-            }
-        }
-
-        function parseCSVRow(row) {
-            const columns = [];
-            let currentColumn = '';
-            let insideQuotes = false;
-            for (let i = 0; i < row.length; i++) {
-                const char = row[i];
-                if (char === '"') insideQuotes = !insideQuotes;
-                else if (char === ',' && !insideQuotes) {
-                    columns.push(currentColumn.trim());
-                    currentColumn = '';
-                } else currentColumn += char;
-            }
-            columns.push(currentColumn.trim());
-            return columns;
-        }
-
-        document.addEventListener('DOMContentLoaded', fetchPodcast);
-
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
+        document.getElementById('mobile-menu-btn').addEventListener('click',()=>{ document.getElementById('mobile-menu').classList.toggle('hidden'); });
+        document.addEventListener('DOMContentLoaded',fetchPodcast);
     </script>
 </body>
 </html>
