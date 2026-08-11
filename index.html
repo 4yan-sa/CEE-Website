@@ -4,50 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نادي الهندسة المدنية والبيئية | CEE</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
         body { font-family: 'Tajawal', sans-serif; }
-        
         .text-cee-red { color: #8A1538; } 
         .bg-cee-red { background-color: #8A1538; }
         .text-cee-gold { color: #D4AF37; } 
+        .bg-cee-gold { background-color: #D4AF37; }
         .border-cee-gold { border-color: #D4AF37; }
         .border-cee-red { border-color: #8A1538; }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        .pulse-ring { animation: pulse-ring 1.5s infinite; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .float-anim { animation: float 3s ease-in-out infinite; }
+
+        .loading { text-align: center; padding: 2rem; font-size: 1.2rem; color: #8A1538; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-    <!-- شريط التنقل (الهيدر) -->
+    <!-- ==================== الهيدر ==================== -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                
-                <!-- اللوقو -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="index.html" class="flex items-center gap-2">
-                        <img src="upload/logo.jpg" alt="شعار النادي" class="h-14 object-contain">
+                        <img src="upload/logo.jpg" alt="شعار النادي" id="header-logo" class="h-20 object-contain">
                     </a>
                 </div>
-
-                <!-- قائمة اللابتوب -->
                 <nav class="hidden md:flex space-x-reverse space-x-6 items-center">
                     <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">الصفحة الرئيسية</a>
                     <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition">بودكاست صدى</a>
                     <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition">الهيكل الإداري</a>
-                    <a href="#events" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات السابقة</a>
-                    
-                    <!-- أزرار الدخول -->
+                    <a href="#events" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات</a>
                     <div class="border-r border-gray-300 pr-6 flex space-x-reverse space-x-4">
-                        <a href="#" class="text-gray-700 hover:text-cee-red font-bold py-2 transition">سجل الدخول</a>
-                        <a href="#" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a>
+                        <a href="#" id="login-btn" class="text-gray-700 hover:text-cee-red font-bold py-2 transition">سجل الدخول</a>
+                        <a href="#" id="join-btn" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a>
                     </div>
                 </nav>
-
-                <!-- زر قائمة الجوال -->
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-cee-red hover:text-red-900 focus:outline-none">
                         <i class="fa-solid fa-bars text-3xl"></i>
@@ -55,29 +59,84 @@
                 </div>
             </div>
         </div>
-
-        <!-- قائمة الجوال المنسدلة -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full z-40">
             <a href="index.html" class="block px-6 py-4 text-cee-red bg-gray-50 border-b font-bold">الصفحة الرئيسية</a>
             <a href="podcast.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">بودكاست صدى</a>
             <a href="team.html" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الهيكل الإداري</a>
-            <a href="#events" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الفعاليات السابقة</a>
-            <a href="#" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-bold">سجل الدخول</a>
-            <a href="#" class="block px-6 py-4 bg-cee-red text-white font-bold text-center">انضم إلينا</a>
+            <a href="#events" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-medium">الفعاليات</a>
+            <a href="#" id="mobile-login-btn" class="block px-6 py-4 text-gray-800 border-b hover:bg-gray-50 font-bold">سجل الدخول</a>
+            <a href="#" id="mobile-join-btn" class="block px-6 py-4 bg-cee-red text-white font-bold text-center">انضم إلينا</a>
         </div>
     </header>
 
-    <!-- المحتوى الرئيسي -->
     <main class="flex-grow w-full">
 
-        <!-- قسم أهداف النادي -->
-        <section class="bg-white py-16 border-b border-gray-200">
+        <!-- ==================== هيرو سكشن ==================== -->
+        <section class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-cee-red py-24 md:py-32 overflow-hidden">
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-20 right-20 w-96 h-96 bg-cee-gold rounded-full blur-3xl"></div>
+                <div class="absolute bottom-20 left-20 w-80 h-80 bg-cee-red rounded-full blur-3xl"></div>
+            </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <div class="text-center md:text-right mb-10 md:mb-0 md:max-w-2xl">
+                        <span class="inline-block bg-white/10 backdrop-blur-sm text-cee-gold px-4 py-1 rounded-full text-sm font-bold mb-6">
+                            <i class="fa-solid fa-circle ml-2 text-xs animate-pulse"></i><span id="hero-badge">نادي الهندسة المدنية والبيئية</span>
+                        </span>
+                        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight" id="hero-title">
+                            ابنِ مستقبلك <span class="text-cee-gold">معنا</span>
+                        </h1>
+                        <p class="text-gray-300 text-lg md:text-xl mb-8 leading-relaxed" id="hero-desc">
+                            منصة تجمع طلاب الهندسة المدنية والبيئية لتبادل المعرفة وتطوير المهارات
+                        </p>
+                        <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                            <a href="#" id="hero-join-btn" class="bg-cee-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-900 transition shadow-lg shadow-red-900/30 text-lg">
+                                انضم إلينا <i class="fa-solid fa-user-plus mr-2"></i>
+                            </a>
+                            <a href="#goals" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-3 rounded-xl font-bold hover:bg-white/20 transition text-lg">
+                                تعرف علينا <i class="fa-solid fa-arrow-down mr-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative float-anim">
+                        <div class="w-64 h-64 md:w-80 md:h-80 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center border-4 border-white/20">
+                            <i class="fa-solid fa-building-columns text-8xl md:text-9xl text-white opacity-80"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 bg-cee-gold text-gray-900 px-4 py-2 rounded-xl font-bold text-sm shadow-lg">
+                            <i class="fa-solid fa-star ml-1"></i> <span id="stat-students">500</span>+ مستفيد
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== إحصائيات ==================== -->
+        <section class="bg-white py-12 border-b">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-3 gap-6 text-center">
+                    <div class="p-6">
+                        <div class="text-4xl font-extrabold text-cee-red mb-2" id="stat-workshops">30</div>
+                        <p class="text-gray-500 text-sm">ورشة عمل</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-4xl font-extrabold text-cee-gold mb-2" id="stat-partners">15</div>
+                        <p class="text-gray-500 text-sm">شريك وراعي</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-4xl font-extrabold text-gray-900 mb-2" id="stat-beneficiaries">500</div>
+                        <p class="text-gray-500 text-sm">مستفيد</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== أهداف النادي ==================== -->
+        <section id="goals" class="bg-white py-16 border-b border-gray-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-extrabold text-gray-900 mb-4">أهداف النادي</h2>
                     <p class="text-gray-500 max-w-2xl mx-auto">نسعى في نادي الهندسة المدنية والبيئية لبناء بيئة متكاملة تجمع بين التفوق الأكاديمي والتطبيق العملي.</p>
                 </div>
-                
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="bg-gray-50 rounded-xl p-8 text-center border-b-4 border-cee-red hover:shadow-lg transition">
                         <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow text-cee-red text-2xl">
@@ -104,99 +163,330 @@
             </div>
         </section>
 
-        <!-- قسم آخر الأخبار -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-3xl font-bold text-gray-900 border-r-4 border-cee-red pr-3">آخر الأخبار</h2>
-            </div>
-            
-            <div id="latest-news-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- بطاقة خبر وهمية للتوضيح (مع زر اقرأ الخبر كامل) -->
-                <div class="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition flex flex-col">
-                    <img src="https://via.placeholder.com/400x200?text=صورة+الخبر" alt="خبر" class="w-full h-40 object-cover">
-                    <div class="p-4 flex-grow flex flex-col">
-                        <h3 class="font-bold text-lg mb-2">نجاح معرض مشاريع التخرج</h3>
-                        <p class="text-gray-600 text-sm mb-4 flex-grow">شهد المعرض إقبالاً واسعاً من الشركات الهندسية لاستقطاب الكفاءات.</p>
-                        <!-- الزر الجديد -->
-                        <a href="#" class="inline-flex items-center text-cee-red font-bold text-sm hover:text-red-900 transition mt-auto">
-                            اقرأ الخبر كامل <i class="fa-solid fa-arrow-left mr-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- قسم الفعاليات القادمة -->
-        <section class="bg-gray-900 py-16">
+        <!-- ==================== الفعاليات ==================== -->
+        <section id="events" class="bg-gray-900 py-16">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-extrabold text-white mb-4">الفعاليات القادمة</h2>
-                    <div class="w-24 h-1 bg-cee-gold mx-auto"></div>
-                    <p class="text-gray-400 mt-4">لا تفوت فرصتك وسجل الآن في برامجنا وورش العمل القادمة</p>
-                </div>
                 
-                <div id="upcoming-events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- مثال توضيحي لبطاقة الفعالية -->
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-xl flex flex-col h-full transform hover:-translate-y-2 transition duration-300">
-                        <div class="h-48 bg-gray-200 relative">
-                            <img src="https://via.placeholder.com/400x200?text=صورة+الفعالية" alt="الفعالية" class="w-full h-full object-cover">
-                            <div class="absolute top-4 right-4 bg-white text-cee-red font-bold px-3 py-1 rounded-md shadow text-sm">
-                                25 أكتوبر
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow flex flex-col">
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">دورة أوتوكاد المتقدمة</h3>
-                            <p class="text-gray-600 text-sm mb-4 flex-grow">ورشة عمل مكثفة لتطوير مهارات الرسم الهندسي باستخدام أحدث أدوات برنامج AutoCAD.</p>
-                            
-                            <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-                                <span class="text-xs font-bold text-gray-500"><i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i> القاعة الكبرى</span>
-                                <a href="#" class="bg-cee-red text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-red-900 transition shadow">سجل الآن</a>
-                            </div>
-                        </div>
+                <!-- الفعاليات القادمة -->
+                <div id="upcoming-section">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-extrabold text-white mb-4">الفعاليات القادمة</h2>
+                        <div class="w-24 h-1 bg-cee-gold mx-auto"></div>
+                        <p class="text-gray-400 mt-4">لا تفوت فرصتك وسجل الآن في برامجنا وورش العمل القادمة</p>
+                    </div>
+                    <div id="upcoming-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="text-center text-gray-400 py-12 col-span-full">لا توجد فعاليات قادمة حالياً</div>
                     </div>
                 </div>
+
+                <!-- الفعاليات المنتهية -->
+                <div id="past-section" class="mt-20 hidden">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-extrabold text-white mb-4">الفعاليات السابقة</h2>
+                        <div class="w-24 h-1 bg-gray-500 mx-auto"></div>
+                    </div>
+                    <div id="past-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-75">
+                    </div>
+                </div>
+
             </div>
         </section>
 
     </main>
 
-    <!-- الفوتر -->
+    <!-- ==================== الفوتر ==================== -->
     <footer class="bg-white border-t border-gray-200 mt-auto pt-10 pb-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- الرعاة الدائمين -->
             <div class="text-center mb-10">
                 <h3 class="text-lg font-bold text-gray-600 mb-6">شركاء النجاح والرعاة</h3>
                 <div id="sponsors-container" class="flex flex-wrap justify-center gap-6 items-center">
-                    <div class="w-32 h-16 bg-gray-50 border border-gray-100 rounded flex items-center justify-center text-sm text-gray-400">شعار الراعي</div>
+                    <div class="w-32 h-16 bg-gray-50 border border-gray-100 rounded flex items-center justify-center text-sm text-gray-400">جاري التحميل...</div>
                 </div>
             </div>
 
             <hr class="border-gray-100 mb-6">
 
-            <div class="flex flex-col md:flex-row justify-between items-center relative">
-                <div class="flex space-x-reverse space-x-6 text-2xl mb-4 md:mb-0">
-                    <a href="#" class="text-gray-400 hover:text-blue-600 transition"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-pink-600 transition"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-tiktok"></i></a>
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex space-x-reverse space-x-6 text-2xl mb-4 md:mb-0" id="social-links">
+                    <!-- تمتلئ تلقائياً -->
                 </div>
                 <div class="text-gray-500 text-sm font-medium">
                     &copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.
-                </div>
-                <div class="hidden md:block absolute left-0 opacity-50 grayscale hover:grayscale-0 transition">
-                    <img src="upload/logo.jpg" alt="CEE" class="h-10">
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- سكربت الجافاسكريبت -->
-    <script>
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
+    <!-- زر العودة للأعلى -->
+    <button id="scrollTopBtn" onclick="window.scrollTo({top:0, behavior:'smooth'})" 
+            class="fixed bottom-6 right-6 bg-cee-red text-white w-12 h-12 rounded-full shadow-lg hover:bg-red-900 transition z-50 hidden">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
+    <!-- ==================== السكربت ==================== -->
+    <script>
+        const SHEET_ID = '2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
+        
+        const GIDS = {
+            settings: '913996604',
+            events: '1271537226',
+            sponsors: '1058957318',
+            podcast: '1104498095',
+            team: '1696676545'
+        };
+
+        function getSheetURL(gid) {
+            return `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${gid}&single=true&output=csv`;
+        }
+
+        // ✅ دالة مساعدة
+        function parseCSVRow(row) {
+            const columns = [];
+            let currentColumn = '';
+            let insideQuotes = false;
+            for (let i = 0; i < row.length; i++) {
+                const char = row[i];
+                if (char === '"') insideQuotes = !insideQuotes;
+                else if (char === ',' && !insideQuotes) {
+                    columns.push(currentColumn.trim());
+                    currentColumn = '';
+                } else currentColumn += char;
+            }
+            columns.push(currentColumn.trim());
+            return columns;
+        }
+
+        // ==================== 1. تحميل الإعدادات ====================
+        async function loadSettings() {
+            try {
+                const response = await fetch(getSheetURL(GIDS.settings));
+                const data = await response.text();
+                const rows = data.split('\n').filter(r => r.trim() !== '').slice(1);
+                
+                const settings = {};
+                rows.forEach(row => {
+                    const cols = parseCSVRow(row);
+                    if (cols.length >= 2) {
+                        settings[cols[0].trim()] = cols[1].trim();
+                    }
+                });
+
+                console.log('⚙️ الإعدادات:', settings);
+
+                // تطبيق الإعدادات
+                if (settings['عنوان_الرئيسية']) {
+                    document.getElementById('hero-title').innerHTML = settings['عنوان_الرئيسية'].replace('معنا', '<span class="text-cee-gold">معنا</span>');
+                }
+                if (settings['وصف_الرئيسية']) {
+                    document.getElementById('hero-desc').textContent = settings['وصف_الرئيسية'];
+                }
+                if (settings['حجم_الشعار']) {
+                    document.getElementById('header-logo').className = `${settings['حجم_الشعار']} object-contain`;
+                }
+
+                // روابط التواصل
+                const socialLinks = document.getElementById('social-links');
+                let socialHTML = '';
+                if (settings['رابط_تويتر'] && settings['رابط_تويتر'] !== '#') socialHTML += `<a href="${settings['رابط_تويتر']}" target="_blank" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-x-twitter"></i></a>`;
+                if (settings['رابط_انستقرام'] && settings['رابط_انستقرام'] !== '#') socialHTML += `<a href="${settings['رابط_انستقرام']}" target="_blank" class="text-gray-400 hover:text-pink-600 transition"><i class="fa-brands fa-instagram"></i></a>`;
+                if (settings['رابط_لينكد_ان'] && settings['رابط_لينكد_ان'] !== '#') socialHTML += `<a href="${settings['رابط_لينكد_ان']}" target="_blank" class="text-gray-400 hover:text-blue-600 transition"><i class="fa-brands fa-linkedin"></i></a>`;
+                if (settings['رابط_تيك_توك'] && settings['رابط_تيك_توك'] !== '#') socialHTML += `<a href="${settings['رابط_تيك_توك']}" target="_blank" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-tiktok"></i></a>`;
+                socialLinks.innerHTML = socialHTML || '<span class="text-gray-400">تابعنا قريباً</span>';
+
+                // أزرار الانضمام والدخول
+                const joinURL = settings['رابط_الانضمام'] || '#';
+                const loginURL = settings['رابط_تسجيل_الدخول'] || '#';
+                
+                document.querySelectorAll('#join-btn, #mobile-join-btn, #hero-join-btn').forEach(btn => {
+                    btn.href = joinURL;
+                });
+                document.querySelectorAll('#login-btn, #mobile-login-btn').forEach(btn => {
+                    btn.href = loginURL;
+                });
+
+            } catch (error) {
+                console.error('❌ خطأ في تحميل الإعدادات:', error);
+            }
+        }
+
+        // ==================== 2. تحميل الفعاليات ====================
+        async function loadEvents() {
+            try {
+                const response = await fetch(getSheetURL(GIDS.events));
+                const data = await response.text();
+                const rows = data.split('\n').filter(r => r.trim() !== '').slice(1);
+                
+                const upcomingContainer = document.getElementById('upcoming-container');
+                const pastContainer = document.getElementById('past-container');
+                const pastSection = document.getElementById('past-section');
+                
+                let upcomingHTML = '';
+                let pastHTML = '';
+                let upcomingCount = 0;
+                let pastCount = 0;
+                let totalBeneficiaries = 0;
+                let workshopsCount = 0;
+                
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                rows.forEach(row => {
+                    const cols = parseCSVRow(row);
+                    if (cols.length < 3 || !cols[1]) return;
+                    
+                    // الأعمدة: A=النوع, B=الاسم, C=الصورة, D=الوصف, E=التاريخ, F=الوقت, G=القاعة, H=رابط التسجيل, I=الحالة, J=الراعي1, K=الراعي2, L=الراعي3
+                    const type = cols[0]?.trim() || '';
+                    const name = cols[1]?.trim() || '';
+                    const image = cols[2]?.trim() || 'https://via.placeholder.com/400x200?text=فعالية';
+                    const desc = cols[3]?.trim() || '';
+                    const dateStr = cols[4]?.trim() || '';
+                    const time = cols[5]?.trim() || '';
+                    const location = cols[6]?.trim() || '';
+                    const regLink = cols[7]?.trim() || '#';
+                    const status = cols[8]?.trim() || '';
+                    const sponsor1 = cols[9]?.trim() || '';
+                    const sponsor2 = cols[10]?.trim() || '';
+                    const sponsor3 = cols[11]?.trim() || '';
+                    
+                    const eventDate = new Date(dateStr);
+                    if (isNaN(eventDate.getTime())) return;
+                    
+                    if (type === 'ورشة') workshopsCount++;
+                    totalBeneficiaries += 25; // تقديري - يعدل لاحقاً مع الفورمز
+                    
+                    // تجاهل الملغية
+                    if (status === 'ملغية') return;
+                    
+                    const sponsors = [sponsor1, sponsor2, sponsor3].filter(s => s !== '');
+                    const sponsorsHTML = sponsors.length > 0 
+                        ? `<div class="flex flex-wrap gap-1 mt-2">${sponsors.map(s => `<span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${s}</span>`).join('')}</div>`
+                        : '';
+                    
+                    const cardHTML = `
+                        <div class="bg-white rounded-2xl overflow-hidden shadow-xl flex flex-col h-full transform hover:-translate-y-2 transition duration-300">
+                            <div class="h-48 bg-gray-200 relative">
+                                <img src="${image}" alt="${name}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x200?text=${encodeURIComponent(name)}'">
+                                <div class="absolute top-4 right-4 bg-white text-cee-red font-bold px-3 py-1 rounded-md shadow text-sm">
+                                    ${dateStr.split('/')[2] || ''} / ${dateStr.split('/')[1] || ''}
+                                </div>
+                            </div>
+                            <div class="p-6 flex-grow flex flex-col">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded">${type}</span>
+                                    <span class="text-xs text-gray-500"><i class="fa-regular fa-clock ml-1"></i> ${time}</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">${name}</h3>
+                                <p class="text-gray-600 text-sm mb-4 flex-grow">${desc}</p>
+                                ${sponsorsHTML}
+                                <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+                                    <span class="text-xs font-bold text-gray-500"><i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i> ${location}</span>
+                                    ${eventDate >= today ? `<a href="${regLink}" target="_blank" class="bg-cee-red text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-red-900 transition shadow">سجل الآن</a>` : `<span class="text-xs text-gray-400">منتهية</span>`}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    if (eventDate >= today) {
+                        upcomingHTML += cardHTML;
+                        upcomingCount++;
+                    } else {
+                        pastHTML += cardHTML;
+                        pastCount++;
+                    }
+                });
+
+                // عرض القادمة
+                if (upcomingCount > 0) {
+                    upcomingContainer.innerHTML = upcomingHTML;
+                } else {
+                    upcomingContainer.innerHTML = '<div class="text-center text-gray-400 py-12 col-span-full">لا توجد فعاليات قادمة حالياً</div>';
+                }
+
+                // عرض المنتهية
+                if (pastCount > 0) {
+                    pastSection.classList.remove('hidden');
+                    pastContainer.innerHTML = pastHTML;
+                }
+
+                // تحديث الإحصائيات
+                document.getElementById('stat-workshops').textContent = workshopsCount || '0';
+
+            } catch (error) {
+                console.error('❌ خطأ في تحميل الفعاليات:', error);
+            }
+        }
+
+        // ==================== 3. تحميل الرعاة ====================
+        async function loadSponsors() {
+            try {
+                const response = await fetch(getSheetURL(GIDS.sponsors));
+                const data = await response.text();
+                const rows = data.split('\n').filter(r => r.trim() !== '').slice(1);
+                
+                let permanentSponsors = [];
+                let totalPartners = 0;
+                
+                rows.forEach(row => {
+                    const cols = parseCSVRow(row);
+                    if (cols.length < 4 || !cols[0]) return;
+                    
+                    // A=الاسم, B=نوع الرعاية, C=رابط الشعار, D=رابط الموقع
+                    const name = cols[0].trim();
+                    const type = cols[1].trim();
+                    const logoURL = cols[2].trim();
+                    const websiteURL = cols[3].trim();
+                    
+                    totalPartners++;
+                    
+                    if (type === 'دائم') {
+                        permanentSponsors.push({ name, logoURL, websiteURL });
+                    }
+                });
+
+                // عرض الدائمين في الفوتر
+                const container = document.getElementById('sponsors-container');
+                if (permanentSponsors.length > 0) {
+                    container.innerHTML = permanentSponsors.map(s => `
+                        <a href="${s.websiteURL || '#'}" target="_blank" class="w-32 h-16 bg-white border border-gray-200 rounded-lg flex items-center justify-center p-2 hover:shadow-md transition">
+                            <img src="${s.logoURL}" alt="${s.name}" class="max-w-full max-h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-xs text-gray-400\'>${s.name}</span>'">
+                        </a>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<span class="text-sm text-gray-400">قريباً</span>';
+                }
+
+                // تحديث عدد الشركاء
+                document.getElementById('stat-partners').textContent = totalPartners || '0';
+
+            } catch (error) {
+                console.error('❌ خطأ في تحميل الرعاة:', error);
+            }
+        }
+
+        // ==================== 4. زر العودة للأعلى ====================
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('scrollTopBtn');
+            btn.classList.toggle('hidden', window.scrollY < 300);
         });
+
+        // ==================== 5. قائمة الجوال ====================
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // ==================== تشغيل الكل ====================
+        async function init() {
+            await Promise.all([
+                loadSettings(),
+                loadEvents(),
+                loadSponsors()
+            ]);
+            console.log('✅ تم تحميل الصفحة الرئيسية');
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
