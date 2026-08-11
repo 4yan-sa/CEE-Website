@@ -20,10 +20,7 @@
         .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
         .fade-in.show { opacity: 1; transform: translateY(0); }
         
-        @keyframes scrollSponsors {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+        @keyframes scrollSponsors { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .sponsors-track { display: flex; gap: 1.5rem; animation: scrollSponsors 20s linear infinite; width: max-content; }
         .sponsors-track:hover { animation-play-state: paused; }
 
@@ -43,13 +40,14 @@
                         <img src="upload/logo.jpg" alt="شعار النادي" id="header-logo" class="h-14 md:h-20 object-contain">
                     </a>
                 </div>
-                <nav class="hidden md:flex space-x-reverse space-x-6 items-center">
+                <nav class="hidden md:flex space-x-reverse space-x-4 items-center text-sm">
                     <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">الرئيسية</a>
                     <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition">بودكاست صدى</a>
                     <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition">الهيكل الإداري</a>
-                    <a href="events.html" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات</a>
-                    <div class="border-r border-gray-300 pr-6">
-                        <a href="#" id="join-btn" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a>
+                    <a href="events.html" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات والورش</a>
+                    <a href="#honours" class="text-gray-700 hover:text-cee-gold font-bold transition">🏆 لوحة الصدارة</a>
+                    <div class="border-r border-gray-300 pr-4">
+                        <a href="#" id="join-btn" class="bg-cee-red text-white px-4 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a>
                     </div>
                 </nav>
                 <div class="md:hidden flex items-center">
@@ -61,7 +59,8 @@
             <a href="index.html" class="block px-6 py-3 text-cee-red bg-gray-50 border-b font-bold text-sm">الرئيسية</a>
             <a href="podcast.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">بودكاست صدى</a>
             <a href="team.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الهيكل الإداري</a>
-            <a href="events.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الفعاليات</a>
+            <a href="events.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الفعاليات والورش</a>
+            <a href="#honours" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-bold text-sm">🏆 لوحة الصدارة</a>
             <a href="#" id="mobile-join-btn" class="block px-6 py-4 bg-cee-red text-white font-bold text-center text-sm">انضم إلينا</a>
         </div>
     </header>
@@ -78,8 +77,6 @@
                         <p class="text-gray-300 text-sm md:text-lg mb-6 leading-relaxed" id="hero-desc">حيث يلتقي الشغف بالمعرفة، نصنع جيلاً هندسياً مبدعاً في جامعة الملك فيصل</p>
                         <div class="flex flex-wrap justify-center md:justify-start gap-3">
                             <a href="#" id="hero-join-btn" class="bg-cee-red text-white px-6 py-2.5 rounded-xl font-bold hover:bg-red-900 transition shadow-lg text-sm md:text-base">انضم إلينا <i class="fa-solid fa-user-plus mr-2"></i></a>
-                            <a href="events.html" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2.5 rounded-xl font-bold hover:bg-white/20 transition text-sm md:text-base">الفعاليات <i class="fa-solid fa-arrow-left mr-2"></i></a>
-                            <a href="#honours" class="bg-cee-gold text-gray-900 px-6 py-2.5 rounded-xl font-bold hover:bg-yellow-500 transition shadow-lg text-sm md:text-base">لوحة الصدارة 🏆</a>
                         </div>
                     </div>
                     <div class="relative flex-shrink-0 fade-in"><div class="w-40 h-40 md:w-72 md:h-72 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center border-4 border-white/20 float-anim"><i class="fa-solid fa-hard-hat text-6xl md:text-8xl text-white opacity-80"></i></div><div class="absolute -bottom-3 -left-3 bg-cee-gold text-gray-900 px-3 py-1.5 rounded-xl font-bold text-xs md:text-sm shadow-lg"><i class="fa-solid fa-star ml-1"></i> نادي الهندسة</div></div>
@@ -100,7 +97,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-10"><h2 class="text-2xl md:text-3xl font-extrabold text-white mb-3">الفعاليات القادمة</h2><div class="w-20 h-1 bg-cee-gold mx-auto"></div><p class="text-gray-400 mt-3 text-sm">لا تفوت فرصتك وسجل الآن</p></div>
                 <div id="upcoming-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد فعاليات قادمة حالياً</div></div>
-                <div class="text-center mt-10"><a href="events.html" class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-3 rounded-xl font-bold hover:bg-white/20 transition">عرض جميع الفعاليات <i class="fa-solid fa-arrow-left mr-2"></i></a></div>
+                <div class="text-center mt-10"><a href="events.html" class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-3 rounded-xl font-bold hover:bg-white/20 transition">عرض جميع الفعاليات والورش <i class="fa-solid fa-arrow-left mr-2"></i></a></div>
             </div>
         </section>
 
@@ -144,7 +141,6 @@
         </div>
     </footer>
 
-    <!-- نافذة تأكيد التحضير -->
     <div id="attendance-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full text-center shadow-2xl modal">
             <button onclick="closeAttendanceModal()" class="float-left text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
@@ -213,18 +209,9 @@
             try{
                 const r=await fetch(`${SCRIPT_URL}?code=${encodeURIComponent(code)}`);
                 const data=await r.json();
-                if(data.success){ 
-                    closeAttendanceModal(); 
-                    window.open(currentEvalLink||'#','_blank'); 
-                } else { 
-                    document.getElementById('code-error').classList.remove('hidden'); 
-                    inputs.forEach(i=>i.value=''); 
-                    inputs[0].focus(); 
-                }
-            }catch(e){ 
-                document.getElementById('code-error').classList.remove('hidden'); 
-                document.getElementById('code-error').textContent='حدث خطأ'; 
-            }
+                if(data.success){ closeAttendanceModal(); window.open(currentEvalLink||'#','_blank'); } 
+                else { document.getElementById('code-error').classList.remove('hidden'); inputs.forEach(i=>i.value=''); inputs[0].focus(); }
+            }catch(e){ document.getElementById('code-error').classList.remove('hidden'); document.getElementById('code-error').textContent='حدث خطأ'; }
         }
         window.verifyAttendanceCode = verifyAttendanceCode;
 
@@ -241,18 +228,10 @@
                 const r=await fetch(getSheetURL(GIDS.settings)); const d=await r.text();
                 const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1); const s={};
                 rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length>=2) s[c[0].trim()]=c[1].trim(); });
-                if(s['حجم_الشعار']){ 
-                    document.getElementById('header-logo').className = `${s['حجم_الشعار']} object-contain`; 
-                }
-                if(s['عنوان_الرئيسية']){
-                    document.getElementById('hero-title').innerHTML = s['عنوان_الرئيسية'].replace('معنا', '<span class="text-cee-gold">معنا</span>');
-                }
-                if(s['وصف_الرئيسية']){
-                    document.getElementById('hero-desc').textContent = s['وصف_الرئيسية'];
-                }
-                if(s['رابط_نموذج_التقييم']){
-                    currentEvalLink = s['رابط_نموذج_التقييم'];
-                }
+                if(s['حجم_الشعار']){ document.getElementById('header-logo').className = `${s['حجم_الشعار']} object-contain`; }
+                if(s['عنوان_الرئيسية']){ document.getElementById('hero-title').innerHTML = s['عنوان_الرئيسية'].replace('معنا', '<span class="text-cee-gold">معنا</span>'); }
+                if(s['وصف_الرئيسية']){ document.getElementById('hero-desc').textContent = s['وصف_الرئيسية']; }
+                if(s['رابط_نموذج_التقييم']){ currentEvalLink = s['رابط_نموذج_التقييم']; }
                 let soc='';
                 if(s['رابط_تويتر']&&s['رابط_تويتر']!=='#') soc+=`<a href="${s['رابط_تويتر']}" target="_blank" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-twitter"></i></a>`;
                 if(s['رابط_انستقرام']&&s['رابط_انستقرام']!=='#') soc+=`<a href="${s['رابط_انستقرام']}" target="_blank" class="text-gray-400 hover:text-pink-600 transition"><i class="fa-brands fa-instagram"></i></a>`;
@@ -296,10 +275,8 @@
                 let all=[], total=0;
                 rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length<4||!c[0]) return; total++; all.push({name:c[0].trim(),logo:c[2].trim(),url:c[3].trim()}); });
                 const track=document.getElementById('sponsors-track');
-                if(all.length>0){
-                    const html=all.map(s=>`<a href="${s.url||'#'}" target="_blank" class="flex-shrink-0 w-28 h-14 md:w-32 md:h-16 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center p-2 hover:shadow-md transition"><img src="${s.logo}" alt="${s.name}" class="max-w-full max-h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-xs text-gray-400\'>${s.name}</span>'"></a>`).join('');
-                    track.innerHTML=html+html;
-                }else{ track.innerHTML='<span class="text-xs text-gray-400">قريباً</span>'; }
+                if(all.length>0){ const html=all.map(s=>`<a href="${s.url||'#'}" target="_blank" class="flex-shrink-0 w-28 h-14 md:w-32 md:h-16 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center p-2 hover:shadow-md transition"><img src="${s.logo}" alt="${s.name}" class="max-w-full max-h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-xs text-gray-400\'>${s.name}</span>'"></a>`).join(''); track.innerHTML=html+html; }
+                else{ track.innerHTML='<span class="text-xs text-gray-400">قريباً</span>'; }
                 animateCounter('stat-partners',total||0);
             }catch(e){ console.error(e); }
         }
