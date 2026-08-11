@@ -12,7 +12,6 @@
         .text-cee-red { color: #8A1538; } 
         .bg-cee-red { background-color: #8A1538; }
         .text-cee-gold { color: #D4AF37; } 
-        .bg-cee-gold { background-color: #D4AF37; }
         .loading { text-align: center; padding: 2rem; font-size: 1.2rem; color: #8A1538; }
         .modal { animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
@@ -26,17 +25,14 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 md:h-20">
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="index.html" class="flex items-center gap-2">
-                        <img src="upload/logo.jpg" alt="شعار النادي" class="h-12 md:h-14 object-contain">
-                    </a>
+                    <a href="index.html" class="flex items-center gap-2"><img src="upload/logo.jpg" alt="شعار النادي" class="h-12 md:h-14 object-contain"></a>
                 </div>
                 <nav class="hidden md:flex space-x-reverse space-x-6 items-center">
                     <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition">الرئيسية</a>
                     <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition">بودكاست صدى</a>
                     <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition">الهيكل الإداري</a>
                     <a href="events.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">الفعاليات</a>
-                    <div class="border-r border-gray-300 pr-6 flex space-x-reverse space-x-4">
-                        <a href="#" class="text-gray-700 hover:text-cee-red font-bold py-2 transition">سجل الدخول</a>
+                    <div class="border-r border-gray-300 pr-6">
                         <a href="#" class="bg-cee-red text-white px-5 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a>
                     </div>
                 </nav>
@@ -67,59 +63,25 @@
 
     <main class="flex-grow w-full py-10 md:py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            <div id="loading-message" class="loading">
-                <i class="fas fa-spinner fa-spin text-3xl md:text-4xl mb-3 block"></i>
-                <p class="text-gray-600 text-sm">جاري تحميل الفعاليات...</p>
-            </div>
-
+            <div id="loading-message" class="loading"><i class="fas fa-spinner fa-spin text-3xl md:text-4xl mb-3 block"></i><p class="text-gray-600 text-sm">جاري تحميل الفعاليات...</p></div>
             <div id="upcoming-section" class="mb-16">
-                <div class="text-center mb-10">
-                    <span class="inline-block bg-cee-red text-white text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">قادمة</span>
-                    <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">الفعاليات القادمة</h2>
-                    <div class="w-20 h-1 bg-cee-gold mx-auto"></div>
-                </div>
-                <div id="upcoming-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد فعاليات قادمة حالياً</div>
-                </div>
+                <div class="text-center mb-10"><span class="inline-block bg-cee-red text-white text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">قادمة</span><h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">الفعاليات القادمة</h2><div class="w-20 h-1 bg-cee-gold mx-auto"></div></div>
+                <div id="upcoming-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد فعاليات قادمة حالياً</div></div>
             </div>
-
             <div id="past-section" class="hidden">
-                <div class="text-center mb-10">
-                    <span class="inline-block bg-gray-300 text-gray-600 text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">منتهية</span>
-                    <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">الفعاليات السابقة</h2>
-                    <div class="w-20 h-1 bg-gray-400 mx-auto"></div>
-                </div>
+                <div class="text-center mb-10"><span class="inline-block bg-gray-300 text-gray-600 text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">منتهية</span><h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">الفعاليات السابقة</h2><div class="w-20 h-1 bg-gray-400 mx-auto"></div></div>
                 <div id="past-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-75"></div>
             </div>
-
-            <div id="error-message" class="hidden text-center py-12">
-                <i class="fas fa-exclamation-triangle text-4xl md:text-5xl text-red-400 mb-3 block"></i>
-                <p class="text-red-500 text-base md:text-lg font-bold">حدث خطأ في تحميل الفعاليات</p>
-                <p class="text-gray-500 mt-2 text-sm">الرجاء المحاولة لاحقاً</p>
-            </div>
+            <div id="error-message" class="hidden text-center py-12"><i class="fas fa-exclamation-triangle text-4xl text-red-400 mb-3 block"></i><p class="text-red-500 font-bold">حدث خطأ</p></div>
         </div>
     </main>
 
-    <!-- نافذة تفاصيل الفعالية -->
     <div id="event-detail-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl modal">
-            <div id="event-detail-image" class="h-48 bg-gradient-to-r from-cee-red to-red-900 rounded-t-2xl flex items-center justify-center">
-                <i class="fa-solid fa-calendar-check text-5xl text-white opacity-50"></i>
-            </div>
+            <div id="event-detail-image" class="h-48 bg-gradient-to-r from-cee-red to-red-900 rounded-t-2xl flex items-center justify-center"><i class="fa-solid fa-calendar-check text-5xl text-white opacity-50"></i></div>
             <div class="p-6">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <span id="event-detail-type" class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded"></span>
-                        <h2 id="event-detail-title" class="text-xl font-bold text-gray-900 mt-2"></h2>
-                    </div>
-                    <button onclick="closeEventDetail()" class="text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div class="space-y-2 text-sm text-gray-600 bg-gray-50 rounded-xl p-4">
-                    <p><i class="fa-solid fa-calendar ml-2 text-cee-red"></i> <span id="event-detail-date"></span></p>
-                    <p><i class="fa-solid fa-clock ml-2 text-cee-red"></i> <span id="event-detail-time"></span></p>
-                    <p><i class="fa-solid fa-location-dot ml-2 text-cee-red"></i> <span id="event-detail-location"></span></p>
-                </div>
+                <div class="flex justify-between items-start mb-4"><div><span id="event-detail-type" class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded"></span><h2 id="event-detail-title" class="text-xl font-bold text-gray-900 mt-2"></h2></div><button onclick="closeEventDetail()" class="text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button></div>
+                <div class="space-y-2 text-sm text-gray-600 bg-gray-50 rounded-xl p-4"><p><i class="fa-solid fa-calendar ml-2 text-cee-red"></i> <span id="event-detail-date"></span></p><p><i class="fa-solid fa-clock ml-2 text-cee-red"></i> <span id="event-detail-time"></span></p><p><i class="fa-solid fa-location-dot ml-2 text-cee-red"></i> <span id="event-detail-location"></span></p></div>
                 <p id="event-detail-desc" class="mt-4 text-gray-600 text-sm leading-relaxed"></p>
                 <div id="event-detail-sponsors" class="mt-4"></div>
                 <div class="flex gap-3 mt-6">
@@ -130,7 +92,6 @@
         </div>
     </div>
 
-    <!-- نافذة تأكيد التحضير -->
     <div id="attendance-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full text-center shadow-2xl modal">
             <button onclick="closeAttendanceModal()" class="float-left text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
@@ -150,152 +111,8 @@
     </div>
 
     <footer class="bg-white border-t border-gray-200 mt-auto pt-8 pb-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="text-gray-500 text-xs md:text-sm">&copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.</div>
-        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"><div class="text-gray-500 text-xs md:text-sm">&copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية.</div></div>
     </footer>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxj0JHUJ_mK54Ay83z9inTWvvFmE81baPFq4sZm7DznfkDAYeSAwn-5pJEu02VYQ7PbPQ/exec';
-        const SHEET_ID = '2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
-        const EVENTS_GID = '1271537226';
-        const SETTINGS_GID = '913996604';
-        const eventsURL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${EVENTS_GID}&single=true&output=csv`;
-        const settingsURL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${SETTINGS_GID}&single=true&output=csv`;
-
-        let currentEventData = null;
-        let allEvents = [];
-        let evalLinkGlobal = '#';
-
-        function parseCSVRow(row){ const c=[]; let col='', q=false; for(let i=0;i<row.length;i++){ const ch=row[i]; if(ch==='"') q=!q; else if(ch===','&&!q){ c.push(col.trim()); col=''; } else col+=ch; } c.push(col.trim()); return c; }
-
-        // تحميل رابط التقييم من الإعدادات
-        async function loadSettings(){
-            try{
-                const r=await fetch(settingsURL); const d=await r.text();
-                const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1);
-                rows.forEach(row=>{
-                    const c=parseCSVRow(row);
-                    if(c[0].trim()==='رابط_نموذج_التقييم') evalLinkGlobal=c[1].trim();
-                });
-            }catch(e){ console.error(e); }
-        }
-
-        function createEventCard(event, index){
-            const hasImage=event.image&&event.image.startsWith('http');
-            const day=event.dateStr.split('/')[2]||'', month=event.dateStr.split('/')[1]||'';
-            const today=new Date(); today.setHours(0,0,0,0);
-            const ed=new Date(event.dateStr); const isUpcoming=ed>=today;
-            return `<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openEventDetail(${index})">
-                ${hasImage?`<div class="h-40 md:h-48 bg-gray-200 relative"><img src="${event.image}" alt="${event.name}" class="w-full h-full object-cover" onerror="this.style.display='none'"><div class="absolute top-3 right-3 bg-white text-cee-red font-bold px-2 py-1 rounded-md shadow text-xs">${day} / ${month}</div>${!isUpcoming?'<div class="absolute top-3 left-3 bg-gray-500 text-white text-xs px-2 py-1 rounded">منتهية</div>':''}</div>`:`<div class="h-40 md:h-48 bg-gradient-to-r from-cee-red to-red-900 relative flex items-center justify-center"><i class="fa-solid fa-calendar-check text-4xl text-white opacity-50"></i><div class="absolute top-3 right-3 bg-white text-cee-red font-bold px-2 py-1 rounded-md shadow text-xs">${day} / ${month}</div></div>`}
-                <div class="p-4 md:p-6 flex-grow flex flex-col">
-                    <div class="flex justify-between items-start mb-2"><span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded">${event.type}</span><span class="text-xs text-gray-500"><i class="fa-regular fa-clock ml-1"></i> ${event.time}</span></div>
-                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">${event.name}</h3>
-                    <p class="text-gray-600 text-xs md:text-sm mb-3 flex-grow line-clamp-2">${event.desc}</p>
-                    <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100"><span class="text-xs font-bold text-gray-500"><i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i> ${event.location}</span>${isUpcoming?`<span class="text-cee-red text-xs font-bold">اضغط للتفاصيل <i class="fa-solid fa-arrow-left mr-1"></i></span>`:`<span class="text-gray-400 text-xs">منتهية</span>`}</div>
-                </div></div>`;
-        }
-
-        function openEventDetail(index){
-            const event=allEvents[index]; if(!event) return;
-            currentEventData=event;
-            document.getElementById('event-detail-title').textContent=event.name;
-            document.getElementById('event-detail-type').textContent=event.type;
-            document.getElementById('event-detail-date').textContent=event.dateStr;
-            document.getElementById('event-detail-time').textContent=event.time;
-            document.getElementById('event-detail-location').textContent=event.location;
-            document.getElementById('event-detail-desc').textContent=event.desc;
-            const imgDiv=document.getElementById('event-detail-image');
-            if(event.image&&event.image.startsWith('http')){ imgDiv.innerHTML=`<img src="${event.image}" alt="${event.name}" class="w-full h-full object-cover rounded-t-2xl" onerror="this.parentElement.innerHTML='<i class=\'fa-solid fa-calendar-check text-5xl text-white opacity-50\'></i>'">`; }
-            else { imgDiv.innerHTML='<i class="fa-solid fa-calendar-check text-5xl text-white opacity-50"></i>'; }
-            const spDiv=document.getElementById('event-detail-sponsors');
-            const sponsors=[event.sponsor1,event.sponsor2,event.sponsor3].filter(s=>s);
-            spDiv.innerHTML=sponsors.length>0?`<p class="text-sm font-bold text-gray-700 mb-2">🤝 برعاية:</p><div class="flex flex-wrap gap-2">${sponsors.map(s=>`<span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${s}</span>`).join('')}</div>`:'';
-            const today=new Date(); today.setHours(0,0,0,0);
-            const ed=new Date(event.dateStr); const isUpcoming=ed>=today;
-            document.getElementById('event-detail-register').classList.toggle('hidden',!isUpcoming);
-            document.getElementById('event-detail-register').href=event.regLink||'#';
-            document.getElementById('event-detail-attendance').classList.toggle('hidden',!(isUpcoming&&event.type==='ورشة'));
-            document.getElementById('event-detail-modal').classList.remove('hidden');
-            document.body.style.overflow='hidden';
-        }
-
-        function closeEventDetail(){ document.getElementById('event-detail-modal').classList.add('hidden'); document.body.style.overflow=''; }
-
-        function openAttendanceModal(){
-            document.getElementById('attendance-modal').classList.remove('hidden');
-            document.getElementById('code-error').classList.add('hidden');
-            document.querySelectorAll('.code-input').forEach(i=>i.value='');
-            document.querySelector('.code-input').focus();
-        }
-
-        function closeAttendanceModal(){ document.getElementById('attendance-modal').classList.add('hidden'); }
-
-        async function verifyAttendanceCode(){
-            const inputs=document.querySelectorAll('.code-input');
-            const code=Array.from(inputs).map(i=>i.value).join('-');
-            try{
-                const r=await fetch(`${SCRIPT_URL}?code=${encodeURIComponent(code)}`);
-                const data=await r.json();
-                if(data.success){
-                    closeAttendanceModal();
-                    closeEventDetail();
-                    window.open(evalLinkGlobal||data.evalLink||'#','_blank');
-                }else{
-                    document.getElementById('code-error').classList.remove('hidden');
-                    inputs.forEach(i=>i.value='');
-                    inputs[0].focus();
-                }
-            }catch(e){
-                document.getElementById('code-error').classList.remove('hidden');
-                document.getElementById('code-error').textContent='حدث خطأ، حاول مرة أخرى';
-            }
-        }
-
-        async function loadEvents(){
-            const lm=document.getElementById('loading-message');
-            const uc=document.getElementById('upcoming-container');
-            const pc=document.getElementById('past-container');
-            const ps=document.getElementById('past-section');
-            const em=document.getElementById('error-message');
-            try{
-                const r=await fetch(eventsURL); const d=await r.text();
-                const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1);
-                let uHTML='',pHTML='',uCount=0,pCount=0;
-                const today=new Date(); today.setHours(0,0,0,0);
-                allEvents=[];
-                rows.forEach(row=>{
-                    const c=parseCSVRow(row); if(c.length<3||!c[1]) return;
-                    const event={
-                        type:c[0]?.trim()||'',name:c[1]?.trim()||'',image:c[2]?.trim()||'',desc:c[3]?.trim()||'',
-                        dateStr:c[4]?.trim()||'',time:c[5]?.trim()||'',location:c[6]?.trim()||'',regLink:c[7]?.trim()||'#',
-                        status:c[8]?.trim()||'',sponsor1:c[9]?.trim()||'',sponsor2:c[10]?.trim()||'',sponsor3:c[11]?.trim()||''
-                    };
-                    const ed=new Date(event.dateStr); if(isNaN(ed.getTime())||event.status==='ملغية') return;
-                    allEvents.push(event);
-                    const card=createEventCard(event,allEvents.length-1);
-                    if(ed>=today){ uHTML+=card; uCount++; } else { pHTML+=card; pCount++; }
-                });
-                lm.classList.add('hidden');
-                uc.innerHTML=uCount>0?uHTML:'<div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد فعاليات قادمة حالياً</div>';
-                if(pCount>0){ ps.classList.remove('hidden'); pc.innerHTML=pHTML; }
-                if(uCount===0&&pCount===0){ em.classList.remove('hidden'); em.querySelector('p:first-of-type').textContent='لا توجد فعاليات متاحة حالياً'; }
-            }catch(e){ console.error(e); lm.classList.add('hidden'); em.classList.remove('hidden'); }
-        }
-
-        document.addEventListener('DOMContentLoaded',()=>{
-            document.querySelectorAll('.code-input').forEach((inp,i,inputs)=>{
-                inp.addEventListener('input',()=>{ if(inp.value.length===4&&i<inputs.length-1) inputs[i+1].focus(); });
-                inp.addEventListener('keydown',(e)=>{ if(e.key==='Backspace'&&inp.value===''&&i>0) inputs[i-1].focus(); });
-            });
-        });
-
-        document.getElementById('event-detail-modal').addEventListener('click',function(e){ if(e.target===this) closeEventDetail(); });
-        document.getElementById('attendance-modal').addEventListener('click',function(e){ if(e.target===this) closeAttendanceModal(); });
-        document.getElementById('mobile-menu-btn').addEventListener('click',()=>{ document.getElementById('mobile-menu').classList.toggle('hidden'); });
-
-        async function init(){ await loadSettings(); await loadEvents(); }
-        document.addEventListener('DOMContentLoaded',init);
-    </script>
-</body>
-</html>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxj0JHUJ_mK54Ay83z9inTWvvFmE81baPFq4sZm7DznfkDAYeSAwn-5pJEu02VYQ7PbPQ
