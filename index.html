@@ -17,11 +17,9 @@
         .float-anim { animation: float 3s ease-in-out infinite; }
         .loading { text-align: center; padding: 2rem; font-size: 1.2rem; color: #8A1538; }
         
-        /* تأثيرات ظهور */
         .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
         .fade-in.show { opacity: 1; transform: translateY(0); }
         
-        /* سلايدر الرعاة */
         @keyframes scrollSponsors {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -29,7 +27,6 @@
         .sponsors-track { display: flex; gap: 1.5rem; animation: scrollSponsors 20s linear infinite; width: max-content; }
         .sponsors-track:hover { animation-play-state: paused; }
 
-        /* عداد متحرك */
         .counter { transition: all 0.1s ease; }
     </style>
 </head>
@@ -68,7 +65,6 @@
 
     <main class="flex-grow w-full">
 
-        <!-- هيرو -->
         <section class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-cee-red py-16 md:py-28 overflow-hidden">
             <div class="absolute inset-0 opacity-20"><div class="absolute top-10 right-10 w-64 h-64 bg-cee-gold rounded-full blur-3xl"></div><div class="absolute bottom-10 left-10 w-64 h-64 bg-cee-red rounded-full blur-3xl"></div></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -76,7 +72,7 @@
                     <div class="text-center md:text-right md:max-w-xl fade-in">
                         <span class="inline-block bg-white/10 backdrop-blur-sm text-cee-gold px-3 py-1 rounded-full text-xs md:text-sm font-bold mb-4"><i class="fa-solid fa-circle ml-2 text-xs animate-pulse"></i>نادي الهندسة المدنية والبيئية بجامعة الملك فيصل</span>
                         <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight">ابنِ مستقبلك <span class="text-cee-gold">معنا</span></h1>
-                        <p class="text-gray-300 text-sm md:text-lg mb-6 leading-relaxed">منصة تجمع طلاب الهندسة المدنية والبيئية بجامعة الملك فيصل لتبادل المعرفة وتطوير المهارات</p>
+                        <p class="text-gray-300 text-sm md:text-lg mb-6 leading-relaxed" id="hero-desc">حيث يلتقي الشغف بالمعرفة، نصنع جيلاً هندسياً مبدعاً في جامعة الملك فيصل</p>
                         <div class="flex flex-wrap justify-center md:justify-start gap-3">
                             <a href="#" id="hero-join-btn" class="bg-cee-red text-white px-6 py-2.5 rounded-xl font-bold hover:bg-red-900 transition shadow-lg text-sm md:text-base">انضم إلينا <i class="fa-solid fa-user-plus mr-2"></i></a>
                             <a href="events.html" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2.5 rounded-xl font-bold hover:bg-white/20 transition text-sm md:text-base">الفعاليات <i class="fa-solid fa-arrow-left mr-2"></i></a>
@@ -87,17 +83,15 @@
             </div>
         </section>
 
-        <!-- إحصائيات -->
         <section class="bg-white py-10 border-b fade-in">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-2 gap-4 text-center">
-                    <div class="p-4 md:p-6"><div class="text-3xl md:text-4xl font-extrabold text-cee-red mb-1"><span class="counter" data-target="0" id="stat-workshops">0</span></div><p class="text-gray-500 text-xs md:text-sm">ورشة عمل</p></div>
-                    <div class="p-4 md:p-6"><div class="text-3xl md:text-4xl font-extrabold text-cee-gold mb-1"><span class="counter" data-target="0" id="stat-partners">0</span></div><p class="text-gray-500 text-xs md:text-sm">شريك نجاح</p></div>
+                    <div class="p-4 md:p-6"><div class="text-3xl md:text-4xl font-extrabold text-cee-red mb-1"><span id="stat-workshops">0</span></div><p class="text-gray-500 text-xs md:text-sm">ورشة عمل</p></div>
+                    <div class="p-4 md:p-6"><div class="text-3xl md:text-4xl font-extrabold text-cee-gold mb-1"><span id="stat-partners">0</span></div><p class="text-gray-500 text-xs md:text-sm">شريك نجاح</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- الفعاليات القادمة -->
         <section id="events" class="bg-gray-900 py-12 md:py-16 fade-in">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-10"><h2 class="text-2xl md:text-3xl font-extrabold text-white mb-3">الفعاليات القادمة</h2><div class="w-20 h-1 bg-cee-gold mx-auto"></div><p class="text-gray-400 mt-3 text-sm">لا تفوت فرصتك وسجل الآن</p></div>
@@ -106,10 +100,9 @@
             </div>
         </section>
 
-        <!-- أعضاء الشهر -->
         <section id="honours" class="bg-white py-12 md:py-16 fade-in">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-8"><span class="inline-block bg-cee-gold text-white text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">🏆</span><h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">أعضاء الشهر</h2><div class="w-20 h-1 bg-cee-gold mx-auto"></div></div>
+                <div class="text-center mb-8"><span class="inline-block bg-cee-gold text-white text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">🏆</span><h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">لوحة الصدارة</h2><div class="w-20 h-1 bg-cee-gold mx-auto"></div></div>
                 <div id="honours-container" class="flex justify-center gap-4 md:gap-8 flex-wrap"><div class="text-center text-gray-400 py-8 text-sm">جاري التحميل...</div></div>
                 <div class="flex justify-center gap-3 mt-6">
                     <button onclick="sharePage('twitter')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-400 hover:text-white transition"><i class="fa-brands fa-x-twitter text-sm"></i></button>
@@ -119,7 +112,6 @@
             </div>
         </section>
 
-        <!-- أهداف النادي -->
         <section class="bg-gray-50 py-12 md:py-16 fade-in">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-10"><h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">أهداف النادي</h2><p class="text-gray-500 max-w-2xl mx-auto text-sm md:text-base">نسعى في نادي الهندسة المدنية والبيئية لبناء بيئة متكاملة تجمع بين التفوق الأكاديمي والتطبيق العملي.</p></div>
@@ -133,7 +125,6 @@
 
     </main>
 
-    <!-- الفوتر مع سلايدر الرعاة -->
     <footer class="bg-white border-t border-gray-200 mt-auto pt-8 pb-6 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-6"><h3 class="text-base md:text-lg font-bold text-gray-600 mb-4">شركاء النجاح</h3>
@@ -153,11 +144,10 @@
 
     <script>
         const SHEET_ID = '2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
-        const GIDS = { settings: '913996604', events: '1271537226', sponsors: '1058957318', honours: '0' };
+        const GIDS = { settings: '913996604', events: '1271537226', sponsors: '1058957318', honours: '1180954321' };
         function getSheetURL(gid){ return `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${gid}&single=true&output=csv`; }
         function parseCSVRow(row){ const c=[]; let col='', q=false; for(let i=0;i<row.length;i++){ const ch=row[i]; if(ch==='"') q=!q; else if(ch===','&&!q){ c.push(col.trim()); col=''; } else col+=ch; } c.push(col.trim()); return c; }
 
-        // تأثيرات الظهور
         function handleScroll(){ 
             document.querySelectorAll('.fade-in').forEach(el=>{ const rect=el.getBoundingClientRect(); if(rect.top<window.innerHeight-100) el.classList.add('show'); });
             document.getElementById('scrollTopBtn').classList.toggle('hidden',window.scrollY<300);
@@ -165,14 +155,12 @@
         window.addEventListener('scroll',handleScroll);
         window.addEventListener('load',handleScroll);
 
-        // عداد متحرك
         function animateCounter(id,target){
             const el=document.getElementById(id); if(!el) return;
             let current=0; const step=Math.ceil(target/50);
             const timer=setInterval(()=>{ current+=step; if(current>=target){ current=target; clearInterval(timer); } el.textContent=current; },30);
         }
 
-        // مشاركة
         function sharePage(p){ const url=encodeURIComponent(window.location.href); const text=encodeURIComponent('نادي الهندسة المدنية والبيئية بجامعة الملك فيصل'); const links={twitter:`https://twitter.com/intent/tweet?text=${text}&url=${url}`,whatsapp:`https://wa.me/?text=${text}%20${url}`}; window.open(links[p],'_blank','width=600,height=400'); }
         function copyPageLink(){ navigator.clipboard.writeText(window.location.href); alert('تم نسخ الرابط ✅'); }
         window.sharePage=sharePage; window.copyPageLink=copyPageLink;
@@ -183,6 +171,9 @@
                 const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1); const s={};
                 rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length>=2) s[c[0].trim()]=c[1].trim(); });
                 if(s['حجم_الشعار']) document.getElementById('header-logo').className=`${s['حجم_الشعار']} object-contain`;
+                if(s['وصف_الرئيسية']){
+                    document.getElementById('hero-desc').textContent = s['وصف_الرئيسية'];
+                }
                 let soc='';
                 if(s['رابط_تويتر']&&s['رابط_تويتر']!=='#') soc+=`<a href="${s['رابط_تويتر']}" target="_blank" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-x-twitter"></i></a>`;
                 if(s['رابط_انستقرام']&&s['رابط_انستقرام']!=='#') soc+=`<a href="${s['رابط_انستقرام']}" target="_blank" class="text-gray-400 hover:text-pink-600 transition"><i class="fa-brands fa-instagram"></i></a>`;
