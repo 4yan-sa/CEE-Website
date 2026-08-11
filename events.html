@@ -127,7 +127,7 @@
         const eventsURL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${EVENTS_GID}&single=true&output=csv`;
         const settingsURL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${SETTINGS_GID}&single=true&output=csv`;
 
-        let currentEventData = null, allEvents = [], evalLinkGlobal = '#';
+        let currentEventData = null, allEvents = [], evalLinkGlobal = '#', currentAttendanceCode = '';
 
         function parseCSVRow(row){ const c=[]; let col='',q=false; for(let i=0;i<row.length;i++){ const ch=row[i]; if(ch==='"') q=!q; else if(ch===','&&!q){ c.push(col.trim()); col=''; } else col+=ch; } c.push(col.trim()); return c; }
         function sharePage(p,u){ const url=encodeURIComponent(u||window.location.href); const text=encodeURIComponent('نادي الهندسة المدنية والبيئية بجامعة الملك فيصل'); const links={twitter:`https://twitter.com/intent/tweet?text=${text}&url=${url}`,whatsapp:`https://wa.me/?text=${text}%20${url}`}; window.open(links[p],'_blank','width=600,height=400'); }
@@ -171,7 +171,9 @@
             const isCancelled=event.status==='ملغية';
             document.getElementById('event-detail-register').classList.toggle('hidden',!isUpcoming||isCancelled);
             document.getElementById('event-detail-register').href=event.regLink||'#';
-            document.getElementById('event-detail-attendance').classList.toggle('hidden',!(isUpcoming&&event.type==='ورشة'&&!isCancelled));
+            const isWorkshop = event.type==='ورشة' && event.attendanceCode && !isCancelled;
+            document.getElementById('event-detail-attendance').classList.toggle('hidden',!isWorkshop);
+            if(isWorkshop){ currentAttendanceCode = event.attendanceCode; }
             document.getElementById('event-detail-modal').classList.remove('hidden');
             document.body.style.overflow='hidden';
         }
@@ -183,9 +185,9 @@
         async function verifyAttendanceCode(){
             const inputs=document.querySelectorAll('.code-input'); const code=Array.from(inputs).map(i=>i.value).join('-');
             try{ const r=await fetch(`${SCRIPT_URL}?code=${encodeURIComponent(code)}`); const data=await r.json();
-                if(data.success){ closeAttendanceModal(); closeEventDetail(); window.open(evalLinkGlobal||'#','_blank'); }
+                if(data.success){ closeAttendanceModal(); closeEventDetail(); window.open(data.evalLink||evalLinkGlobal||'#','_blank'); }
                 else { document.getElementById('code-error').classList.remove('hidden'); inputs.forEach(i=>i.value=''); inputs[0].focus(); }
-            }catch(e){ document.getElementById('code-error').classList.remove('hidden'); document.getElementById('code-error').textContent='حدث خطأ'; }
+            }catch(e){ document.getElementById('code-error').classList.remove('hidden'); document.getElementById('code-error').textContent='حدث خطأ، حاول مرة أخرى'; }
         }
 
         function shareEvent(){ if(currentEventData) sharePage('twitter',window.location.href); }
@@ -198,10 +200,9 @@
                 const today=new Date(); today.setHours(0,0,0,0); allEvents=[];
                 rows.forEach(row=>{
                     const c=parseCSVRow(row); if(c.length<3||!c[1]) return;
-                    const event={type:c[0]?.trim()||'',name:c[1]?.trim()||'',image:c[2]?.trim()||'',desc:c[3]?.trim()||'',dateStr:c[4]?.trim()||'',time:c[5]?.trim()||'',location:c[6]?.trim()||'',regLink:c[7]?.trim()||'#',status:c[8]?.trim()||'',sponsor1:c[9]?.trim()||'',sponsor2:c[10]?.trim()||'',sponsor3:c[11]?.trim()||''};
+                    const event={type:c[0]?.trim()||'',name:c[1]?.trim()||'',image:c[2]?.trim()||'',desc:c[3]?.trim()||'',dateStr:c[4]?.trim()||'',time:c[5]?.trim()||'',location:c[6]?.trim()||'',regLink:c[7]?.trim()||'#',status:c[8]?.trim()||'',sponsor1:c[9]?.trim()||'',sponsor2:c[10]?.trim()||'',sponsor3:c[11]?.trim()||'',attendanceCode:c[12]?.trim()||''};
                     const ed=new Date(event.dateStr); if(isNaN(ed.getTime())) return;
                     allEvents.push(event); const card=createEventCard(event,allEvents.length-1);
-                    // ✅ التصنيف حسب الحالة أولاً
                     if(event.status==='ملغية'){ cHTML+=card; cCount++; }
                     else if(event.status==='منتهية'){ pHTML+=card; pCount++; }
                     else if(ed>=today){ uHTML+=card; uCount++; }
