@@ -65,8 +65,9 @@
             <div id="loading-message" class="loading"><i class="fas fa-spinner fa-spin text-3xl md:text-4xl mb-3 block"></i><p class="text-gray-600 text-sm">جاري تحميل الهيكل الإداري...</p></div>
             <div id="all-sections-container"></div>
             <div class="flex justify-center gap-3 mt-8 fade-in">
-                <button onclick="shareTeam('whatsapp')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition" title="واتساب"><i class="fa-brands fa-whatsapp text-sm"></i></button>
-                <button onclick="shareTeam('linkedin')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition" title="لينكد إن"><i class="fa-brands fa-linkedin text-sm"></i></button>
+                <button onclick="shareWhatsApp('🏛️ الهيكل الإداري', 'team.html')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition" title="واتساب"><i class="fa-brands fa-whatsapp text-sm"></i></button>
+                <button onclick="shareLinkedIn('🏛️ الهيكل الإداري', 'team.html')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition" title="لينكد إن"><i class="fa-brands fa-linkedin text-sm"></i></button>
+                <button onclick="shareTwitter('🏛️ الهيكل الإداري', 'team.html')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-sky-400 hover:text-white transition" title="تويتر"><i class="fa-brands fa-twitter text-sm"></i></button>
                 <button onclick="copyPageLink()" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-300 transition" title="نسخ الرابط"><i class="fa-solid fa-link text-sm"></i></button>
             </div>
             <div id="error-message" class="hidden text-center py-12"><i class="fas fa-exclamation-triangle text-4xl md:text-5xl text-red-400 mb-3 block"></i><p class="text-red-500 text-base md:text-lg font-bold">حدث خطأ في تحميل البيانات</p></div>
@@ -83,9 +84,22 @@
         const DEFAULT_MALE = 'https://tse2.mm.bing.net/th/id/OIP.uoxrI-GPxRPiAUf24vsQjgHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3';
         const DEFAULT_FEMALE = 'https://tse1.mm.bing.net/th/id/OIP.I-ELJV14EMBpcsr3Gl5MyQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3';
 
-        function shareTeam(platform){ const text='🏛️ الهيكل الإداري - نادي الهندسة المدنية والبيئية بجامعة الملك فيصل'; const link=window.location.href; if(platform==='whatsapp'){ window.open('https://wa.me/?text='+encodeURIComponent(text+'\n\n'+link),'_blank'); } else if(platform==='linkedin'){ window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(link),'_blank'); } }
+        function shareWhatsApp(title, url) {
+            const text = `🔹 ${title} 🔹\n\nمن نادي الهندسة المدنية والبيئية بجامعة الملك فيصل 🏛️\n\nتستاهلون تشوفون الإبداع 👇\n${window.location.origin}/${url}`;
+            window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+        }
+        function shareLinkedIn(title, url) {
+            const text = `فخور بمجتمع نادي الهندسة المدنية والبيئية بجامعة الملك فيصل! 🏆\n\n${title}\n\nشوفو التفاصيل هنا 👇\n${window.location.origin}/${url}\n\n#الهندسة_المدنية #جامعة_الملك_فيصل #CEE`;
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if(isMobile){ window.location.href = 'linkedin://feed/?shareActive=true&text=' + encodeURIComponent(text); }
+            else { window.open('https://www.linkedin.com/feed/?shareActive=true&text=' + encodeURIComponent(text), '_blank'); }
+        }
+        function shareTwitter(title, url) {
+            const text = `${title} 🏆\n\nمن نادي الهندسة المدنية والبيئية بجامعة الملك فيصل\n\n${window.location.origin}/${url}\n\n#CEE #KFU`;
+            window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text), '_blank');
+        }
         function copyPageLink(){ navigator.clipboard.writeText(window.location.href); alert('تم نسخ الرابط ✅'); }
-        window.shareTeam=shareTeam; window.copyPageLink=copyPageLink;
+        window.shareWhatsApp=shareWhatsApp; window.shareLinkedIn=shareLinkedIn; window.shareTwitter=shareTwitter; window.copyPageLink=copyPageLink;
 
         function handleScroll(){ document.querySelectorAll('.fade-in').forEach(el=>{ const rect=el.getBoundingClientRect(); if(rect.top<window.innerHeight-100) el.classList.add('show'); }); }
         window.addEventListener('scroll',handleScroll); window.addEventListener('load',handleScroll);
