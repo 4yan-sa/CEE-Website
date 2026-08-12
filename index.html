@@ -107,8 +107,9 @@
                 <div class="text-center mb-10"><span class="inline-block bg-cee-gold text-white text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">🏆</span><h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">لوحة الصدارة</h2><div class="w-20 h-1 bg-cee-gold mx-auto"></div></div>
                 <div id="honours-container"><div class="text-center text-gray-400 py-8 text-sm">جاري التحميل...</div></div>
                 <div class="flex justify-center gap-3 mt-8">
-                    <button onclick="shareHonours('whatsapp')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition" title="واتساب"><i class="fa-brands fa-whatsapp text-sm"></i></button>
-                    <button onclick="shareHonours('linkedin')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition" title="لينكد إن"><i class="fa-brands fa-linkedin text-sm"></i></button>
+                    <button onclick="shareWhatsApp('🏆 لوحة الصدارة', 'index.html#honours')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition" title="واتساب"><i class="fa-brands fa-whatsapp text-sm"></i></button>
+                    <button onclick="shareLinkedIn('🏆 لوحة الصدارة', 'index.html#honours')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition" title="لينكد إن"><i class="fa-brands fa-linkedin text-sm"></i></button>
+                    <button onclick="shareTwitter('🏆 لوحة الصدارة', 'index.html#honours')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-sky-400 hover:text-white transition" title="تويتر"><i class="fa-brands fa-twitter text-sm"></i></button>
                     <button onclick="copyPageLink()" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-300 transition" title="نسخ الرابط"><i class="fa-solid fa-link text-sm"></i></button>
                 </div>
             </div>
@@ -149,13 +150,26 @@
 
         let allIndexEvents = [], currentDetailEvent = null, currentAttendanceCode = '', currentEvalLink = '';
 
+        function shareWhatsApp(title, url) {
+            const text = `🔹 ${title} 🔹\n\nمن نادي الهندسة المدنية والبيئية بجامعة الملك فيصل 🏛️\n\nتستاهلون تشوفون الإبداع 👇\n${window.location.origin}/${url}`;
+            window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+        }
+        function shareLinkedIn(title, url) {
+            const text = `فخور بمجتمع نادي الهندسة المدنية والبيئية بجامعة الملك فيصل! 🏆\n\n${title}\n\nشوفو التفاصيل هنا 👇\n${window.location.origin}/${url}\n\n#الهندسة_المدنية #جامعة_الملك_فيصل #CEE`;
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if(isMobile){ window.location.href = 'linkedin://feed/?shareActive=true&text=' + encodeURIComponent(text); }
+            else { window.open('https://www.linkedin.com/feed/?shareActive=true&text=' + encodeURIComponent(text), '_blank'); }
+        }
+        function shareTwitter(title, url) {
+            const text = `${title} 🏆\n\nمن نادي الهندسة المدنية والبيئية بجامعة الملك فيصل\n\n${window.location.origin}/${url}\n\n#CEE #KFU`;
+            window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text), '_blank');
+        }
+        function copyPageLink(){ navigator.clipboard.writeText(window.location.href.split('#')[0] + '#honours'); alert('تم نسخ الرابط ✅'); }
+        window.shareWhatsApp=shareWhatsApp; window.shareLinkedIn=shareLinkedIn; window.shareTwitter=shareTwitter; window.copyPageLink=copyPageLink;
+
         function handleScroll(){ document.querySelectorAll('.fade-in').forEach(el=>{ const rect=el.getBoundingClientRect(); if(rect.top<window.innerHeight-100) el.classList.add('show'); }); document.getElementById('scrollTopBtn').classList.toggle('hidden',window.scrollY<300); }
         window.addEventListener('scroll',handleScroll); window.addEventListener('load',handleScroll);
         function animateCounter(id,target){ const el=document.getElementById(id); if(!el) return; let current=0; const step=Math.ceil(target/50); const timer=setInterval(()=>{ current+=step; if(current>=target){ current=target; clearInterval(timer); } el.textContent=current; },30); }
-
-        function shareHonours(platform){ const text='🏆 لوحة الصدارة - نادي الهندسة المدنية والبيئية بجامعة الملك فيصل'; const link = window.location.href.split('#')[0] + '#honours'; if(platform==='whatsapp'){ window.open('https://wa.me/?text='+encodeURIComponent(text+'\n\n'+link),'_blank'); } else if(platform==='linkedin'){ window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(link),'_blank'); } }
-        function copyPageLink(){ navigator.clipboard.writeText(window.location.href.split('#')[0] + '#honours'); alert('تم نسخ الرابط ✅'); }
-        window.shareHonours=shareHonours; window.copyPageLink=copyPageLink;
 
         function openEventDetail(index){ const event=allIndexEvents[index]; if(!event) return; currentDetailEvent=event; document.getElementById('event-detail-title').textContent=event.name; document.getElementById('event-detail-type').textContent=event.type; document.getElementById('event-detail-date').textContent=event.dateStr; document.getElementById('event-detail-time').textContent=event.time; document.getElementById('event-detail-location').textContent=event.location; document.getElementById('event-detail-desc').textContent=event.desc; const imgDiv=document.getElementById('event-detail-image'); if(event.image&&event.image.startsWith('http')){ imgDiv.innerHTML=`<img src="${event.image}" alt="${event.name}" class="w-full h-full object-cover rounded-t-2xl" onerror="this.parentElement.innerHTML='<i class=\\'fa-solid fa-calendar-check text-5xl text-white opacity-50\\'></i>'">`; } else { imgDiv.innerHTML='<i class="fa-solid fa-calendar-check text-5xl text-white opacity-50"></i>'; } const spDiv=document.getElementById('event-detail-sponsors'); const sponsors=[event.sponsor1,event.sponsor2,event.sponsor3].filter(s=>s); spDiv.innerHTML=sponsors.length>0?`<p class="text-sm font-bold text-gray-700 mb-2">🤝 برعاية:</p><div class="flex flex-wrap gap-2">${sponsors.map(s=>`<span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${s}</span>`).join('')}</div>`:''; const today=new Date(); today.setHours(0,0,0,0); const ed=new Date(event.dateStr); const isUpcoming=ed>=today&&event.status!=='منتهية'; const isCancelled=event.status==='ملغية'; document.getElementById('event-detail-register').classList.toggle('hidden',!isUpcoming||isCancelled); document.getElementById('event-detail-attendance').classList.toggle('hidden',!(isUpcoming&&event.type==='ورشة'&&event.attendanceCode&&!isCancelled)); document.getElementById('event-detail-ended').classList.toggle('hidden',!(!isUpcoming&&!isCancelled)); document.getElementById('event-detail-modal').classList.remove('hidden'); document.body.style.overflow='hidden'; }
         function closeEventDetail(){ document.getElementById('event-detail-modal').classList.add('hidden'); document.body.style.overflow=''; }
