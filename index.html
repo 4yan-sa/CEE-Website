@@ -25,6 +25,13 @@
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .code-input { transition: all 0.2s; }
         .code-input:focus { border-color: #8A1538; box-shadow: 0 0 0 3px rgba(138, 21, 56, 0.1); }
+        .honours-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: end; gap: 1rem; }
+        .honours-grid .first { grid-column: 2; grid-row: 1; }
+        .honours-grid .second { grid-column: 1; grid-row: 2; }
+        .honours-grid .third { grid-column: 3; grid-row: 2; }
+        @media (max-width: 767px) {
+            .honours-grid { gap: 0.5rem; }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
@@ -101,7 +108,7 @@
         <section id="honours" class="bg-white py-12 md:py-16 fade-in">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-8"><span class="inline-block bg-cee-gold text-white text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">🏆</span><h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">لوحة الصدارة</h2><div class="w-20 h-1 bg-cee-gold mx-auto"></div></div>
-                <div id="honours-container" class="flex justify-center gap-4 md:gap-8 flex-wrap"><div class="text-center text-gray-400 py-8 text-sm">جاري التحميل...</div></div>
+                <div id="honours-container" class="honours-grid max-w-lg mx-auto"><div class="text-center text-gray-400 py-8 col-span-3 text-sm">جاري التحميل...</div></div>
                 <div class="flex justify-center gap-3 mt-6">
                     <button onclick="sharePage('twitter')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-400 hover:text-white transition"><i class="fa-brands fa-twitter text-sm"></i></button>
                     <button onclick="sharePage('whatsapp')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition"><i class="fa-brands fa-whatsapp text-sm"></i></button>
@@ -334,14 +341,14 @@
                 let members=[]; const medals=['🥇','🥈','🥉'];
                 rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length>=3&&c[0]) members.push({name:c[0].trim(),role:c[1].trim(),points:parseInt(c[2].trim())||0,image:c[3]?c[3].trim():''}); });
                 if(members.length>0){
-                    // ✅ ترتيب حسب النقاط تنازلياً
                     members.sort((a, b) => b.points - a.points);
                     const top3=members.slice(0,3);
-                    cont.innerHTML=top3.map((m,i)=>`<div class="text-center">
+                    const buildCard = (m, i, cls) => `<div class="${cls}">
                         <div class="text-4xl mb-2">${medals[i]||'⭐'}</div>
                         ${m.image?`<img src="${m.image}" alt="${m.name}" class="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover mx-auto mb-2 border-2 ${i===0?'border-cee-gold':i===1?'border-gray-400':i===2?'border-orange-400':'border-gray-200'} shadow" onerror="this.style.display='none'">`:`<div class="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto mb-2 border-2 ${i===0?'border-cee-gold':i===1?'border-gray-400':i===2?'border-orange-400':'border-gray-200'} shadow flex items-center justify-center bg-gray-100 text-2xl font-bold text-cee-red">${m.name.charAt(0)}</div>`}
-                        <h3 class="font-bold text-sm md:text-base">${m.name}</h3><p class="text-xs text-gray-500">${m.role}</p><p class="text-cee-red font-bold text-sm">${m.points} نقطة</p></div>`).join('');
-                }else{ cont.innerHTML='<div class="text-center text-gray-400 py-8 text-sm">لا يوجد أعضاء حالياً</div>'; }
+                        <h3 class="font-bold text-sm md:text-base">${m.name}</h3><p class="text-xs text-gray-500">${m.role}</p><p class="text-cee-red font-bold text-sm">${m.points} نقطة</p></div>`;
+                    cont.innerHTML = buildCard(top3[0], 0, 'first') + buildCard(top3[1], 1, 'second') + (top3[2] ? buildCard(top3[2], 2, 'third') : '');
+                }else{ cont.innerHTML='<div class="text-center text-gray-400 py-8 col-span-3 text-sm">لا يوجد أعضاء حالياً</div>'; }
             }catch(e){ console.error(e); }
         }
 
