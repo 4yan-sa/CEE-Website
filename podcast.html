@@ -39,7 +39,7 @@
                     <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition">الهيكل الإداري</a>
                     <a href="events.html" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات والورش</a>
                     <a href="index.html#honours" class="text-gray-700 hover:text-cee-gold font-bold transition">🏆 لوحة الصدارة</a>
-                    <div class="border-r border-gray-300 pr-4"><a href="#" class="bg-cee-red text-white px-4 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a></div>
+                    <div class="border-r border-gray-300 pr-4"><a href="#" id="join-btn" class="bg-cee-red text-white px-4 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a></div>
                 </nav>
                 <div class="md:hidden flex items-center"><button id="mobile-menu-btn" class="text-cee-red hover:text-red-900 focus:outline-none"><i class="fa-solid fa-bars text-2xl"></i></button></div>
             </div>
@@ -81,6 +81,24 @@
         const SHEET_ID='2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
         const GID='1104498095';
         const url=`https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${GID}&single=true&output=csv`;
+        const SETTINGS_URL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=913996604&single=true&output=csv`;
+
+        // ✅ ربط زر انضم إلينا
+        async function loadJoinLink(){
+            try{
+                const r = await fetch(SETTINGS_URL);
+                const d = await r.text();
+                const rows = d.split('\n').filter(row => row.trim() !== '').slice(1);
+                rows.forEach(row => {
+                    const c = row.split(',');
+                    if(c[0].trim() === 'رابط_الانضمام'){
+                        document.querySelectorAll('a').forEach(a => {
+                            if(a.textContent.includes('انضم')) a.href = c[1].trim();
+                        });
+                    }
+                });
+            }catch(e){}
+        }
 
         function shareWhatsApp(title, url) {
             const text = `🔹 ${title} 🔹\n\nمن نادي الهندسة المدنية والبيئية بجامعة الملك فيصل 🏛️\n\nتستاهلون تشوفون الإبداع 👇\n${window.location.origin}/${url}`;
@@ -142,7 +160,7 @@
         }
 
         document.getElementById('mobile-menu-btn').addEventListener('click',()=>{ document.getElementById('mobile-menu').classList.toggle('hidden'); });
-        document.addEventListener('DOMContentLoaded',fetchPodcast);
+        document.addEventListener('DOMContentLoaded',() => { fetchPodcast(); loadJoinLink(); });
     </script>
 </body>
 </html>
