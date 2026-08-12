@@ -23,6 +23,8 @@
         .fade-in.show { opacity: 1; transform: translateY(0); }
         .gender-line-m { width: 40px; height: 3px; background: #3B82F6; margin: 0 auto 6px; border-radius: 2px; }
         .gender-line-f { width: 40px; height: 3px; background: #EC4899; margin: 0 auto 6px; border-radius: 2px; }
+        .avatar-placeholder-m { width: 70px; height: 70px; border-radius: 50%; background: #DBEAFE; color: #3B82F6; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 8px; }
+        .avatar-placeholder-f { width: 70px; height: 70px; border-radius: 50%; background: #FCE7F3; color: #EC4899; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 8px; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
@@ -88,12 +90,23 @@
         window.addEventListener('scroll',handleScroll); window.addEventListener('load',handleScroll);
 
         function createMemberCard(m){
-            const img=(m.imageURL&&m.imageURL.startsWith('http'))?m.imageURL:'https://via.placeholder.com/150';
+            let avatarHTML = '';
+            if(m.imageURL&&m.imageURL.startsWith('http')){
+                avatarHTML = `<img src="${m.imageURL}" alt="${m.name}" class="w-20 h-20 md:w-32 md:h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-cee-gold transition" onerror="this.src='https://via.placeholder.com/150'">`;
+            } else if(m.gender === 'ذكر'){
+                avatarHTML = `<div class="avatar-placeholder-m"><i class="fa-solid fa-male"></i></div>`;
+            } else if(m.gender === 'أنثى'){
+                avatarHTML = `<div class="avatar-placeholder-f"><i class="fa-solid fa-female"></i></div>`;
+            } else {
+                avatarHTML = `<div class="w-20 h-20 md:w-32 md:h-32 rounded-full bg-gray-200 flex items-center justify-center text-gray-400"><i class="fa-solid fa-user text-4xl"></i></div>`;
+            }
+            
             let lb=''; if(m.linkedin&&m.linkedin!==''&&m.linkedin!=='#') lb=`<a href="${m.linkedin}" target="_blank" class="inline-flex items-center justify-center w-7 h-7 md:w-10 md:h-10 rounded-full bg-gray-50 text-blue-600 hover:bg-blue-600 hover:text-white transition shadow-sm border border-gray-100"><i class="fa-brands fa-linkedin-in text-xs md:text-lg"></i></a>`;
             const genderLine = m.gender === 'ذكر' ? '<div class="gender-line-m"></div>' : m.gender === 'أنثى' ? '<div class="gender-line-f"></div>' : '';
+            
             return `<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-md md:shadow-lg border border-gray-100 transform hover:-translate-y-1 md:hover:-translate-y-2 transition duration-300 group">
                 <div class="h-20 md:h-32 bg-gradient-to-r from-cee-red to-red-900 relative"></div>
-                <div class="flex justify-center -mt-10 md:-mt-16 relative z-10"><img src="${img}" alt="${m.name}" class="w-20 h-20 md:w-32 md:h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-cee-gold transition" onerror="this.src='https://via.placeholder.com/150'"></div>
+                <div class="flex justify-center -mt-10 md:-mt-16 relative z-10">${avatarHTML}</div>
                 <div class="p-3 md:p-6 text-center flex flex-col items-center">${genderLine}<h3 class="text-sm md:text-xl font-bold text-gray-900 mb-0.5">${m.name}</h3><p class="text-cee-gold font-bold mb-2 md:mb-3 text-xs md:text-sm">${m.role}</p>${lb}</div></div>`;
         }
 
