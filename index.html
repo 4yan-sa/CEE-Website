@@ -332,8 +332,10 @@
                 const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1);
                 const cont=document.getElementById('honours-container');
                 let members=[]; const medals=['🥇','🥈','🥉'];
-                rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length>=3&&c[0]) members.push({name:c[0].trim(),role:c[1].trim(),points:c[2].trim(),image:c[3]?c[3].trim():''}); });
+                rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length>=3&&c[0]) members.push({name:c[0].trim(),role:c[1].trim(),points:parseInt(c[2].trim())||0,image:c[3]?c[3].trim():''}); });
                 if(members.length>0){
+                    // ✅ ترتيب حسب النقاط تنازلياً
+                    members.sort((a, b) => b.points - a.points);
                     const top3=members.slice(0,3);
                     cont.innerHTML=top3.map((m,i)=>`<div class="text-center ${i===0?'order-2 scale-110':''}">
                         <div class="text-4xl mb-2">${medals[i]||'⭐'}</div>
