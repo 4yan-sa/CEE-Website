@@ -1,1 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الهيكل الإداري | نادي الهندسة المدنية والبيئية بجامعة الملك فيصل</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+        body { font-family: 'Tajawal', sans-serif; }
+        .text-cee-red { color: #8A1538; } 
+        .bg-cee-red { background-color: #8A1538; }
+        .text-cee-gold { color: #D4AF37; }
+        .loading { text-align: center; padding: 2rem; font-size: 1.2rem; color: #8A1538; }
+        .divider-line { height: 2px; background: linear-gradient(to right, transparent, #D4AF37, transparent); }
+        .horizontal-scroll { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; gap: 12px; padding-bottom: 8px; scrollbar-width: none; }
+        .horizontal-scroll::-webkit-scrollbar { display: none; }
+        .horizontal-scroll > * { flex: 0 0 auto; width: 180px; scroll-snap-align: start; }
+        .scroll-hint { display: flex; align-items: center; justify-content: center; gap: 4px; color: #9CA3AF; font-size: 12px; margin-top: 8px; }
+        @media (min-width: 768px) { .scroll-hint { display: none; } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .fade-in.show { opacity: 1; transform: translateY(0); }
+        .gender-line-m { width: 40px; height: 3px; background: #3B82F6; margin: 0 auto 6px; border-radius: 2px; }
+        .gender-line-f { width: 40px; height: 3px; background: #EC4899; margin: 0 auto 6px; border-radius: 2px; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20 md:h-24">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="flex items-center gap-2">
+                        <img src="upload/logo.jpg" alt="شعار النادي" class="h-16 md:h-20 w-auto object-contain">
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-reverse space-x-4 items-center text-sm">
+                    <a href="index.html" class="text-gray-700 hover:text-cee-red font-medium transition">الرئيسية</a>
+                    <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition">بودكاست صدى</a>
+                    <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">الهيكل الإداري</a>
+                    <a href="events.html" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات والورش</a>
+                    <a href="index.html#honours" class="text-gray-700 hover:text-cee-gold font-bold transition">🏆 لوحة الصدارة</a>
+                    <div class="border-r border-gray-300 pr-4"><a href="#" class="bg-cee-red text-white px-4 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a></div>
+                </nav>
+                <div class="md:hidden flex items-center"><button id="mobile-menu-btn" class="text-cee-red hover:text-red-900 focus:outline-none"><i class="fa-solid fa-bars text-2xl"></i></button></div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full z-40">
+            <a href="index.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الرئيسية</a>
+            <a href="podcast.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">بودكاست صدى</a>
+            <a href="team.html" class="block px-6 py-3 text-cee-red bg-gray-50 border-b font-bold text-sm">الهيكل الإداري</a>
+            <a href="events.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الفعاليات والورش</a>
+            <a href="index.html#honours" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-bold text-sm">🏆 لوحة الصدارة</a>
+        </div>
+    </header>
+
+    <div class="bg-gray-900 py-12 md:py-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10"><div class="absolute top-10 right-10 w-48 h-48 md:w-64 md:h-64 bg-cee-red rounded-full blur-3xl"></div><div class="absolute bottom-10 left-10 w-48 h-48 md:w-80 md:h-80 bg-cee-gold rounded-full blur-3xl"></div></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center"><h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3">الهيكل الإداري</h1><p class="text-gray-300 text-sm md:text-lg">قيادات النادي وأقسامه</p><div class="w-20 h-1 bg-cee-gold mx-auto mt-4"></div></div>
+    </div>
+
+    <main class="flex-grow w-full py-10 md:py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="loading-message" class="loading"><i class="fas fa-spinner fa-spin text-3xl md:text-4xl mb-3 block"></i><p class="text-gray-600 text-sm">جاري تحميل الهيكل الإداري...</p></div>
+            <div id="all-sections-container"></div>
+            <div class="flex justify-center gap-3 mt-8 fade-in">
+                <button onclick="shareTeam('whatsapp')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition" title="واتساب"><i class="fa-brands fa-whatsapp text-sm"></i></button>
+                <button onclick="shareTeam('linkedin')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition" title="لينكد إن"><i class="fa-brands fa-linkedin text-sm"></i></button>
+                <button onclick="copyPageLink()" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-300 transition" title="نسخ الرابط"><i class="fa-solid fa-link text-sm"></i></button>
+            </div>
+            <div id="error-message" class="hidden text-center py-12"><i class="fas fa-exclamation-triangle text-4xl md:text-5xl text-red-400 mb-3 block"></i><p class="text-red-500 text-base md:text-lg font-bold">حدث خطأ في تحميل البيانات</p></div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-auto pt-8 pb-6"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"><div class="text-gray-500 text-xs md:text-sm">&copy; 2026 جميع الحقوق محفوظة لنادي الهندسة المدنية والبيئية بجامعة الملك فيصل.</div></div></footer>
+
+    <script>
+        const SHEET_ID='2PACX-1vTTmslwOnMco3H0llzrWqaw0EJxp8d7uOoxx0gv8-fwX2mKXopC_LEkEyI1OXO3Qm9mjXNphPFbSewf';
+        const GID='1696676545';
+        const url=`https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${GID}&single=true&output=csv`;
+
+        const DEFAULT_MALE = 'https://tse1.mm.bing.net/th/id/OIP.I-ELJV14EMBpcsr3Gl5MyQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3';
+        const DEFAULT_FEMALE = 'https://tse2.mm.bing.net/th/id/OIP.uoxrI-GPxRPiAUf24vsQjgHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3';
+
+        function shareTeam(platform){ const text='🏛️ الهيكل الإداري - نادي الهندسة المدنية والبيئية بجامعة الملك فيصل'; const link=window.location.href; if(platform==='whatsapp'){ window.open('https://wa.me/?text='+encodeURIComponent(text+'\n\n'+link),'_blank'); } else if(platform==='linkedin'){ window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(link),'_blank'); } }
+        function copyPageLink(){ navigator.clipboard.writeText(window.location.href); alert('تم نسخ الرابط ✅'); }
+        window.shareTeam=shareTeam; window.copyPageLink=copyPageLink;
+
+        function handleScroll(){ document.querySelectorAll('.fade-in').forEach(el=>{ const rect=el.getBoundingClientRect(); if(rect.top<window.innerHeight-100) el.classList.add('show'); }); }
+        window.addEventListener('scroll',handleScroll); window.addEventListener('load',handleScroll);
+
+        function createMemberCard(m){
+            let avatarSrc = '';
+            if(m.imageURL&&m.imageURL.startsWith('http')){
+                avatarSrc = m.imageURL;
+            } else if(m.gender === 'ذكر'){
+                avatarSrc = DEFAULT_MALE;
+            } else if(m.gender === 'أنثى'){
+                avatarSrc = DEFAULT_FEMALE;
+            } else {
+                avatarSrc = 'https://via.placeholder.com/150';
+            }
+            
+            let lb=''; if(m.linkedin&&m.linkedin!==''&&m.linkedin!=='#') lb=`<a href="${m.linkedin}" target="_blank" class="inline-flex items-center justify-center w-7 h-7 md:w-10 md:h-10 rounded-full bg-gray-50 text-blue-600 hover:bg-blue-600 hover:text-white transition shadow-sm border border-gray-100"><i class="fa-brands fa-linkedin-in text-xs md:text-lg"></i></a>`;
+            const genderLine = m.gender === 'ذكر' ? '<div class="gender-line-m"></div>' : m.gender === 'أنثى' ? '<div class="gender-line-f"></div>' : '';
+            
+            return `<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-md md:shadow-lg border border-gray-100 transform hover:-translate-y-1 md:hover:-translate-y-2 transition duration-300 group">
+                <div class="h-20 md:h-32 bg-gradient-to-r from-cee-red to-red-900 relative"></div>
+                <div class="flex justify-center -mt-10 md:-mt-16 relative z-10"><img src="${avatarSrc}" alt="${m.name}" class="w-20 h-20 md:w-32 md:h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-cee-gold transition" onerror="this.src='https://via.placeholder.com/150'"></div>
+                <div class="p-3 md:p-6 text-center flex flex-col items-center">${genderLine}<h3 class="text-sm md:text-xl font-bold text-gray-900 mb-0.5">${m.name}</h3><p class="text-cee-gold font-bold mb-2 md:mb-3 text-xs md:text-sm">${m.role}</p>${lb}</div></div>`;
+        }
+
+        function createSectionBlock(name,members,isMgmt=false){
+            const badge=isMgmt?'القيادة':'قسم',badgeClass=isMgmt?'bg-cee-red text-white':'bg-gray-200 text-gray-700',gridCols=isMgmt?'lg:grid-cols-3':'lg:grid-cols-4';
+            const mHTML=members.map(m=>createMemberCard(m)).join('');
+            return `<div class="mb-14 md:mb-20 fade-in"><div class="text-center mb-6 md:mb-10"><span class="inline-block ${badgeClass} text-xs md:text-sm font-bold px-3 py-1 rounded-full mb-3">${badge}</span><h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-2">${name}</h2><div class="w-16 md:w-20 h-1 bg-cee-gold mx-auto"></div></div><div class="horizontal-scroll md:grid md:grid-cols-3 ${gridCols} md:gap-6 lg:gap-8">${mHTML}</div><div class="scroll-hint"><i class="fa-solid fa-chevron-right text-xs"></i><span>اسحب للمزيد</span><i class="fa-solid fa-chevron-left text-xs"></i></div></div>`;
+        }
+
+        function createDivider(){ return `<div class="mb-14 md:mb-20 fade-in"><div class="relative flex items-center justify-center"><div class="flex-grow divider-line"></div><div class="mx-4 md:mx-8 bg-white rounded-full px-4 md:px-6 py-1.5 md:py-2 shadow-md border border-gray-200"><span class="text-cee-red font-bold text-sm md:text-lg"><i class="fas fa-layer-group ml-1 md:ml-2"></i>الأقسام</span></div><div class="flex-grow divider-line"></div></div></div>`; }
+
+        function parseCSVRow(row){ const c=[]; let col='',q=false; for(let i=0;i<row.length;i++){ const ch=row[i]; if(ch==='"') q=!q; else if(ch===','&&!q){ c.push(col.trim()); col=''; } else col+=ch; } c.push(col.trim()); return c; }
+
+        async function fetchTeam(){
+            const lm=document.getElementById('loading-message'),cont=document.getElementById('all-sections-container'),em=document.getElementById('error-message');
+            try{
+                const r=await fetch(url); const d=await r.text(); const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1);
+                if(rows.length===0) throw new Error('لا توجد بيانات');
+                const allSections=[]; const seen=new Set();
+                rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length<5||!c[0]) return; const name=c[0].replace(/"/g,'').trim(),role=c[1].replace(/"/g,'').trim(),img=c[2]?c[2].replace(/"/g,'').trim():'',li=c[3]?c[3].replace(/"/g,'').trim():'',cat=c[4]?c[4].replace(/"/g,'').trim():'',gender=c[5]?c[5].replace(/"/g,'').trim():''; if(cat==='') return; const member={name,role,imageURL:img,linkedin:li,gender}; const isMgmt=(cat==='إدارة عليا'||cat==='ادارة عليا'||cat==='الإدارة العليا'); if(!seen.has(cat)){ seen.add(cat); allSections.push({name:cat,members:[member],isManagement:isMgmt}); } else { const sec=allSections.find(s=>s.name===cat); if(sec) sec.members.push(member); } });
+                lm.classList.add('hidden');
+                if(allSections.length===0){ em.classList.remove('hidden'); return; }
+                let html=''; let divAdded=false;
+                allSections.forEach(sec=>{ if(!sec.isManagement&&!divAdded){ html+=createDivider(); divAdded=true; } html+=createSectionBlock(sec.name,sec.members,sec.isManagement); });
+                cont.innerHTML=html; setTimeout(handleScroll,100);
+            }catch(e){ console.error(e); lm.classList.add('hidden'); em.classList.remove('hidden'); }
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click',()=>{ document.getElementById('mobile-menu').classList.toggle('hidden'); });
+        document.addEventListener('DOMContentLoaded',fetchTeam);
+    </script>
+</body>
+</html>
