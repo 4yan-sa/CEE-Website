@@ -37,7 +37,7 @@
                     <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition">الهيكل الإداري</a>
                     <a href="events.html" class="text-gray-700 hover:text-cee-red font-medium transition border-b-2 border-cee-red pb-1">الفعاليات والورش</a>
                     <a href="index.html#honours" class="text-gray-700 hover:text-cee-gold font-bold transition">🏆 لوحة الصدارة</a>
-                    <div class="border-r border-gray-300 pr-4"><a href="#" id="join-btn" class="bg-cee-red text-white px-4 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</a></div>
+                    <div class="border-r border-gray-300 pr-4"><button onclick="openJoinModal()" class="bg-cee-red text-white px-4 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</button></div>
                 </nav>
                 <div class="md:hidden flex items-center"><button id="mobile-menu-btn" class="text-cee-red hover:text-red-900 focus:outline-none"><i class="fa-solid fa-bars text-2xl"></i></button></div>
             </div>
@@ -48,6 +48,7 @@
             <a href="team.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الهيكل الإداري</a>
             <a href="events.html" class="block px-6 py-3 text-cee-red bg-gray-50 border-b font-bold text-sm">الفعاليات والورش</a>
             <a href="index.html#honours" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-bold text-sm">🏆 لوحة الصدارة</a>
+            <button onclick="openJoinModal()" class="block w-full px-6 py-4 bg-cee-red text-white font-bold text-center text-sm">انضم إلينا</button>
         </div>
     </header>
 
@@ -80,6 +81,19 @@
             <div id="error-message" class="hidden text-center py-12"><i class="fas fa-exclamation-triangle text-4xl text-red-400 mb-3 block"></i><p class="text-red-500 font-bold">حدث خطأ</p></div>
         </div>
     </main>
+
+    <!-- نافذة انضم إلينا -->
+    <div id="join-modal" class="fixed inset-0 bg-black bg-opacity-70 z-[70] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl modal">
+            <button onclick="closeJoinModal()" class="float-left text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-xl font-bold text-gray-900 mb-6">انضم إلينا 🎉</h3>
+            <p class="text-gray-600 text-sm mb-6">اختر نوع التسجيل:</p>
+            <div class="flex flex-col gap-4">
+                <a id="male-join-link" href="#" target="_blank" class="bg-cee-red text-white py-3 rounded-xl font-bold hover:bg-red-900 transition">👤 تسجيل الطلاب</a>
+                <a id="female-join-link" href="#" target="_blank" class="bg-cee-gold text-gray-900 py-3 rounded-xl font-bold hover:bg-yellow-500 transition">👩 تسجيل الطالبات</a>
+            </div>
+        </div>
+    </div>
 
     <!-- نافذة توسعة الصورة -->
     <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-95 z-[60] hidden flex items-center justify-center p-4" onclick="closeImageModal()">
@@ -141,6 +155,45 @@
         let currentEventData = null, allEvents = [], evalLinkGlobal = '#', currentAttendanceCode = '';
         let sponsorsMap = {};
 
+        // ===== دوال نافذة انضم إلينا =====
+        function openJoinModal() { 
+            document.getElementById('join-modal').classList.remove('hidden'); 
+            document.getElementById('join-modal').classList.add('flex'); 
+            document.body.style.overflow = 'hidden';
+        }
+        function closeJoinModal() { 
+            document.getElementById('join-modal').classList.add('hidden'); 
+            document.getElementById('join-modal').classList.remove('flex'); 
+            document.body.style.overflow = '';
+        }
+        window.openJoinModal = openJoinModal; 
+        window.closeJoinModal = closeJoinModal;
+        document.getElementById('join-modal').addEventListener('click', function(e) { 
+            if(e.target === this) closeJoinModal(); 
+        });
+        document.addEventListener('keydown', function(e) { 
+            if(e.key === 'Escape') closeJoinModal(); 
+        });
+
+        async function loadJoinLinks() {
+            try {
+                const r = await fetch(settingsURL);
+                const d = await r.text();
+                const rows = d.split('\n').filter(row => row.trim() !== '').slice(1);
+                rows.forEach(row => {
+                    const c = parseCSVRow(row);
+                    if(c[0].trim() === 'رابط_تسجيل_الطلاب') { 
+                        document.getElementById('male-join-link').href = c[1].trim(); 
+                    }
+                    if(c[0].trim() === 'رابط_تسجيل_الطالبات') { 
+                        document.getElementById('female-join-link').href = c[1].trim(); 
+                    }
+                });
+            } catch(e) { 
+                console.error('خطأ في تحميل روابط الانضمام:', e); 
+            }
+        }
+
         function openImageModal(src) { document.getElementById('image-modal-img').src = src; document.getElementById('image-modal').classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
         function closeImageModal() { document.getElementById('image-modal').classList.add('hidden'); document.body.style.overflow = ''; }
         document.addEventListener('keydown', function(e) { if(e.key === 'Escape') closeImageModal(); });
@@ -174,7 +227,6 @@
                 const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1); 
                 rows.forEach(row=>{ const c=parseCSVRow(row); 
                     if(c[0].trim()==='رابط_نموذج_التقييم') evalLinkGlobal=c[1].trim();
-                    if(c[0].trim()==='رابط_الانضمام'){ document.querySelectorAll('a').forEach(a => { if(a.textContent.includes('انضم')) a.href = c[1].trim(); }); }
                 }); 
             }catch(e){ console.error(e); } 
         }
@@ -204,7 +256,6 @@
             const statusBadge = isCancelled ? 'ملغية' : !isUpcoming ? 'منتهية' : '';
             const instructor = event.instructor ? `<p class="text-gray-500 text-xs mb-2"><i class="fa-solid fa-user-tie ml-1 text-cee-gold"></i> ${event.instructor}</p>` : '';
             
-            // ✅ جلب شعارات الرعاة
             const sponsorNames = [event.sponsor1, event.sponsor2, event.sponsor3].filter(s => s && s !== '');
             let sponsorsHTML = '';
             if(sponsorNames.length > 0) {
@@ -309,7 +360,7 @@
         document.getElementById('event-detail-modal').addEventListener('click',function(e){ if(e.target===this) closeEventDetail(); });
         document.getElementById('attendance-modal').addEventListener('click',function(e){ if(e.target===this) closeAttendanceModal(); });
         document.getElementById('mobile-menu-btn').addEventListener('click',()=>{ document.getElementById('mobile-menu').classList.toggle('hidden'); });
-        async function init(){ await loadSettings(); await loadSponsorsMap(); await loadEvents(); }
+        async function init(){ await loadJoinLinks(); await loadSettings(); await loadSponsorsMap(); await loadEvents(); }
         document.addEventListener('DOMContentLoaded',init);
     </script>
 </body>
