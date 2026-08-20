@@ -23,6 +23,9 @@
         .fade-in.show { opacity: 1; transform: translateY(0); }
         .gender-line-m { width: 40px; height: 3px; background: #3B82F6; margin: 0 auto 6px; border-radius: 2px; }
         .gender-line-f { width: 40px; height: 3px; background: #EC4899; margin: 0 auto 6px; border-radius: 2px; }
+        .admin-toggle { transition: all 0.3s; }
+        .admin-toggle.active { background: #8A1538; color: white; }
+        .hidden-section { display: none; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
@@ -62,8 +65,25 @@
 
     <main class="flex-grow w-full py-10 md:py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- ✅ زر التبديل -->
+            <div class="flex justify-center gap-4 mb-10">
+                <button id="btn-current" class="admin-toggle active px-6 py-2 rounded-lg font-bold shadow" onclick="showCurrentAdmin()">
+                    <i class="fa-solid fa-users ml-2"></i>الإدارة الحالية
+                </button>
+                <button id="btn-past" class="admin-toggle bg-gray-100 text-gray-700 px-6 py-2 rounded-lg font-bold shadow hover:bg-gray-200" onclick="showPastAdmin()">
+                    <i class="fa-solid fa-clock-rotate-left ml-2"></i>الإدارة السابقة
+                </button>
+            </div>
+
             <div id="loading-message" class="loading"><i class="fas fa-spinner fa-spin text-3xl md:text-4xl mb-3 block"></i><p class="text-gray-600 text-sm">جاري تحميل الهيكل الإداري...</p></div>
-            <div id="all-sections-container"></div>
+            
+            <!-- الإدارة الحالية -->
+            <div id="current-admin-container"></div>
+            
+            <!-- الإدارة السابقة -->
+            <div id="past-admin-container" class="hidden-section"></div>
+
             <div class="flex justify-center gap-3 mt-8 fade-in">
                 <button onclick="shareWhatsApp('🏛️ الهيكل الإداري', 'team.html')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition" title="واتساب"><i class="fa-brands fa-whatsapp text-sm"></i></button>
                 <button onclick="shareLinkedIn('🏛️ الهيكل الإداري', 'team.html')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition" title="لينكد إن"><i class="fa-brands fa-linkedin text-sm"></i></button>
@@ -85,7 +105,6 @@
         const DEFAULT_MALE = 'https://tse2.mm.bing.net/th/id/OIP.uoxrI-GPxRPiAUf24vsQjgHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3';
         const DEFAULT_FEMALE = 'https://tse1.mm.bing.net/th/id/OIP.I-ELJV14EMBpcsr3Gl5MyQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3';
 
-        // ✅ ربط زر انضم إلينا
         async function loadJoinLink(){
             try{
                 const r = await fetch(SETTINGS_URL);
@@ -151,18 +170,74 @@
 
         function parseCSVRow(row){ const c=[]; let col='',q=false; for(let i=0;i<row.length;i++){ const ch=row[i]; if(ch==='"') q=!q; else if(ch===','&&!q){ c.push(col.trim()); col=''; } else col+=ch; } c.push(col.trim()); return c; }
 
+        function showCurrentAdmin(){
+            document.getElementById('current-admin-container').classList.remove('hidden-section');
+            document.getElementById('past-admin-container').classList.add('hidden-section');
+            document.getElementById('btn-current').classList.add('active');
+            document.getElementById('btn-current').classList.remove('bg-gray-100','text-gray-700');
+            document.getElementById('btn-past').classList.remove('active');
+            document.getElementById('btn-past').classList.add('bg-gray-100','text-gray-700');
+        }
+
+        function showPastAdmin(){
+            document.getElementById('current-admin-container').classList.add('hidden-section');
+            document.getElementById('past-admin-container').classList.remove('hidden-section');
+            document.getElementById('btn-past').classList.add('active');
+            document.getElementById('btn-past').classList.remove('bg-gray-100','text-gray-700');
+            document.getElementById('btn-current').classList.remove('active');
+            document.getElementById('btn-current').classList.add('bg-gray-100','text-gray-700');
+        }
+
+        window.showCurrentAdmin = showCurrentAdmin;
+        window.showPastAdmin = showPastAdmin;
+
         async function fetchTeam(){
-            const lm=document.getElementById('loading-message'),cont=document.getElementById('all-sections-container'),em=document.getElementById('error-message');
+            const lm=document.getElementById('loading-message'),currCont=document.getElementById('current-admin-container'),pastCont=document.getElementById('past-admin-container'),em=document.getElementById('error-message');
             try{
                 const r=await fetch(url); const d=await r.text(); const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1);
                 if(rows.length===0) throw new Error('لا توجد بيانات');
-                const allSections=[]; const seen=new Set();
-                rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length<5||!c[0]) return; const name=c[0].replace(/"/g,'').trim(),role=c[1].replace(/"/g,'').trim(),img=c[2]?c[2].replace(/"/g,'').trim():'',li=c[3]?c[3].replace(/"/g,'').trim():'',cat=c[4]?c[4].replace(/"/g,'').trim():'',gender=c[5]?c[5].replace(/"/g,'').trim():''; if(cat==='') return; const member={name,role,imageURL:img,linkedin:li,gender}; const isMgmt=(cat==='إدارة عليا'||cat==='ادارة عليا'||cat==='الإدارة العليا'); if(!seen.has(cat)){ seen.add(cat); allSections.push({name:cat,members:[member],isManagement:isMgmt}); } else { const sec=allSections.find(s=>s.name===cat); if(sec) sec.members.push(member); } });
+                
+                const currentSections=[]; const pastSections=[];
+                const seenCurrent=new Set(); const seenPast=new Set();
+                
+                rows.forEach(row=>{ 
+                    const c=parseCSVRow(row); 
+                    if(c.length<5||!c[0]) return; 
+                    const name=c[0].replace(/"/g,'').trim(),role=c[1].replace(/"/g,'').trim(),img=c[2]?c[2].replace(/"/g,'').trim():'',li=c[3]?c[3].replace(/"/g,'').trim():'',cat=c[4]?c[4].replace(/"/g,'').trim():'',gender=c[5]?c[5].replace(/"/g,'').trim():'',isPast=c[6]?c[6].replace(/"/g,'').trim():'';
+                    if(cat==='') return; 
+                    const member={name,role,imageURL:img,linkedin:li,gender}; 
+                    const isMgmt=(cat==='إدارة عليا'||cat==='ادارة عليا'||cat==='الإدارة العليا');
+                    
+                    if(isPast === 'نعم' || isPast === 'نعم ') {
+                        if(!seenPast.has(cat)){ seenPast.add(cat); pastSections.push({name:cat,members:[member],isManagement:isMgmt}); } 
+                        else { const sec=pastSections.find(s=>s.name===cat); if(sec) sec.members.push(member); }
+                    } else {
+                        if(!seenCurrent.has(cat)){ seenCurrent.add(cat); currentSections.push({name:cat,members:[member],isManagement:isMgmt}); } 
+                        else { const sec=currentSections.find(s=>s.name===cat); if(sec) sec.members.push(member); }
+                    }
+                });
+                
                 lm.classList.add('hidden');
-                if(allSections.length===0){ em.classList.remove('hidden'); return; }
-                let html=''; let divAdded=false;
-                allSections.forEach(sec=>{ if(!sec.isManagement&&!divAdded){ html+=createDivider(); divAdded=true; } html+=createSectionBlock(sec.name,sec.members,sec.isManagement); });
-                cont.innerHTML=html; setTimeout(handleScroll,100);
+                
+                // الإدارة الحالية
+                let currHTML=''; let divAddedCurr=false;
+                if(currentSections.length > 0) {
+                    currentSections.forEach(sec=>{ if(!sec.isManagement&&!divAddedCurr){ currHTML+=createDivider(); divAddedCurr=true; } currHTML+=createSectionBlock(sec.name,sec.members,sec.isManagement); });
+                    currCont.innerHTML=currHTML;
+                } else {
+                    currCont.innerHTML='<div class="text-center text-gray-400 py-8">لا يوجد أعضاء في الإدارة الحالية</div>';
+                }
+                
+                // الإدارة السابقة
+                let pastHTML=''; let divAddedPast=false;
+                if(pastSections.length > 0) {
+                    pastSections.forEach(sec=>{ if(!sec.isManagement&&!divAddedPast){ pastHTML+=createDivider(); divAddedPast=true; } pastHTML+=createSectionBlock(sec.name,sec.members,sec.isManagement); });
+                    pastCont.innerHTML=pastHTML;
+                } else {
+                    pastCont.innerHTML='<div class="text-center text-gray-400 py-8">لا يوجد أعضاء في الإدارة السابقة</div>';
+                }
+                
+                setTimeout(handleScroll,100);
             }catch(e){ console.error(e); lm.classList.add('hidden'); em.classList.remove('hidden'); }
         }
 
