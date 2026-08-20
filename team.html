@@ -78,10 +78,7 @@
 
             <div id="loading-message" class="loading"><i class="fas fa-spinner fa-spin text-3xl md:text-4xl mb-3 block"></i><p class="text-gray-600 text-sm">جاري تحميل الهيكل الإداري...</p></div>
             
-            <!-- الإدارة الحالية -->
             <div id="current-admin-container"></div>
-            
-            <!-- الإدارة السابقة -->
             <div id="past-admin-container" class="hidden-section"></div>
 
             <div class="flex justify-center gap-3 mt-8 fade-in">
@@ -205,6 +202,10 @@
                     if(c.length<5||!c[0]) return; 
                     const name=c[0].replace(/"/g,'').trim(),role=c[1].replace(/"/g,'').trim(),img=c[2]?c[2].replace(/"/g,'').trim():'',li=c[3]?c[3].replace(/"/g,'').trim():'',cat=c[4]?c[4].replace(/"/g,'').trim():'',gender=c[5]?c[5].replace(/"/g,'').trim():'',isPast=c[6]?c[6].replace(/"/g,'').trim():'';
                     if(cat==='') return; 
+                    
+                    // ✅ خيار الحذف - يتخطى تماماً
+                    if(isPast === 'حذف' || isPast === 'حذف ') return;
+                    
                     const member={name,role,imageURL:img,linkedin:li,gender}; 
                     const isMgmt=(cat==='إدارة عليا'||cat==='ادارة عليا'||cat==='الإدارة العليا');
                     
@@ -219,7 +220,6 @@
                 
                 lm.classList.add('hidden');
                 
-                // الإدارة الحالية
                 let currHTML=''; let divAddedCurr=false;
                 if(currentSections.length > 0) {
                     currentSections.forEach(sec=>{ if(!sec.isManagement&&!divAddedCurr){ currHTML+=createDivider(); divAddedCurr=true; } currHTML+=createSectionBlock(sec.name,sec.members,sec.isManagement); });
@@ -228,7 +228,6 @@
                     currCont.innerHTML='<div class="text-center text-gray-400 py-8">لا يوجد أعضاء في الإدارة الحالية</div>';
                 }
                 
-                // الإدارة السابقة
                 let pastHTML=''; let divAddedPast=false;
                 if(pastSections.length > 0) {
                     pastSections.forEach(sec=>{ if(!sec.isManagement&&!divAddedPast){ pastHTML+=createDivider(); divAddedPast=true; } pastHTML+=createSectionBlock(sec.name,sec.members,sec.isManagement); });
