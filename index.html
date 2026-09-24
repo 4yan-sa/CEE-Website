@@ -252,6 +252,13 @@
             return loc.includes('عن بعد') || loc.includes('أونلاين') || loc.includes('اونلاين') || loc.includes('online') || loc.includes('zoom') || loc.includes('teams') || loc.includes('remotely');
         }
 
+        // ✅ دالة مساعدة: تحليل التاريخ
+        function parseDate(dateStr) {
+            if(!dateStr || !dateStr.trim()) return null;
+            const d = new Date(dateStr);
+            return isNaN(d.getTime()) ? null : d;
+        }
+
         function getGenderBadge(gender) {
             if(!gender) return '';
             const g = gender.trim();
@@ -423,8 +430,9 @@
             if(!event) return; 
             currentDetailEvent=event; 
             document.getElementById('event-detail-title').textContent=event.name; 
-            document.getElementById('event-detail-date').textContent=event.dateStr; 
-            document.getElementById('event-detail-time').textContent=event.time; 
+            // ✅ التاريخ أو "يحدد لاحقاً"
+            document.getElementById('event-detail-date').textContent = event.dateStr || 'يحدد لاحقاً'; 
+            document.getElementById('event-detail-time').textContent=event.time || 'يحدد لاحقاً'; 
             document.getElementById('event-detail-desc').textContent=event.desc; 
             document.getElementById('event-detail-instructor').textContent = event.instructor || 'يحدد لاحقاً';
 
@@ -441,9 +449,8 @@
 
             const locIcon = isOnline ? '<i class="fa-solid fa-wifi ml-2 text-cyan-500"></i>' : '<i class="fa-solid fa-location-dot ml-2 text-cee-red"></i>';
             const locWrap = document.getElementById('event-detail-location-wrap');
-            locWrap.innerHTML = `${locIcon} <span id="event-detail-location">${event.location}</span>`;
+            locWrap.innerHTML = `${locIcon} <span id="event-detail-location">${event.location || 'يحدد لاحقاً'}</span>`;
 
-            // ✅ زر ادخل القاعة الافتراضية
             const meetingBtn = document.getElementById('event-detail-meeting');
             if(event.meetingLink && event.meetingLink.startsWith('http')) {
                 meetingBtn.href = event.meetingLink;
@@ -471,8 +478,8 @@
                 spDiv.innerHTML=sponsorsHTML;
             } else { spDiv.innerHTML=''; }
             const today=new Date(); today.setHours(0,0,0,0); 
-            const ed=new Date(event.dateStr); 
-            const isUpcoming=ed>=today&&event.status!=='منتهية'; 
+            const ed = parseDate(event.dateStr);
+            const isUpcoming = (!ed || ed>=today) && event.status!=='منتهية'; 
             const isCancelled=event.status==='ملغية'; 
             document.getElementById('event-detail-register').classList.toggle('hidden',!isUpcoming||isCancelled); 
             document.getElementById('event-detail-register').href=event.regLink||'#'; 
@@ -516,9 +523,7 @@
                     const attendanceCode=c[12]?.trim()||''; 
                     const instructor=c[13]?.trim()||''; 
                     const gender=c[14]?.trim()||'';
-                    // ✅ P = رابط الاجتماع
                     const meetingLink = c[15]?.trim() || '';
-                    // ✅ المسابقات من Q
                     const compPlatform = c[16]?.trim() || '';
                     const compTitle = c[17]?.trim() || '';
                     const compDesc = c[18]?.trim() || '';
@@ -529,28 +534,40 @@
                     const compStatus = c[23]?.trim() || 'نشطة';
                     const compImage = c[24]?.trim() || '';
                     
-                    // ✅ 1) معالجة المسابقة (إذا موجودة) — بدون return
+                    // ✅ 1) معالجة المسابقة
                     if(compPlatform && compTitle && compStatus !== 'منتهية') {
                         compHtml += createCompetitionCard({
-                            platform: compPlatform,
-                            title: compTitle,
-                            desc: compDesc,
-                            prize: compPrize,
-                            sponsor: compSponsor,
-                            postLink: compLink,
-                            deadline: compDeadline,
-                            status: compStatus,
-                            image: compImage
+                            platform: compPlatform, title: compTitle, desc: compDesc, prize: compPrize,
+                            sponsor: compSponsor, postLink: compLink, deadline: compDeadline,
+                            status: compStatus, image: compImage
                         });
                         compCount++;
                     }
                     
-                    // ✅ 2) معالجة الفعالية (إذا موجودة) — مستقلة
-                    if(!name || !dateStr) return;
-                    const ed=new Date(dateStr); 
-                    if(isNaN(ed.getTime())||status==='ملغية'||status==='منتهية'||ed<today) return; 
+                    // ✅ 2) معالجة الفعالية
+                    if(!name) return;
+                    
+                    if(status === 'ملغية' || status === 'منتهية') return;
+                    
+                    const ed = parseDate(dateStr);
+                    // ✅ لو فيه تاريخ وانتهت، نتجاهلها | لو ما فيه تاريخ، نعرضها كـ "قادمة"
+                    if(ed && ed < today) return;
+                    
                     if(type==='ورشة') wc++; 
-                    const day=dateStr.split('/')[2]||'', month=dateStr.split('/')[1]||''; 
+                    
+                    // ✅ تحضير البادج التاريخي
+                    let dateBadge = '';
+                    if(dateStr && dateStr.trim()) {
+                        const parts = dateStr.split('/');
+                        if(parts.length === 3) {
+                            dateBadge = `<div class="absolute top-3 right-3 bg-white text-cee-red font-bold px-2 py-1 rounded-md shadow text-xs">${parts[2]} / ${parts[1]}</div>`;
+                        } else {
+                            dateBadge = `<div class="absolute top-3 right-3 bg-yellow-400 text-gray-900 font-bold px-2 py-1 rounded-md shadow text-xs"><i class="fa-solid fa-clock ml-1"></i>يحدد لاحقاً</div>`;
+                        }
+                    } else {
+                        dateBadge = `<div class="absolute top-3 right-3 bg-yellow-400 text-gray-900 font-bold px-2 py-1 rounded-md shadow text-xs"><i class="fa-solid fa-clock ml-1"></i>يحدد لاحقاً</div>`;
+                    }
+                    
                     const eventData={type,name,image,desc,dateStr,time,location,regLink,status,attendanceCode,sponsor1,sponsor2,sponsor3,instructor,gender,meetingLink}; 
                     allIndexEvents.push(eventData); 
                     const instructorHTML = instructor ? `<p class="text-gray-500 text-xs mb-2"><i class="fa-solid fa-user-tie ml-1 text-cee-gold"></i> ${instructor}</p>` : ''; 
@@ -565,7 +582,7 @@
                     html+=`<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openEventDetail(${allIndexEvents.length-1})">
                         <div class="h-40 md:h-48 bg-gray-200 relative">
                             <img src="${imageSrc}" alt="${name}" class="w-full h-full object-cover cursor-zoom-in" onclick="event.stopPropagation();openImageModal('${imageSrc}')" onerror="this.src='${getDefaultImage('افتراضي')}'">
-                            <div class="absolute top-3 right-3 bg-white text-cee-red font-bold px-2 py-1 rounded-md shadow text-xs">${day} / ${month}</div>
+                            ${dateBadge}
                             ${onlineBadge}
                         </div>
                         <div class="p-4 md:p-6 flex-grow flex flex-col">
@@ -575,13 +592,13 @@
                                     ${genderBadge}
                                     ${hasCertificate?`<span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-1 rounded" title="يوجد شهادة حضور"><i class="fa-solid fa-certificate ml-1"></i>شهادة</span>`:''}
                                 </div>
-                                <span class="text-xs text-gray-500 whitespace-nowrap"><i class="fa-regular fa-clock ml-1"></i> ${time}</span>
+                                <span class="text-xs text-gray-500 whitespace-nowrap"><i class="fa-regular fa-clock ml-1"></i> ${time || 'يحدد لاحقاً'}</span>
                             </div>
                             <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-1">${name}</h3>
                             ${instructorHTML}
                             <p class="text-gray-600 text-xs md:text-sm mb-3 flex-grow line-clamp-2">${desc}</p>
                             <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
-                                <span class="text-xs font-bold text-gray-500">${locationIcon} ${location}</span>
+                                <span class="text-xs font-bold text-gray-500">${locationIcon} ${location || 'يحدد لاحقاً'}</span>
                                 <span class="text-cee-red text-xs font-bold">اضغط للتفاصيل <i class="fa-solid fa-arrow-left mr-1"></i></span>
                             </div>
                         </div>
