@@ -20,6 +20,46 @@
         .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
         .fade-in.show { opacity: 1; transform: translateY(0); }
         .event-img { width: 100%; height: 100%; object-fit: contain; background-color: #f3f4f6; }
+        
+        /* ✅ سحب أفقي للفعاليات على الجوال */
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            gap: 12px;
+            padding-bottom: 8px;
+            scrollbar-width: none;
+        }
+        .horizontal-scroll::-webkit-scrollbar { display: none; }
+        .horizontal-scroll > * {
+            flex: 0 0 auto;
+            width: 280px;
+            scroll-snap-align: start;
+        }
+        @media (min-width: 768px) {
+            .horizontal-scroll {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 24px;
+            }
+            .horizontal-scroll > * { width: auto; }
+        }
+        @media (min-width: 1024px) {
+            .horizontal-scroll {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        .scroll-hint {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #9CA3AF;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+        @media (min-width: 768px) { .scroll-hint { display: none; } }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
@@ -65,15 +105,18 @@
             <div id="loading-message" class="loading"><i class="fas fa-spinner fa-spin text-3xl md:text-4xl mb-3 block"></i><p class="text-gray-600 text-sm">جاري تحميل الفعاليات...</p></div>
             <div id="upcoming-section" class="mb-16 fade-in">
                 <div class="text-center mb-10"><span class="inline-block bg-cee-red text-white text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">قادمة</span><h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">الفعاليات القادمة</h2><div class="w-20 h-1 bg-cee-gold mx-auto"></div></div>
-                <div id="upcoming-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد فعاليات قادمة حالياً</div></div>
+                <div id="upcoming-container" class="horizontal-scroll"><div class="text-center text-gray-400 py-12 text-sm">لا توجد فعاليات قادمة حالياً</div></div>
+                <div class="scroll-hint"><i class="fa-solid fa-chevron-right text-xs"></i><span>اسحب للمزيد</span><i class="fa-solid fa-chevron-left text-xs"></i></div>
             </div>
             <div id="past-section" class="mb-16 hidden fade-in">
                 <div class="text-center mb-10"><span class="inline-block bg-gray-300 text-gray-600 text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">منتهية</span><h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">الفعاليات السابقة</h2><div class="w-20 h-1 bg-gray-400 mx-auto"></div></div>
-                <div id="past-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-75"></div>
+                <div id="past-container" class="horizontal-scroll opacity-75"></div>
+                <div class="scroll-hint"><i class="fa-solid fa-chevron-right text-xs"></i><span>اسحب للمزيد</span><i class="fa-solid fa-chevron-left text-xs"></i></div>
             </div>
             <div id="cancelled-section" class="hidden fade-in">
                 <div class="text-center mb-10"><span class="inline-block bg-red-100 text-red-600 text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">ملغية</span><h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">فعاليات ملغية</h2><div class="w-20 h-1 bg-red-400 mx-auto"></div></div>
-                <div id="cancelled-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-60"></div>
+                <div id="cancelled-container" class="horizontal-scroll opacity-60"></div>
+                <div class="scroll-hint"><i class="fa-solid fa-chevron-right text-xs"></i><span>اسحب للمزيد</span><i class="fa-solid fa-chevron-left text-xs"></i></div>
             </div>
             <div class="flex justify-center gap-3 mt-8 fade-in">
                 <button onclick="shareWhatsApp('📅 الفعاليات والورش', 'events.html')" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition" title="واتساب"><i class="fa-brands fa-whatsapp text-sm"></i></button>
@@ -215,7 +258,6 @@
             return '';
         }
 
-        // ✅ الصور الافتراضية
         function getDefaultImage(type) {
             const t = (type || '').trim();
             const WORKSHOP_IMG = 'https://i.imgur.com/n9yfJoc.png';
@@ -299,7 +341,6 @@
             const onlineBadge = isOnline ? `<div class="absolute bottom-3 left-3 bg-cyan-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 z-10 shadow-md"><i class="fa-solid fa-wifi"></i><span>عن بعد</span></div>` : '';
             const locationIcon = isOnline ? '<i class="fa-solid fa-wifi ml-1 text-cyan-500"></i>' : '<i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i>';
             
-            // ✅ event-img class
             return `<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openEventDetail(${index})">
                 <div class="h-40 md:h-48 bg-gray-100 relative">
                     <img src="${imageSrc}" alt="${event.name}" class="event-img cursor-zoom-in" onclick="event.stopPropagation();openImageModal('${imageSrc}')" onerror="this.src='${getDefaultImage('افتراضي')}'">
@@ -424,7 +465,7 @@
                     else { uHTML+=card; uCount++; }
                 });
                 lm.classList.add('hidden');
-                uc.innerHTML=uCount>0?uHTML:'<div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد فعاليات قادمة حالياً</div>';
+                uc.innerHTML=uCount>0?uHTML:'<div class="text-center text-gray-400 py-12 text-sm">لا توجد فعاليات قادمة حالياً</div>';
                 if(pCount>0){ ps.classList.remove('hidden'); pc.innerHTML=pHTML; }
                 if(cCount>0){ cs.classList.remove('hidden'); cc.innerHTML=cHTML; }
                 if(uCount===0&&pCount===0&&cCount===0){ em.classList.remove('hidden'); }
