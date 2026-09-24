@@ -36,7 +36,7 @@
             flex: 0 0 auto;
             width: 280px;
             scroll-snap-align: start;
-            height: 500px;
+            height: 420px;
             display: flex;
             flex-direction: column;
         }
@@ -49,7 +49,7 @@
             }
             .horizontal-scroll > .event-card {
                 width: auto;
-                height: 500px;
+                height: 420px;
             }
         }
         @media (min-width: 1024px) {
@@ -362,9 +362,10 @@
                     </div>
                     <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-1 line-clamp-2 flex-shrink-0">${event.name}</h3>
                     ${instructor}
-                    <p class="text-gray-600 text-xs md:text-sm mb-3 flex-grow line-clamp-2">${event.desc}</p>
+                    <p class="text-gray-600 text-xs md:text-sm mb-3 line-clamp-2">${event.desc}</p>
                     ${sponsorsHTML}
-                    <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100 flex-shrink-0">
+                    <div class="flex-grow"></div>
+                    <div class="flex items-center justify-between pt-3 border-t border-gray-100 flex-shrink-0">
                         <span class="text-xs font-bold text-gray-500 truncate">${locationIcon} ${event.location || 'يحدد لاحقاً'}</span>
                         ${isCancelled?'<span class="text-red-500 text-xs">ملغية</span>':isUpcoming?`<span class="text-cee-red text-xs font-bold whitespace-nowrap">اضغط للتفاصيل</span>`:`<span class="bg-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-lg whitespace-nowrap">انتهت الفعالية</span>`}
                     </div>
