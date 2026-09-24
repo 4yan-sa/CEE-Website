@@ -32,8 +32,47 @@
         .stand-2 { background: linear-gradient(180deg, #A0A0A0 0%, #707070 100%); height: 120px; }
         .stand-3 { background: linear-gradient(180deg, #CD7F32 0%, #A0522D 100%); height: 90px; }
         @media (max-width: 640px) { .podium-container { gap: 0.5rem; } .stand-1 { height: 130px; } .stand-2 { height: 100px; } .stand-3 { height: 75px; } }
-        /* ✅ صورة كاملة داخل الكرت */
         .event-img { width: 100%; height: 100%; object-fit: contain; background-color: #f3f4f6; }
+        
+        /* ✅ سحب أفقي للفعاليات والمسابقات على الجوال */
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            gap: 12px;
+            padding-bottom: 8px;
+            scrollbar-width: none;
+        }
+        .horizontal-scroll::-webkit-scrollbar { display: none; }
+        .horizontal-scroll > * {
+            flex: 0 0 auto;
+            width: 280px;
+            scroll-snap-align: start;
+        }
+        @media (min-width: 768px) {
+            .horizontal-scroll {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 24px;
+            }
+            .horizontal-scroll > * { width: auto; }
+        }
+        @media (min-width: 1024px) {
+            .horizontal-scroll {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        .scroll-hint {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #9CA3AF;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+        @media (min-width: 768px) { .scroll-hint { display: none; } }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
@@ -109,7 +148,8 @@
         <section id="events" class="bg-gray-900 py-12 md:py-16 fade-in">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-10"><h2 class="text-2xl md:text-3xl font-extrabold text-white mb-3">الفعاليات القادمة</h2><div class="w-20 h-1 bg-cee-gold mx-auto"></div><p class="text-gray-400 mt-3 text-sm">لا تفوت فرصتك وسجل الآن</p></div>
-                <div id="upcoming-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد فعاليات قادمة حالياً</div></div>
+                <div id="upcoming-container" class="horizontal-scroll"><div class="text-center text-gray-400 py-12 text-sm">لا توجد فعاليات قادمة حالياً</div></div>
+                <div class="scroll-hint"><i class="fa-solid fa-chevron-right text-xs"></i><span>اسحب للمزيد</span><i class="fa-solid fa-chevron-left text-xs"></i></div>
                 <div class="text-center mt-10"><a href="events.html" class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-3 rounded-xl font-bold hover:bg-white/20 transition">عرض جميع الفعاليات والورش <i class="fa-solid fa-arrow-left mr-2"></i></a></div>
             </div>
         </section>
@@ -128,9 +168,10 @@
                     <div class="w-20 h-1 bg-cee-gold mx-auto"></div>
                     <p class="text-gray-500 mt-3 text-sm">مسابقات حصرية عبر حساباتنا في السوشيال ميديا</p>
                 </div>
-                <div id="competitions-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="text-center text-gray-400 py-12 col-span-full text-sm">جاري التحميل...</div>
+                <div id="competitions-container" class="horizontal-scroll">
+                    <div class="text-center text-gray-400 py-12 text-sm">جاري التحميل...</div>
                 </div>
+                <div class="scroll-hint"><i class="fa-solid fa-chevron-right text-xs"></i><span>اسحب للمزيد</span><i class="fa-solid fa-chevron-left text-xs"></i></div>
             </div>
         </section>
 
@@ -269,11 +310,10 @@
             return '';
         }
 
-        // ✅ الصور الافتراضية الجديدة
         function getDefaultImage(type) {
             const t = (type || '').trim();
-            const WORKSHOP_IMG = 'https://i.imgur.com/n9yfJoc.png';   // ورشة/دورة/محاضرة/عن بعد
-            const EVENT_IMG = 'https://i.imgur.com/O7R20rZ.png';       // فعالية/ندوة/حفل
+            const WORKSHOP_IMG = 'https://i.imgur.com/n9yfJoc.png';
+            const EVENT_IMG = 'https://i.imgur.com/O7R20rZ.png';
             
             const images = {
                 'ورشة': WORKSHOP_IMG,
@@ -578,7 +618,6 @@
                     const hasImage = image && image.startsWith('http');
                     const imageSrc = hasImage ? image : getDefaultImage(type);
                     
-                    // ✅ الصورة بـ object-contain عشان تطلع كاملة
                     html+=`<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openEventDetail(${allIndexEvents.length-1})">
                         <div class="h-40 md:h-48 bg-gray-100 relative">
                             <img src="${imageSrc}" alt="${name}" class="event-img cursor-zoom-in" onclick="event.stopPropagation();openImageModal('${imageSrc}')" onerror="this.src='${getDefaultImage('افتراضي')}'">
@@ -605,8 +644,8 @@
                     </div>`; 
                     count++; 
                 }); 
-                cont.innerHTML=count>0?html:'<div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد فعاليات قادمة حالياً</div>'; 
-                compCont.innerHTML = compCount > 0 ? compHtml : '<div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد مسابقات حالياً 🎯</div>';
+                cont.innerHTML=count>0?html:'<div class="text-center text-gray-400 py-12 text-sm">لا توجد فعاليات قادمة حالياً</div>'; 
+                compCont.innerHTML = compCount > 0 ? compHtml : '<div class="text-center text-gray-400 py-12 text-sm">لا توجد مسابقات حالياً 🎯</div>';
                 animateCounter('stat-workshops',wc||0); 
             }catch(e){ console.error(e); } 
         }
