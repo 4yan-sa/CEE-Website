@@ -110,10 +110,13 @@
                 <div class="space-y-2 text-sm text-gray-600 bg-gray-50 rounded-xl p-4"><p><i class="fa-solid fa-calendar ml-2 text-cee-red"></i> <span id="event-detail-date"></span></p><p><i class="fa-solid fa-clock ml-2 text-cee-red"></i> <span id="event-detail-time"></span></p><p id="event-detail-location-wrap"><i class="fa-solid fa-location-dot ml-2 text-cee-red"></i> <span id="event-detail-location"></span></p><p id="event-detail-instructor-wrap"><i class="fa-solid fa-user-tie ml-2 text-cee-red"></i> <span id="event-detail-instructor"></span></p></div>
                 <p id="event-detail-desc" class="mt-4 text-gray-600 text-sm leading-relaxed"></p>
                 <div id="event-detail-sponsors" class="mt-4"></div>
-                <div class="flex gap-3 mt-6">
-                    <a id="event-detail-register" href="#" target="_blank" class="flex-1 text-center bg-cee-red text-white py-3 rounded-xl font-bold hover:bg-red-900 transition">سجل الآن</a>
-                    <button id="event-detail-attendance" onclick="openAttendanceModal()" class="flex-1 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition hidden">تأكيد التحضير</button>
-                    <span id="event-detail-ended" class="flex-1 text-center bg-gray-300 text-gray-600 py-3 rounded-xl font-bold hidden">انتهت الفعالية</span>
+                <div class="flex flex-col gap-3 mt-6">
+                    <a id="event-detail-meeting" href="#" target="_blank" class="w-full text-center bg-cyan-500 text-white py-3 rounded-xl font-bold hover:bg-cyan-600 transition hidden flex items-center justify-center gap-2"><i class="fa-solid fa-video"></i> ادخل القاعة الافتراضية</a>
+                    <div class="flex gap-3">
+                        <a id="event-detail-register" href="#" target="_blank" class="flex-1 text-center bg-cee-red text-white py-3 rounded-xl font-bold hover:bg-red-900 transition">سجل الآن</a>
+                        <button id="event-detail-attendance" onclick="openAttendanceModal()" class="flex-1 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition hidden">تأكيد التحضير</button>
+                        <span id="event-detail-ended" class="flex-1 text-center bg-gray-300 text-gray-600 py-3 rounded-xl font-bold hidden">انتهت الفعالية</span>
+                    </div>
                 </div>
                 <div class="flex justify-center gap-3 mt-4">
                     <button onclick="shareWhatsApp(currentEventData ? currentEventData.name : '📅 فعالية', 'events.html')" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition"><i class="fa-brands fa-whatsapp text-xs"></i></button>
@@ -321,6 +324,15 @@
             const locWrap = document.getElementById('event-detail-location-wrap');
             locWrap.innerHTML = `${locIcon} <span id="event-detail-location">${event.location}</span>`;
             
+            // ✅ زر ادخل القاعة الافتراضية
+            const meetingBtn = document.getElementById('event-detail-meeting');
+            if(event.meetingLink && event.meetingLink.startsWith('http')) {
+                meetingBtn.href = event.meetingLink;
+                meetingBtn.classList.remove('hidden');
+            } else {
+                meetingBtn.classList.add('hidden');
+            }
+            
             const hasImage = event.image && event.image.startsWith('http');
             const imageSrc = hasImage ? event.image : getDefaultImage(event.type);
             const imgDiv=document.getElementById('event-detail-image');
@@ -379,7 +391,8 @@
                         type:c[0]?.trim()||'',name:c[1]?.trim()||'',image:c[2]?.trim()||'',desc:c[3]?.trim()||'',
                         dateStr:c[4]?.trim()||'',time:c[5]?.trim()||'',location:c[6]?.trim()||'',regLink:c[7]?.trim()||'#',status:c[8]?.trim()||'',
                         sponsor1:c[9]?.trim()||'',sponsor2:c[10]?.trim()||'',sponsor3:c[11]?.trim()||'',
-                        attendanceCode:c[12]?.trim()||'',instructor:c[13]?.trim()||'',gender:c[14]?.trim()||''
+                        attendanceCode:c[12]?.trim()||'',instructor:c[13]?.trim()||'',gender:c[14]?.trim()||'',
+                        meetingLink:c[15]?.trim()||''  // ✅ P = رابط الاجتماع
                     };
                     const ed=new Date(event.dateStr); if(isNaN(ed.getTime())) return;
                     allEvents.push(event); const card=createEventCard(event,allEvents.length-1);
