@@ -409,9 +409,7 @@
                 const map = {};
                 rows.forEach(row=>{
                     const c=parseCSVRow(row);
-                    if(c.length >= 4 && c[0]) {
-                        map[c[0].trim()] = { logo: c[2].trim(), url: c[3].trim() };
-                    }
+                    if(c.length >= 4 && c[0]) { map[c[0].trim()] = { logo: c[2].trim(), url: c[3].trim() }; }
                 });
                 sponsorsMap = map;
             }catch(e){ console.error(e); }
@@ -455,9 +453,7 @@
                     const sponsor = sponsorsMap[name.trim()];
                     if(sponsor && sponsor.logo && sponsor.logo !== '#') {
                         sponsorsHTML += `<a href="${sponsor.url || '#'}" target="_blank" title="${name}"><img src="${sponsor.logo}" alt="${name}" class="w-16 h-8 object-contain bg-white rounded px-1 border"></a>`;
-                    } else {
-                        sponsorsHTML += `<span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${name}</span>`;
-                    }
+                    } else { sponsorsHTML += `<span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${name}</span>`; }
                 });
                 sponsorsHTML+='</div>';
                 spDiv.innerHTML=sponsorsHTML;
@@ -500,7 +496,8 @@
                 allIndexEvents=[]; 
                 rows.forEach(row=>{ 
                     const c=parseCSVRow(row); 
-                    if(c.length<3||!c[1]) return; 
+                    if(c.length<3) return;
+                    
                     const type=c[0]?.trim()||'', name=c[1]?.trim()||'', image=c[2]?.trim()||'', desc=c[3]?.trim()||''; 
                     const dateStr=c[4]?.trim()||'', time=c[5]?.trim()||'', location=c[6]?.trim()||'', regLink=c[7]?.trim()||'#', status=c[8]?.trim()||''; 
                     const attendanceCode=c[12]?.trim()||''; 
@@ -517,13 +514,24 @@
                     const compStatus = c[22]?.trim() || 'نشطة';
                     const compImage = c[23]?.trim() || '';
                     
-                    if(compPlatform && compTitle) {
-                        if(compStatus === 'منتهية') return;
-                        compHtml += createCompetitionCard({platform: compPlatform,title: compTitle,desc: compDesc,prize: compPrize,sponsor: compSponsor,postLink: compLink,deadline: compDeadline,status: compStatus,image: compImage});
+                    // ✅ 1) معالجة المسابقة (إذا موجودة) — بدون return
+                    if(compPlatform && compTitle && compStatus !== 'منتهية') {
+                        compHtml += createCompetitionCard({
+                            platform: compPlatform,
+                            title: compTitle,
+                            desc: compDesc,
+                            prize: compPrize,
+                            sponsor: compSponsor,
+                            postLink: compLink,
+                            deadline: compDeadline,
+                            status: compStatus,
+                            image: compImage
+                        });
                         compCount++;
-                        return;
                     }
                     
+                    // ✅ 2) معالجة الفعالية (إذا موجودة) — مستقلة
+                    if(!name || !dateStr) return;
                     const ed=new Date(dateStr); 
                     if(isNaN(ed.getTime())||status==='ملغية'||status==='منتهية'||ed<today) return; 
                     if(type==='ورشة') wc++; 
@@ -531,13 +539,11 @@
                     const eventData={type,name,image,desc,dateStr,time,location,regLink,status,attendanceCode,sponsor1,sponsor2,sponsor3,instructor,gender}; 
                     allIndexEvents.push(eventData); 
                     const instructorHTML = instructor ? `<p class="text-gray-500 text-xs mb-2"><i class="fa-solid fa-user-tie ml-1 text-cee-gold"></i> ${instructor}</p>` : ''; 
-                    
                     const isOnline = isOnlineEvent(location);
                     const genderBadge = getGenderBadge(gender);
                     const hasCertificate = type === 'ورشة' && attendanceCode;
                     const onlineBadge = isOnline ? `<div class="absolute bottom-3 left-3 bg-cyan-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 z-10 shadow-md"><i class="fa-solid fa-wifi"></i><span>عن بعد</span></div>` : '';
                     const locationIcon = isOnline ? '<i class="fa-solid fa-wifi ml-1 text-cyan-500"></i>' : '<i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i>';
-                    
                     const hasImage = image && image.startsWith('http');
                     const imageSrc = hasImage ? image : getDefaultImage(type);
                     
