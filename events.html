@@ -84,7 +84,6 @@
         </div>
     </main>
 
-    <!-- نافذة انضم إلينا -->
     <div id="join-modal" class="fixed inset-0 bg-black bg-opacity-70 z-[70] hidden items-center justify-center p-4">
         <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl modal">
             <button onclick="closeJoinModal()" class="float-left text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
@@ -97,7 +96,6 @@
         </div>
     </div>
 
-    <!-- نافذة توسعة الصورة -->
     <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-95 z-[60] hidden flex items-center justify-center p-4" onclick="closeImageModal()">
         <button onclick="closeImageModal()" class="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 z-10 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
         <img id="image-modal-img" src="" alt="صورة الفعالية" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl" onclick="event.stopPropagation()">
@@ -157,24 +155,11 @@
         let currentEventData = null, allEvents = [], evalLinkGlobal = '#', currentAttendanceCode = '';
         let sponsorsMap = {};
 
-        function openJoinModal() { 
-            document.getElementById('join-modal').classList.remove('hidden'); 
-            document.getElementById('join-modal').classList.add('flex'); 
-            document.body.style.overflow = 'hidden';
-        }
-        function closeJoinModal() { 
-            document.getElementById('join-modal').classList.add('hidden'); 
-            document.getElementById('join-modal').classList.remove('flex'); 
-            document.body.style.overflow = '';
-        }
-        window.openJoinModal = openJoinModal; 
-        window.closeJoinModal = closeJoinModal;
-        document.getElementById('join-modal').addEventListener('click', function(e) { 
-            if(e.target === this) closeJoinModal(); 
-        });
-        document.addEventListener('keydown', function(e) { 
-            if(e.key === 'Escape') closeJoinModal(); 
-        });
+        function openJoinModal() { document.getElementById('join-modal').classList.remove('hidden'); document.getElementById('join-modal').classList.add('flex'); document.body.style.overflow = 'hidden'; }
+        function closeJoinModal() { document.getElementById('join-modal').classList.add('hidden'); document.getElementById('join-modal').classList.remove('flex'); document.body.style.overflow = ''; }
+        window.openJoinModal = openJoinModal; window.closeJoinModal = closeJoinModal;
+        document.getElementById('join-modal').addEventListener('click', function(e) { if(e.target === this) closeJoinModal(); });
+        document.addEventListener('keydown', function(e) { if(e.key === 'Escape') closeJoinModal(); });
 
         async function loadJoinLinks() {
             try {
@@ -183,16 +168,10 @@
                 const rows = d.split('\n').filter(row => row.trim() !== '').slice(1);
                 rows.forEach(row => {
                     const c = parseCSVRow(row);
-                    if(c[0].trim() === 'رابط_تسجيل_الطلاب') { 
-                        document.getElementById('male-join-link').href = c[1].trim(); 
-                    }
-                    if(c[0].trim() === 'رابط_تسجيل_الطالبات') { 
-                        document.getElementById('female-join-link').href = c[1].trim(); 
-                    }
+                    if(c[0].trim() === 'رابط_تسجيل_الطلاب') { document.getElementById('male-join-link').href = c[1].trim(); }
+                    if(c[0].trim() === 'رابط_تسجيل_الطالبات') { document.getElementById('female-join-link').href = c[1].trim(); }
                 });
-            } catch(e) { 
-                console.error('خطأ في تحميل روابط الانضمام:', e); 
-            }
+            } catch(e) { console.error('خطأ في تحميل روابط الانضمام:', e); }
         }
 
         function openImageModal(src) { document.getElementById('image-modal-img').src = src; document.getElementById('image-modal').classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
@@ -202,34 +181,21 @@
 
         function parseCSVRow(row){ const c=[]; let col='',q=false; for(let i=0;i<row.length;i++){ const ch=row[i]; if(ch==='"') q=!q; else if(ch===','&&!q){ c.push(col.trim()); col=''; } else col+=ch; } c.push(col.trim()); return c; }
         
-        function shareWhatsApp(title, url) {
-            const text = `🔹 ${title} 🔹\n\nمن نادي الهندسة المدنية والبيئية بجامعة الملك فيصل 🏛️\n\nتستاهلون تشوفون الإبداع 👇\n${window.location.origin}/${url}`;
-            window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
-        }
-        function shareLinkedIn(title, url) {
-            const text = `فخور بمجتمع نادي الهندسة المدنية والبيئية بجامعة الملك فيصل! 🏆\n\n${title}\n\nشوفو التفاصيل هنا 👇\n${window.location.origin}/${url}\n\n#الهندسة_المدنية #جامعة_الملك_فيصل #CEE`;
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            if(isMobile){ window.location.href = 'linkedin://feed/?shareActive=true&text=' + encodeURIComponent(text); }
-            else { window.open('https://www.linkedin.com/feed/?shareActive=true&text=' + encodeURIComponent(text), '_blank'); }
-        }
-        function shareTwitter(title, url) {
-            const text = `${title} 🏆\n\nمن نادي الهندسة المدنية والبيئية بجامعة الملك فيصل\n\n${window.location.origin}/${url}\n\n#CEE #KFU`;
-            window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text), '_blank');
-        }
+        function shareWhatsApp(title, url) { const text = `🔹 ${title} 🔹\n\nمن نادي الهندسة المدنية والبيئية بجامعة الملك فيصل 🏛️\n\nتستاهلون تشوفون الإبداع 👇\n${window.location.origin}/${url}`; window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank'); }
+        function shareLinkedIn(title, url) { const text = `فخور بمجتمع نادي الهندسة المدنية والبيئية بجامعة الملك فيصل! 🏆\n\n${title}\n\nشوفو التفاصيل هنا 👇\n${window.location.origin}/${url}\n\n#الهندسة_المدنية #جامعة_الملك_فيصل #CEE`; const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); if(isMobile){ window.location.href = 'linkedin://feed/?shareActive=true&text=' + encodeURIComponent(text); } else { window.open('https://www.linkedin.com/feed/?shareActive=true&text=' + encodeURIComponent(text), '_blank'); } }
+        function shareTwitter(title, url) { const text = `${title} 🏆\n\nمن نادي الهندسة المدنية والبيئية بجامعة الملك فيصل\n\n${window.location.origin}/${url}\n\n#CEE #KFU`; window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text), '_blank'); }
         function copyPageLink(){ navigator.clipboard.writeText(window.location.href); alert('تم نسخ الرابط ✅'); }
         window.shareWhatsApp=shareWhatsApp; window.shareLinkedIn=shareLinkedIn; window.shareTwitter=shareTwitter; window.copyPageLink=copyPageLink;
 
         function handleScroll(){ document.querySelectorAll('.fade-in').forEach(el=>{ const rect=el.getBoundingClientRect(); if(rect.top<window.innerHeight-100) el.classList.add('show'); }); }
         window.addEventListener('scroll',handleScroll); window.addEventListener('load',handleScroll);
 
-        // ===== دوال مساعدة =====
         function isOnlineEvent(location) {
             if(!location) return false;
             const loc = location.trim().toLowerCase();
             return loc.includes('عن بعد') || loc.includes('أونلاين') || loc.includes('اونلاين') || loc.includes('online') || loc.includes('zoom') || loc.includes('teams') || loc.includes('remotely');
         }
         
-        // ✅ بادج الجنس - يقرأ القيم مباشرة من الشيت
         function getGenderBadge(gender) {
             if(!gender) return '';
             const g = gender.trim();
@@ -239,7 +205,6 @@
             return '';
         }
 
-        // 🖼️ دالة اختيار الصورة الافتراضية حسب النوع
         function getDefaultImage(type) {
             const t = (type || '').trim();
             const images = {
@@ -272,9 +237,7 @@
                 const map = {};
                 rows.forEach(row=>{
                     const c=parseCSVRow(row);
-                    if(c.length >= 4 && c[0]) {
-                        map[c[0].trim()] = { logo: c[2].trim(), url: c[3].trim() };
-                    }
+                    if(c.length >= 4 && c[0]) { map[c[0].trim()] = { logo: c[2].trim(), url: c[3].trim() }; }
                 });
                 sponsorsMap = map;
             }catch(e){ console.error(e); }
@@ -302,15 +265,12 @@
                     const sponsor = sponsorsMap[name.trim()];
                     if(sponsor && sponsor.logo && sponsor.logo !== '#') {
                         sponsorsHTML += `<a href="${sponsor.url || '#'}" target="_blank" title="${name}"><img src="${sponsor.logo}" alt="${name}" class="w-16 h-8 object-contain bg-white rounded px-1" onerror="this.outerHTML='<span class=\'text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded\'>${name}</span>'"></a>`;
-                    } else {
-                        sponsorsHTML += `<span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${name}</span>`;
-                    }
+                    } else { sponsorsHTML += `<span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${name}</span>`; }
                 });
                 sponsorsHTML += '</div>';
             }
             
             const onlineBadge = isOnline ? `<div class="absolute bottom-3 left-3 bg-cyan-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 z-10 shadow-md"><i class="fa-solid fa-wifi"></i><span>عن بعد</span></div>` : '';
-            
             const locationIcon = isOnline ? '<i class="fa-solid fa-wifi ml-1 text-cyan-500"></i>' : '<i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i>';
             
             return `<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openEventDetail(${index})">
@@ -374,15 +334,11 @@
                     const sponsor = sponsorsMap[name.trim()];
                     if(sponsor && sponsor.logo && sponsor.logo !== '#') {
                         sponsorsHTML += `<a href="${sponsor.url || '#'}" target="_blank" title="${name}"><img src="${sponsor.logo}" alt="${name}" class="w-16 h-8 object-contain bg-white rounded px-1 border" onerror="this.outerHTML='<span class=\'text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded\'>${name}</span>'"></a>`;
-                    } else {
-                        sponsorsHTML += `<span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${name}</span>`;
-                    }
+                    } else { sponsorsHTML += `<span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${name}</span>`; }
                 });
                 sponsorsHTML += '</div>';
                 spDiv.innerHTML = sponsorsHTML;
-            } else {
-                spDiv.innerHTML = '';
-            }
+            } else { spDiv.innerHTML = ''; }
             
             const today=new Date(); today.setHours(0,0,0,0);
             const ed=new Date(event.dateStr);
@@ -418,27 +374,13 @@
                 const today=new Date(); today.setHours(0,0,0,0); allEvents=[];
                 rows.forEach(row=>{
                     const c=parseCSVRow(row); if(c.length<3||!c[1]) return;
-                    
-                    // ✅ تخطي المسابقات (اللي فيها منصة في العمود P)
                     const compPlatform = c[15]?.trim() || '';
                     if(compPlatform) return;
-                    
                     const event={
-                        type:c[0]?.trim()||'',
-                        name:c[1]?.trim()||'',
-                        image:c[2]?.trim()||'',
-                        desc:c[3]?.trim()||'',
-                        dateStr:c[4]?.trim()||'',
-                        time:c[5]?.trim()||'',
-                        location:c[6]?.trim()||'',
-                        regLink:c[7]?.trim()||'#',
-                        status:c[8]?.trim()||'',
-                        sponsor1:c[9]?.trim()||'',
-                        sponsor2:c[10]?.trim()||'',
-                        sponsor3:c[11]?.trim()||'',
-                        attendanceCode:c[12]?.trim()||'',
-                        instructor:c[13]?.trim()||'',
-                        gender:c[14]?.trim()||''
+                        type:c[0]?.trim()||'',name:c[1]?.trim()||'',image:c[2]?.trim()||'',desc:c[3]?.trim()||'',
+                        dateStr:c[4]?.trim()||'',time:c[5]?.trim()||'',location:c[6]?.trim()||'',regLink:c[7]?.trim()||'#',status:c[8]?.trim()||'',
+                        sponsor1:c[9]?.trim()||'',sponsor2:c[10]?.trim()||'',sponsor3:c[11]?.trim()||'',
+                        attendanceCode:c[12]?.trim()||'',instructor:c[13]?.trim()||'',gender:c[14]?.trim()||''
                     };
                     const ed=new Date(event.dateStr); if(isNaN(ed.getTime())) return;
                     allEvents.push(event); const card=createEventCard(event,allEvents.length-1);
