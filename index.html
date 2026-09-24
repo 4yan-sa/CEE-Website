@@ -34,7 +34,7 @@
         @media (max-width: 640px) { .podium-container { gap: 0.5rem; } .stand-1 { height: 130px; } .stand-2 { height: 100px; } .stand-3 { height: 75px; } }
         .event-img { width: 100%; height: 100%; object-fit: contain; background-color: #f3f4f6; }
         
-        /* ✅ سحب أفقي للفعاليات والمسابقات على الجوال */
+        /* ✅ سحب أفقي مع طول موحد للكروت */
         .horizontal-scroll {
             display: flex;
             overflow-x: auto;
@@ -43,18 +43,28 @@
             gap: 12px;
             padding-bottom: 8px;
             scrollbar-width: none;
+            align-items: stretch;
         }
         .horizontal-scroll::-webkit-scrollbar { display: none; }
         .horizontal-scroll > * {
             flex: 0 0 auto;
             width: 280px;
             scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            height: auto;
+        }
+        .horizontal-scroll > * > div {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         @media (min-width: 768px) {
             .horizontal-scroll {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 24px;
+                align-items: stretch;
             }
             .horizontal-scroll > * { width: auto; }
         }
@@ -388,8 +398,8 @@
                 sponsorHTML = `<span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg">برعاية: ${comp.sponsor}</span>`;
             }
             
-            return `<div class="bg-white rounded-2xl overflow-hidden shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col border border-gray-100">
-                <div class="h-44 relative overflow-hidden bg-gray-100">
+            return `<div class="bg-white rounded-2xl overflow-hidden shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col border border-gray-100 h-full">
+                <div class="h-44 relative overflow-hidden bg-gray-100 flex-shrink-0">
                     <img src="${imageSrc}" alt="${comp.title}" class="w-full h-full object-cover" onerror="this.src='${getDefaultCompetitionImage('افتراضي')}'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                     <div class="absolute top-3 right-3 ${platform.bg} text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-lg">
@@ -619,7 +629,7 @@
                     const imageSrc = hasImage ? image : getDefaultImage(type);
                     
                     html+=`<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openEventDetail(${allIndexEvents.length-1})">
-                        <div class="h-40 md:h-48 bg-gray-100 relative">
+                        <div class="h-40 md:h-48 bg-gray-100 relative flex-shrink-0">
                             <img src="${imageSrc}" alt="${name}" class="event-img cursor-zoom-in" onclick="event.stopPropagation();openImageModal('${imageSrc}')" onerror="this.src='${getDefaultImage('افتراضي')}'">
                             ${dateBadge}
                             ${onlineBadge}
