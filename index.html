@@ -204,10 +204,13 @@
                 </div>
                 <p id="event-detail-desc" class="mt-4 text-gray-600 text-sm leading-relaxed"></p>
                 <div id="event-detail-sponsors" class="mt-4"></div>
-                <div class="flex gap-3 mt-6">
-                    <a id="event-detail-register" href="#" target="_blank" class="flex-1 text-center bg-cee-red text-white py-3 rounded-xl font-bold hover:bg-red-900 transition">سجل الآن</a>
-                    <button id="event-detail-attendance" onclick="openAttendanceModalFromDetail()" class="flex-1 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition hidden">تأكيد التحضير</button>
-                    <span id="event-detail-ended" class="flex-1 text-center bg-gray-300 text-gray-600 py-3 rounded-xl font-bold hidden">انتهت الفعالية</span>
+                <div class="flex flex-col gap-3 mt-6">
+                    <a id="event-detail-meeting" href="#" target="_blank" class="w-full text-center bg-cyan-500 text-white py-3 rounded-xl font-bold hover:bg-cyan-600 transition hidden flex items-center justify-center gap-2"><i class="fa-solid fa-video"></i> ادخل القاعة الافتراضية</a>
+                    <div class="flex gap-3">
+                        <a id="event-detail-register" href="#" target="_blank" class="flex-1 text-center bg-cee-red text-white py-3 rounded-xl font-bold hover:bg-red-900 transition">سجل الآن</a>
+                        <button id="event-detail-attendance" onclick="openAttendanceModalFromDetail()" class="flex-1 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition hidden">تأكيد التحضير</button>
+                        <span id="event-detail-ended" class="flex-1 text-center bg-gray-300 text-gray-600 py-3 rounded-xl font-bold hidden">انتهت الفعالية</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -440,6 +443,15 @@
             const locWrap = document.getElementById('event-detail-location-wrap');
             locWrap.innerHTML = `${locIcon} <span id="event-detail-location">${event.location}</span>`;
 
+            // ✅ زر ادخل القاعة الافتراضية
+            const meetingBtn = document.getElementById('event-detail-meeting');
+            if(event.meetingLink && event.meetingLink.startsWith('http')) {
+                meetingBtn.href = event.meetingLink;
+                meetingBtn.classList.remove('hidden');
+            } else {
+                meetingBtn.classList.add('hidden');
+            }
+
             const hasImage = event.image && event.image.startsWith('http');
             const imageSrc = hasImage ? event.image : getDefaultImage(event.type);
             const imgDiv=document.getElementById('event-detail-image'); 
@@ -500,19 +512,22 @@
                     
                     const type=c[0]?.trim()||'', name=c[1]?.trim()||'', image=c[2]?.trim()||'', desc=c[3]?.trim()||''; 
                     const dateStr=c[4]?.trim()||'', time=c[5]?.trim()||'', location=c[6]?.trim()||'', regLink=c[7]?.trim()||'#', status=c[8]?.trim()||''; 
+                    const sponsor1=c[9]?.trim()||'', sponsor2=c[10]?.trim()||'', sponsor3=c[11]?.trim()||''; 
                     const attendanceCode=c[12]?.trim()||''; 
                     const instructor=c[13]?.trim()||''; 
-                    const sponsor1=c[9]?.trim()||'', sponsor2=c[10]?.trim()||'', sponsor3=c[11]?.trim()||''; 
                     const gender=c[14]?.trim()||'';
-                    const compPlatform = c[15]?.trim() || '';
-                    const compTitle = c[16]?.trim() || '';
-                    const compDesc = c[17]?.trim() || '';
-                    const compPrize = c[18]?.trim() || '';
-                    const compSponsor = c[19]?.trim() || '';
-                    const compLink = c[20]?.trim() || '';
-                    const compDeadline = c[21]?.trim() || '';
-                    const compStatus = c[22]?.trim() || 'نشطة';
-                    const compImage = c[23]?.trim() || '';
+                    // ✅ P = رابط الاجتماع
+                    const meetingLink = c[15]?.trim() || '';
+                    // ✅ المسابقات من Q
+                    const compPlatform = c[16]?.trim() || '';
+                    const compTitle = c[17]?.trim() || '';
+                    const compDesc = c[18]?.trim() || '';
+                    const compPrize = c[19]?.trim() || '';
+                    const compSponsor = c[20]?.trim() || '';
+                    const compLink = c[21]?.trim() || '';
+                    const compDeadline = c[22]?.trim() || '';
+                    const compStatus = c[23]?.trim() || 'نشطة';
+                    const compImage = c[24]?.trim() || '';
                     
                     // ✅ 1) معالجة المسابقة (إذا موجودة) — بدون return
                     if(compPlatform && compTitle && compStatus !== 'منتهية') {
@@ -536,7 +551,7 @@
                     if(isNaN(ed.getTime())||status==='ملغية'||status==='منتهية'||ed<today) return; 
                     if(type==='ورشة') wc++; 
                     const day=dateStr.split('/')[2]||'', month=dateStr.split('/')[1]||''; 
-                    const eventData={type,name,image,desc,dateStr,time,location,regLink,status,attendanceCode,sponsor1,sponsor2,sponsor3,instructor,gender}; 
+                    const eventData={type,name,image,desc,dateStr,time,location,regLink,status,attendanceCode,sponsor1,sponsor2,sponsor3,instructor,gender,meetingLink}; 
                     allIndexEvents.push(eventData); 
                     const instructorHTML = instructor ? `<p class="text-gray-500 text-xs mb-2"><i class="fa-solid fa-user-tie ml-1 text-cee-gold"></i> ${instructor}</p>` : ''; 
                     const isOnline = isOnlineEvent(location);
