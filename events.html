@@ -32,18 +32,13 @@
             align-items: stretch;
         }
         .horizontal-scroll::-webkit-scrollbar { display: none; }
-        .horizontal-scroll > * {
+        .horizontal-scroll > .event-card {
             flex: 0 0 auto;
             width: 280px;
             scroll-snap-align: start;
+            height: 500px;
             display: flex;
             flex-direction: column;
-            height: auto;
-        }
-        .horizontal-scroll > * > div {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
         }
         @media (min-width: 768px) {
             .horizontal-scroll {
@@ -52,7 +47,10 @@
                 gap: 24px;
                 align-items: stretch;
             }
-            .horizontal-scroll > * { width: auto; }
+            .horizontal-scroll > .event-card {
+                width: auto;
+                height: 500px;
+            }
         }
         @media (min-width: 1024px) {
             .horizontal-scroll {
@@ -316,7 +314,7 @@
             const isUpcoming = (!ed || ed>=today) && event.status!=='منتهية';
             const isCancelled=event.status==='ملغية';
             const statusBadge = isCancelled ? 'ملغية' : (!isUpcoming && ed) ? 'منتهية' : '';
-            const instructor = event.instructor ? `<p class="text-gray-500 text-xs mb-2"><i class="fa-solid fa-user-tie ml-1 text-cee-gold"></i> ${event.instructor}</p>` : '';
+            const instructor = event.instructor ? `<p class="text-gray-500 text-xs mb-2 truncate"><i class="fa-solid fa-user-tie ml-1 text-cee-gold"></i> ${event.instructor}</p>` : '';
             
             let dateBadge = '';
             if(event.dateStr && event.dateStr.trim()) {
@@ -337,7 +335,7 @@
             const sponsorNames = [event.sponsor1, event.sponsor2, event.sponsor3].filter(s => s && s !== '');
             let sponsorsHTML = '';
             if(sponsorNames.length > 0) {
-                sponsorsHTML = '<div class="flex flex-wrap items-center gap-3 mt-2 mb-3">';
+                sponsorsHTML = '<div class="flex flex-wrap items-center gap-3 mt-2 mb-3 flex-shrink-0">';
                 sponsorNames.forEach(name => {
                     const sponsor = sponsorsMap[name.trim()];
                     if(sponsor && sponsor.logo && sponsor.logo !== '#') {
@@ -350,25 +348,25 @@
             const onlineBadge = isOnline ? `<div class="absolute bottom-3 left-3 bg-cyan-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 z-10 shadow-md"><i class="fa-solid fa-wifi"></i><span>عن بعد</span></div>` : '';
             const locationIcon = isOnline ? '<i class="fa-solid fa-wifi ml-1 text-cyan-500"></i>' : '<i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i>';
             
-            return `<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openEventDetail(${index})">
+            return `<div class="event-card bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col transform hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openEventDetail(${index})">
                 <div class="h-40 md:h-48 bg-gray-100 relative flex-shrink-0">
                     <img src="${imageSrc}" alt="${event.name}" class="event-img cursor-zoom-in" onclick="event.stopPropagation();openImageModal('${imageSrc}')" onerror="this.src='${getDefaultImage('افتراضي')}'">
                     ${dateBadge}
                     ${statusBadge?`<div class="absolute top-3 left-3 ${isCancelled?'bg-red-500':'bg-gray-500'} text-white text-xs px-2 py-1 rounded">${statusBadge}</div>`:''}
                     ${onlineBadge}
                 </div>
-                <div class="p-4 md:p-6 flex-grow flex flex-col">
-                    <div class="flex justify-between items-start mb-2 gap-2 flex-wrap">
+                <div class="p-4 md:p-6 flex-grow flex flex-col overflow-hidden">
+                    <div class="flex justify-between items-start mb-2 gap-2 flex-wrap flex-shrink-0">
                         <div class="flex gap-1.5 flex-wrap">${event.type?`<span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded">${event.type}</span>`:''}${genderBadge}${hasCertificate?`<span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-1 rounded" title="يوجد شهادة حضور"><i class="fa-solid fa-certificate ml-1"></i>شهادة</span>`:''}</div>
                         <span class="text-xs text-gray-500 whitespace-nowrap"><i class="fa-regular fa-clock ml-1"></i> ${event.time || 'يحدد لاحقاً'}</span>
                     </div>
-                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-1">${event.name}</h3>
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-1 line-clamp-2 flex-shrink-0">${event.name}</h3>
                     ${instructor}
                     <p class="text-gray-600 text-xs md:text-sm mb-3 flex-grow line-clamp-2">${event.desc}</p>
                     ${sponsorsHTML}
-                    <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
-                        <span class="text-xs font-bold text-gray-500">${locationIcon} ${event.location || 'يحدد لاحقاً'}</span>
-                        ${isCancelled?'<span class="text-red-500 text-xs">ملغية</span>':isUpcoming?`<span class="text-cee-red text-xs font-bold">اضغط للتفاصيل</span>`:`<span class="bg-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-lg">انتهت الفعالية</span>`}
+                    <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100 flex-shrink-0">
+                        <span class="text-xs font-bold text-gray-500 truncate">${locationIcon} ${event.location || 'يحدد لاحقاً'}</span>
+                        ${isCancelled?'<span class="text-red-500 text-xs">ملغية</span>':isUpcoming?`<span class="text-cee-red text-xs font-bold whitespace-nowrap">اضغط للتفاصيل</span>`:`<span class="bg-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-lg whitespace-nowrap">انتهت الفعالية</span>`}
                     </div>
                 </div>
             </div>`;
