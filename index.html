@@ -36,7 +36,6 @@
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-    <!-- ✅ شاشة الصيانة -->
     <div id="maintenance-screen" class="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-cee-red z-[100] hidden items-center justify-center" style="display: none;">
         <div class="text-center p-8">
             <div class="text-7xl mb-6">🔧</div>
@@ -61,6 +60,7 @@
                     <a href="podcast.html" class="text-gray-700 hover:text-cee-red font-medium transition">بودكاست صدى</a>
                     <a href="team.html" class="text-gray-700 hover:text-cee-red font-medium transition">الهيكل الإداري</a>
                     <a href="events.html" class="text-gray-700 hover:text-cee-red font-medium transition">الفعاليات والورش</a>
+                    <a href="index.html#competitions" class="text-gray-700 hover:text-cee-red font-medium transition">🎯 المسابقات</a>
                     <a href="index.html#honours" class="text-gray-700 hover:text-cee-gold font-bold transition">🏆 لوحة الصدارة</a>
                     <div class="border-r border-gray-300 pr-4"><button onclick="openJoinModal()" class="bg-cee-red text-white px-4 py-2 rounded-lg font-bold hover:bg-red-900 transition shadow-md">انضم إلينا</button></div>
                 </nav>
@@ -72,6 +72,7 @@
             <a href="podcast.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">بودكاست صدى</a>
             <a href="team.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الهيكل الإداري</a>
             <a href="events.html" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">الفعاليات والورش</a>
+            <a href="index.html#competitions" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-medium text-sm">🎯 المسابقات</a>
             <a href="index.html#honours" class="block px-6 py-3 text-gray-800 border-b hover:bg-gray-50 font-bold text-sm">🏆 لوحة الصدارة</a>
             <button onclick="openJoinModal()" class="block w-full px-6 py-4 bg-cee-red text-white font-bold text-center text-sm">انضم إلينا</button>
         </div>
@@ -111,6 +112,26 @@
             </div>
         </section>
 
+        <section id="competitions" class="bg-gradient-to-br from-gray-50 via-white to-amber-50 py-12 md:py-16 fade-in relative overflow-hidden">
+            <div class="absolute inset-0 opacity-30">
+                <div class="absolute top-10 right-10 w-72 h-72 bg-cee-gold rounded-full blur-3xl"></div>
+                <div class="absolute bottom-10 left-10 w-72 h-72 bg-pink-300 rounded-full blur-3xl"></div>
+            </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-10">
+                    <span class="inline-block bg-cee-gold/20 text-cee-red text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">
+                        <i class="fa-solid fa-trophy ml-1"></i> مسابقاتنا
+                    </span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">شارك واربح 🎁</h2>
+                    <div class="w-20 h-1 bg-cee-gold mx-auto"></div>
+                    <p class="text-gray-500 mt-3 text-sm">مسابقات حصرية عبر حساباتنا في السوشيال ميديا</p>
+                </div>
+                <div id="competitions-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="text-center text-gray-400 py-12 col-span-full text-sm">جاري التحميل...</div>
+                </div>
+            </div>
+        </section>
+
         <section id="honours" class="bg-white py-12 md:py-16 fade-in">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-10"><span class="inline-block bg-cee-gold text-white text-xs md:text-sm font-bold px-4 py-1 rounded-full mb-3">🏆</span><h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">لوحة الصدارة</h2><div class="w-20 h-1 bg-cee-gold mx-auto"></div></div>
@@ -146,28 +167,70 @@
         </div>
     </footer>
 
-    <!-- نافذة انضم إلينا -->
     <div id="join-modal" class="fixed inset-0 bg-black bg-opacity-70 z-[70] hidden items-center justify-center p-4">
         <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
             <button onclick="closeJoinModal()" class="float-left text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
             <h3 class="text-xl font-bold text-gray-900 mb-6">انضم إلينا 🎉</h3>
             <p class="text-gray-600 text-sm mb-6">اختر نوع التسجيل:</p>
             <div class="flex flex-col gap-4">
-                <a id="male-join-link" href="#" target="_blank" class="bg-cee-red text-white py-3 rounded-xl font-bold hover:bg-red-900 transition">👤 تسجيل الطلاب</a>
-                <a id="female-join-link" href="#" target="_blank" class="bg-cee-gold text-gray-900 py-3 rounded-xl font-bold hover:bg-yellow-500 transition">👩 تسجيل الطالبات</a>
+                <a id="male-join-link" href="#" target="_blank" class="bg-cee-red text-white py-3 rounded-xl font-bold hover:bg-red-900 transition">تسجيل الطلاب</a>
+                <a id="female-join-link" href="#" target="_blank" class="bg-cee-gold text-gray-900 py-3 rounded-xl font-bold hover:bg-yellow-500 transition">تسجيل الطالبات</a>
             </div>
         </div>
     </div>
 
-    <!-- نافذة توسعة الصورة -->
     <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-95 z-[60] hidden flex items-center justify-center p-4" onclick="closeImageModal()">
         <button onclick="closeImageModal()" class="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 z-10 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
         <img id="image-modal-img" src="" alt="صورة الفعالية" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl" onclick="event.stopPropagation()">
         <p class="absolute bottom-4 text-white/70 text-sm">اضغط خارج الصورة للرجوع</p>
     </div>
 
-    <div id="event-detail-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden flex items-center justify-center p-4"><div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl modal"><div id="event-detail-image" class="h-48 bg-gradient-to-r from-cee-red to-red-900 rounded-t-2xl flex items-center justify-center"><i class="fa-solid fa-calendar-check text-5xl text-white opacity-50"></i></div><div class="p-6"><div class="flex justify-between items-start mb-4"><div><span id="event-detail-type" class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded"></span><h2 id="event-detail-title" class="text-xl font-bold text-gray-900 mt-2"></h2></div><button onclick="closeEventDetail()" class="text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button></div><div class="space-y-2 text-sm text-gray-600 bg-gray-50 rounded-xl p-4"><p><i class="fa-solid fa-calendar ml-2 text-cee-red"></i> <span id="event-detail-date"></span></p><p><i class="fa-solid fa-clock ml-2 text-cee-red"></i> <span id="event-detail-time"></span></p><p><i class="fa-solid fa-location-dot ml-2 text-cee-red"></i> <span id="event-detail-location"></span></p><p id="event-detail-instructor-wrap"><i class="fa-solid fa-user-tie ml-2 text-cee-red"></i> <span id="event-detail-instructor"></span></p></div><p id="event-detail-desc" class="mt-4 text-gray-600 text-sm leading-relaxed"></p><div id="event-detail-sponsors" class="mt-4"></div><div class="flex gap-3 mt-6"><a id="event-detail-register" href="#" target="_blank" class="flex-1 text-center bg-cee-red text-white py-3 rounded-xl font-bold hover:bg-red-900 transition">سجل الآن</a><button id="event-detail-attendance" onclick="openAttendanceModalFromDetail()" class="flex-1 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition hidden">تأكيد التحضير</button><span id="event-detail-ended" class="flex-1 text-center bg-gray-300 text-gray-600 py-3 rounded-xl font-bold hidden">انتهت الفعالية</span></div></div></div></div>
-    <div id="attendance-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden flex items-center justify-center p-4"><div class="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full text-center shadow-2xl modal"><button onclick="closeAttendanceModal()" class="float-left text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button><i class="fa-solid fa-lock text-4xl text-cee-red mb-4 block"></i><h3 class="text-xl font-bold text-gray-900 mb-2">تأكيد الحضور</h3><p class="text-gray-500 text-sm mb-6">أدخل رمز التحضير الذي عرضه المحاضر</p><div class="flex items-center justify-center gap-2 mb-4" dir="ltr"><input type="text" maxlength="4" class="code-input w-14 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-xl outline-none" placeholder="####"><span class="text-gray-400 font-bold text-xl">-</span><input type="text" maxlength="4" class="code-input w-14 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-xl outline-none" placeholder="####"><span class="text-gray-400 font-bold text-xl">-</span><input type="text" maxlength="4" class="code-input w-14 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-xl outline-none" placeholder="####"></div><p id="code-error" class="text-red-500 text-xs mb-4 hidden">الرمز غير صحيح، حاول مرة أخرى</p><button onclick="verifyAttendanceCode()" class="bg-cee-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-900 transition w-full">تحقق <i class="fa-solid fa-arrow-left mr-2"></i></button></div></div>
+    <div id="event-detail-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl modal">
+            <div id="event-detail-image" class="h-48 bg-gradient-to-r from-cee-red to-red-900 rounded-t-2xl flex items-center justify-center overflow-hidden"><i class="fa-solid fa-calendar-check text-5xl text-white opacity-50"></i></div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <div id="event-detail-badges" class="flex flex-wrap gap-2 mb-2"></div>
+                        <h2 id="event-detail-title" class="text-xl font-bold text-gray-900 mt-2"></h2>
+                    </div>
+                    <button onclick="closeEventDetail()" class="text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="space-y-2 text-sm text-gray-600 bg-gray-50 rounded-xl p-4">
+                    <p><i class="fa-solid fa-calendar ml-2 text-cee-red"></i> <span id="event-detail-date"></span></p>
+                    <p><i class="fa-solid fa-clock ml-2 text-cee-red"></i> <span id="event-detail-time"></span></p>
+                    <p id="event-detail-location-wrap"><i class="fa-solid fa-location-dot ml-2 text-cee-red"></i> <span id="event-detail-location"></span></p>
+                    <p id="event-detail-instructor-wrap"><i class="fa-solid fa-user-tie ml-2 text-cee-red"></i> <span id="event-detail-instructor"></span></p>
+                </div>
+                <p id="event-detail-desc" class="mt-4 text-gray-600 text-sm leading-relaxed"></p>
+                <div id="event-detail-sponsors" class="mt-4"></div>
+                <div class="flex gap-3 mt-6">
+                    <a id="event-detail-register" href="#" target="_blank" class="flex-1 text-center bg-cee-red text-white py-3 rounded-xl font-bold hover:bg-red-900 transition">سجل الآن</a>
+                    <button id="event-detail-attendance" onclick="openAttendanceModalFromDetail()" class="flex-1 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition hidden">تأكيد التحضير</button>
+                    <span id="event-detail-ended" class="flex-1 text-center bg-gray-300 text-gray-600 py-3 rounded-xl font-bold hidden">انتهت الفعالية</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="attendance-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full text-center shadow-2xl modal">
+            <button onclick="closeAttendanceModal()" class="float-left text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <i class="fa-solid fa-lock text-4xl text-cee-red mb-4 block"></i>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">تأكيد الحضور</h3>
+            <p class="text-gray-500 text-sm mb-6">أدخل رمز التحضير الذي عرضه المحاضر</p>
+            <div class="flex items-center justify-center gap-2 mb-4" dir="ltr">
+                <input type="text" maxlength="4" class="code-input w-14 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-xl outline-none" placeholder="####">
+                <span class="text-gray-400 font-bold text-xl">-</span>
+                <input type="text" maxlength="4" class="code-input w-14 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-xl outline-none" placeholder="####">
+                <span class="text-gray-400 font-bold text-xl">-</span>
+                <input type="text" maxlength="4" class="code-input w-14 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-xl outline-none" placeholder="####">
+            </div>
+            <p id="code-error" class="text-red-500 text-xs mb-4 hidden">الرمز غير صحيح، حاول مرة أخرى</p>
+            <button onclick="verifyAttendanceCode()" class="bg-cee-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-900 transition w-full">تحقق <i class="fa-solid fa-arrow-left mr-2"></i></button>
+        </div>
+    </div>
+
     <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-4 right-4 bg-cee-red text-white w-10 h-10 rounded-full shadow-lg hover:bg-red-900 transition z-50 hidden text-sm" id="scrollTopBtn"><i class="fa-solid fa-arrow-up"></i></button>
 
     <script>
@@ -180,10 +243,125 @@
         let allIndexEvents = [], currentDetailEvent = null, currentAttendanceCode = '', currentEvalLink = '';
         let sponsorsMap = {};
 
-        function openJoinModal() { document.getElementById('join-modal').classList.remove('hidden'); document.getElementById('join-modal').classList.add('flex'); }
-        function closeJoinModal() { document.getElementById('join-modal').classList.add('hidden'); document.getElementById('join-modal').classList.remove('flex'); }
+        // ===== دوال مساعدة =====
+        function isOnlineEvent(location) {
+            if(!location) return false;
+            const loc = location.trim().toLowerCase();
+            return loc.includes('عن بعد') || loc.includes('أونلاين') || loc.includes('اونلاين') || loc.includes('online') || loc.includes('zoom') || loc.includes('teams') || loc.includes('remotely');
+        }
+
+        function getGenderBadge(gender) {
+            if(!gender) return '';
+            const g = gender.trim();
+            if(g === 'طلاب') return '<span class="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded"><i class="fa-solid fa-mars ml-1"></i>طلاب</span>';
+            if(g === 'طالبات') return '<span class="text-xs font-bold bg-pink-100 text-pink-700 px-2 py-1 rounded"><i class="fa-solid fa-venus ml-1"></i>طالبات</span>';
+            if(g === 'طلاب وطالبات' || g === 'طلابوطالبات') return '<span class="text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded"><i class="fa-solid fa-venus-mars ml-1"></i>طلاب وطالبات</span>';
+            return '';
+        }
+
+        function getDefaultImage(type) {
+            const t = (type || '').trim();
+            const images = {
+                'ورشة': 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80',
+                'دورة': 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80',
+                'محاضرة': 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
+                'فعالية': 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&q=80',
+                'ندوة': 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&q=80',
+                'مسابقة': 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80',
+                'حفل': 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80',
+                'افتراضي': 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&q=80'
+            };
+            return images[t] || images['افتراضي'];
+        }
+
+        // ===== معلومات المنصة =====
+        function getPlatformInfo(platform) {
+            const p = (platform || '').trim();
+            const platforms = {
+                'انستقرام': { icon: 'fa-instagram', bg: 'bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500', text: 'انستقرام' },
+                'انستغرام': { icon: 'fa-instagram', bg: 'bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500', text: 'انستقرام' },
+                'تويتر': { icon: 'fa-twitter', bg: 'bg-sky-500', text: 'تويتر' },
+                'اكس': { icon: 'fa-x-twitter', bg: 'bg-black', text: 'X' },
+                'تيك توك': { icon: 'fa-tiktok', bg: 'bg-black', text: 'تيك توك' },
+                'سناب': { icon: 'fa-snapchat', bg: 'bg-yellow-400', text: 'سناب شات' }
+            };
+            return platforms[p] || { icon: 'fa-trophy', bg: 'bg-cee-red', text: p };
+        }
+
+        // ===== عرض كرت المسابقة =====
+        function createCompetitionCard(comp) {
+            const platform = getPlatformInfo(comp.platform);
+            const hasImage = comp.image && comp.image.startsWith('http');
+            const imageSrc = hasImage ? comp.image : 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80';
+            
+            let deadlineHTML = '';
+            if(comp.deadline) {
+                const parts = comp.deadline.split('/');
+                if(parts.length === 3) {
+                    const dl = new Date(parts[0], parts[1]-1, parts[2]);
+                    const today = new Date(); today.setHours(0,0,0,0);
+                    const daysLeft = Math.ceil((dl - today) / (1000 * 60 * 60 * 24));
+                    if(daysLeft > 0) {
+                        deadlineHTML = `<div class="flex items-center gap-1 text-xs font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded"><i class="fa-solid fa-hourglass-half"></i> باقي ${daysLeft} يوم</div>`;
+                    } else if(daysLeft === 0) {
+                        deadlineHTML = `<div class="flex items-center gap-1 text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded"><i class="fa-solid fa-fire"></i> ينتهي اليوم!</div>`;
+                    }
+                }
+            }
+            
+            let sponsorHTML = '';
+            if(comp.sponsor && sponsorsMap[comp.sponsor.trim()]) {
+                const sp = sponsorsMap[comp.sponsor.trim()];
+                if(sp.logo && sp.logo !== '#') {
+                    sponsorHTML = `<a href="${sp.url || '#'}" target="_blank" class="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2 hover:bg-gray-100 transition border border-gray-100">
+                        <span class="text-xs text-gray-500 font-bold">برعاية</span>
+                        <img src="${sp.logo}" alt="${comp.sponsor}" class="h-6 w-auto object-contain">
+                    </a>`;
+                }
+            } else if(comp.sponsor) {
+                sponsorHTML = `<span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg">برعاية: ${comp.sponsor}</span>`;
+            }
+            
+            return `<div class="bg-white rounded-2xl overflow-hidden shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col border border-gray-100">
+                <div class="h-44 relative overflow-hidden bg-gray-100">
+                    <img src="${imageSrc}" alt="${comp.title}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute top-3 right-3 ${platform.bg} text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                        <i class="fa-brands ${platform.icon}"></i>
+                        <span>${platform.text}</span>
+                    </div>
+                    ${comp.status === 'قريباً' ? '<div class="absolute top-3 left-3 bg-yellow-400 text-gray-900 px-3 py-1.5 rounded-full text-xs font-bold shadow-lg"><i class="fa-solid fa-clock ml-1"></i>قريباً</div>' : ''}
+                    <div class="absolute bottom-3 right-3 left-3">
+                        <h3 class="text-white font-extrabold text-lg leading-tight drop-shadow-lg">${comp.title}</h3>
+                    </div>
+                </div>
+                <div class="p-5 flex-grow flex flex-col">
+                    <p class="text-gray-600 text-sm mb-3 line-clamp-2 flex-grow">${comp.desc}</p>
+                    ${comp.prize ? `<div class="bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-xl p-3 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-gift text-cee-gold text-lg"></i>
+                        <div>
+                            <p class="text-xs text-amber-700 font-bold">الجائزة</p>
+                            <p class="text-sm text-gray-800 font-bold">${comp.prize}</p>
+                        </div>
+                    </div>` : ''}
+                    <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+                        ${deadlineHTML}
+                    </div>
+                    ${sponsorHTML}
+                    <a href="${comp.postLink || '#'}" target="_blank" class="mt-4 w-full text-center bg-cee-red text-white hover:bg-red-900 py-2.5 rounded-xl font-bold transition flex items-center justify-center gap-2">
+                        <i class="fa-brands ${platform.icon}"></i>
+                        <span>شارك الآن</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>`;
+        }
+
+        function openJoinModal() { document.getElementById('join-modal').classList.remove('hidden'); document.getElementById('join-modal').classList.add('flex'); document.body.style.overflow = 'hidden'; }
+        function closeJoinModal() { document.getElementById('join-modal').classList.add('hidden'); document.getElementById('join-modal').classList.remove('flex'); document.body.style.overflow = ''; }
         window.openJoinModal = openJoinModal; window.closeJoinModal = closeJoinModal;
         document.getElementById('join-modal').addEventListener('click', function(e) { if(e.target === this) closeJoinModal(); });
+        document.addEventListener('keydown', function(e) { if(e.key === 'Escape') closeJoinModal(); });
 
         async function loadJoinLinks(){
             try{
@@ -233,15 +411,31 @@
             if(!event) return; 
             currentDetailEvent=event; 
             document.getElementById('event-detail-title').textContent=event.name; 
-            document.getElementById('event-detail-type').textContent=event.type; 
             document.getElementById('event-detail-date').textContent=event.dateStr; 
             document.getElementById('event-detail-time').textContent=event.time; 
-            document.getElementById('event-detail-location').textContent=event.location; 
             document.getElementById('event-detail-desc').textContent=event.desc; 
             document.getElementById('event-detail-instructor').textContent = event.instructor || 'يحدد لاحقاً';
+
+            const isOnline = isOnlineEvent(event.location);
+            const hasCertificate = event.type === 'ورشة' && event.attendanceCode;
+            const badgesDiv = document.getElementById('event-detail-badges');
+            let badgesHTML = '';
+            if(event.type) badgesHTML += `<span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded">${event.type}</span>`;
+            const gBadge = getGenderBadge(event.gender);
+            if(gBadge) badgesHTML += gBadge;
+            if(hasCertificate) badgesHTML += `<span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-1 rounded"><i class="fa-solid fa-certificate ml-1"></i>شهادة حضور</span>`;
+            badgesHTML += isOnline ? `<span class="text-xs font-bold bg-cyan-100 text-cyan-700 px-2 py-1 rounded"><i class="fa-solid fa-wifi ml-1"></i>عن بعد</span>` : `<span class="text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded"><i class="fa-solid fa-building ml-1"></i>حضوري</span>`;
+            badgesDiv.innerHTML = badgesHTML;
+
+            const locIcon = isOnline ? '<i class="fa-solid fa-wifi ml-2 text-cyan-500"></i>' : '<i class="fa-solid fa-location-dot ml-2 text-cee-red"></i>';
+            const locWrap = document.getElementById('event-detail-location-wrap');
+            locWrap.innerHTML = `${locIcon} <span id="event-detail-location">${event.location}</span>`;
+
+            const hasImage = event.image && event.image.startsWith('http');
+            const imageSrc = hasImage ? event.image : getDefaultImage(event.type);
             const imgDiv=document.getElementById('event-detail-image'); 
-            if(event.image&&event.image.startsWith('http')){ imgDiv.innerHTML=`<img src="${event.image}" alt="${event.name}" class="w-full h-full object-cover rounded-t-2xl cursor-zoom-in" onclick="event.stopPropagation();openImageModal('${event.image}')" onerror="this.parentElement.innerHTML='<i class=\\'fa-solid fa-calendar-check text-5xl text-white opacity-50\\'></i>'">`; } 
-            else { imgDiv.innerHTML='<i class="fa-solid fa-calendar-check text-5xl text-white opacity-50"></i>'; } 
+            imgDiv.innerHTML = `<img src="${imageSrc}" alt="${event.name}" class="w-full h-full object-cover rounded-t-2xl cursor-zoom-in" onclick="event.stopPropagation();openImageModal('${imageSrc}')" onerror="this.src='${getDefaultImage('افتراضي')}'">`;
+
             const spDiv=document.getElementById('event-detail-sponsors'); 
             const sponsorNames=[event.sponsor1,event.sponsor2,event.sponsor3].filter(s=>s && s !== '');
             if(sponsorNames.length>0){
@@ -282,7 +476,106 @@
         async function loadSettings(){ try{ const r=await fetch(getSheetURL(GIDS.settings)); const d=await r.text(); const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1); const s={}; rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length>=2) s[c[0].trim()]=c[1].trim(); }); 
         if(s['وضع_الصيانة'] && s['وضع_الصيانة'].trim() === 'تفعيل') { document.getElementById('maintenance-screen').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
         if(s['حجم_الشعار']){ document.getElementById('header-logo').className = `${s['حجم_الشعار']} w-auto object-contain`; } if(s['عنوان_الرئيسية']){ document.getElementById('hero-title').innerHTML = s['عنوان_الرئيسية'].replace('معنا', '<span class="text-cee-gold">معنا</span>'); } if(s['وصف_الرئيسية']){ document.getElementById('hero-desc').textContent = s['وصف_الرئيسية']; } if(s['رابط_نموذج_التقييم']){ currentEvalLink = s['رابط_نموذج_التقييم']; } if(s['عدد_المستفيدين']){ animateCounter('stat-beneficiaries', parseInt(s['عدد_المستفيدين'])||0); } let soc=''; if(s['رابط_تويتر']&&s['رابط_تويتر']!=='#') soc+=`<a href="${s['رابط_تويتر']}" target="_blank" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-twitter"></i></a>`; if(s['رابط_انستقرام']&&s['رابط_انستقرام']!=='#') soc+=`<a href="${s['رابط_انستقرام']}" target="_blank" class="text-gray-400 hover:text-pink-600 transition"><i class="fa-brands fa-instagram"></i></a>`; if(s['رابط_لينكد_ان']&&s['رابط_لينكد_ان']!=='#') soc+=`<a href="${s['رابط_لينكد_ان']}" target="_blank" class="text-gray-400 hover:text-blue-600 transition"><i class="fa-brands fa-linkedin"></i></a>`; if(s['رابط_تيك_توك']&&s['رابط_تيك_توك']!=='#') soc+=`<a href="${s['رابط_تيك_توك']}" target="_blank" class="text-gray-400 hover:text-black transition"><i class="fa-brands fa-tiktok"></i></a>`; document.getElementById('social-links').innerHTML=soc||''; }catch(e){ console.error(e); } }
-        async function loadEvents(){ try{ const r=await fetch(getSheetURL(GIDS.events)); const d=await r.text(); const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1); const cont=document.getElementById('upcoming-container'); let html='', wc=0, count=0; const today=new Date(); today.setHours(0,0,0,0); allIndexEvents=[]; rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length<3||!c[1]) return; const type=c[0]?.trim()||'', name=c[1]?.trim()||'', image=c[2]?.trim()||'', desc=c[3]?.trim()||''; const dateStr=c[4]?.trim()||'', time=c[5]?.trim()||'', location=c[6]?.trim()||'', regLink=c[7]?.trim()||'#', status=c[8]?.trim()||''; const attendanceCode=c[12]?.trim()||''; const instructor=c[13]?.trim()||''; const sponsor1=c[9]?.trim()||'', sponsor2=c[10]?.trim()||'', sponsor3=c[11]?.trim()||''; const ed=new Date(dateStr); if(isNaN(ed.getTime())||status==='ملغية'||status==='منتهية'||ed<today) return; if(type==='ورشة') wc++; const day=dateStr.split('/')[2]||'', month=dateStr.split('/')[1]||''; const eventData={type,name,image,desc,dateStr,time,location,regLink,status,attendanceCode,sponsor1,sponsor2,sponsor3,instructor}; allIndexEvents.push(eventData); const instructorHTML = instructor ? `<p class="text-gray-500 text-xs mb-2"><i class="fa-solid fa-user-tie ml-1 text-cee-gold"></i> ${instructor}</p>` : ''; html+=`<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openEventDetail(${allIndexEvents.length-1})">${image&&image.startsWith('http')?`<div class="h-40 md:h-48 bg-gray-200 relative"><img src="${image}" alt="${name}" class="w-full h-full object-cover cursor-zoom-in" onclick="event.stopPropagation();openImageModal('${image}')" onerror="this.style.display='none'"><div class="absolute top-3 right-3 bg-white text-cee-red font-bold px-2 py-1 rounded-md shadow text-xs">${day} / ${month}</div></div>`:`<div class="h-20 md:h-28 bg-gradient-to-r from-cee-red to-red-900 relative flex items-center justify-center"><i class="fa-solid fa-calendar-check text-3xl text-white opacity-50"></i><div class="absolute top-3 right-3 bg-white text-cee-red font-bold px-2 py-1 rounded-md shadow text-xs">${day} / ${month}</div></div>`}<div class="p-4 md:p-6 flex-grow flex flex-col"><div class="flex justify-between items-start mb-2"><span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded">${type}</span><span class="text-xs text-gray-500"><i class="fa-regular fa-clock ml-1"></i> ${time}</span></div><h3 class="text-lg md:text-xl font-bold text-gray-900 mb-1">${name}</h3>${instructorHTML}<p class="text-gray-600 text-xs md:text-sm mb-3 flex-grow">${desc}</p><div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100"><span class="text-xs font-bold text-gray-500"><i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i> ${location}</span><span class="text-cee-red text-xs font-bold">اضغط للتفاصيل <i class="fa-solid fa-arrow-left mr-1"></i></span></div></div></div>`; count++; }); cont.innerHTML=count>0?html:'<div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد فعاليات قادمة حالياً</div>'; animateCounter('stat-workshops',wc||0); }catch(e){ console.error(e); } }
+        
+        async function loadEvents(){ 
+            try{ 
+                const r=await fetch(getSheetURL(GIDS.events)); 
+                const d=await r.text(); 
+                const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1); 
+                const cont=document.getElementById('upcoming-container'); 
+                const compCont = document.getElementById('competitions-container');
+                let html='', compHtml='', wc=0, count=0, compCount=0; 
+                const today=new Date(); today.setHours(0,0,0,0); 
+                allIndexEvents=[]; 
+                rows.forEach(row=>{ 
+                    const c=parseCSVRow(row); 
+                    if(c.length<3||!c[1]) return; 
+                    const type=c[0]?.trim()||'', name=c[1]?.trim()||'', image=c[2]?.trim()||'', desc=c[3]?.trim()||''; 
+                    const dateStr=c[4]?.trim()||'', time=c[5]?.trim()||'', location=c[6]?.trim()||'', regLink=c[7]?.trim()||'#', status=c[8]?.trim()||''; 
+                    const attendanceCode=c[12]?.trim()||''; 
+                    const instructor=c[13]?.trim()||''; 
+                    const sponsor1=c[9]?.trim()||'', sponsor2=c[10]?.trim()||'', sponsor3=c[11]?.trim()||''; 
+                    const gender=c[14]?.trim()||'';
+                    
+                    // ✅ بيانات المسابقة (أعمدة P - X)
+                    const compPlatform = c[15]?.trim() || '';
+                    const compTitle = c[16]?.trim() || '';
+                    const compDesc = c[17]?.trim() || '';
+                    const compPrize = c[18]?.trim() || '';
+                    const compSponsor = c[19]?.trim() || '';
+                    const compLink = c[20]?.trim() || '';
+                    const compDeadline = c[21]?.trim() || '';
+                    const compStatus = c[22]?.trim() || 'نشطة';
+                    const compImage = c[23]?.trim() || '';
+                    
+                    // لو في منصة → هذي مسابقة، نتجاهلها من الفعاليات
+                    if(compPlatform && compTitle) {
+                        if(compStatus === 'منتهية') return;
+                        compHtml += createCompetitionCard({
+                            platform: compPlatform,
+                            title: compTitle,
+                            desc: compDesc,
+                            prize: compPrize,
+                            sponsor: compSponsor,
+                            postLink: compLink,
+                            deadline: compDeadline,
+                            status: compStatus,
+                            image: compImage
+                        });
+                        compCount++;
+                        return;
+                    }
+                    
+                    // لو ما فيه منصة → فعالية عادية
+                    const ed=new Date(dateStr); 
+                    if(isNaN(ed.getTime())||status==='ملغية'||status==='منتهية'||ed<today) return; 
+                    if(type==='ورشة') wc++; 
+                    const day=dateStr.split('/')[2]||'', month=dateStr.split('/')[1]||''; 
+                    const eventData={type,name,image,desc,dateStr,time,location,regLink,status,attendanceCode,sponsor1,sponsor2,sponsor3,instructor,gender}; 
+                    allIndexEvents.push(eventData); 
+                    const instructorHTML = instructor ? `<p class="text-gray-500 text-xs mb-2"><i class="fa-solid fa-user-tie ml-1 text-cee-gold"></i> ${instructor}</p>` : ''; 
+                    
+                    const isOnline = isOnlineEvent(location);
+                    const genderBadge = getGenderBadge(gender);
+                    const hasCertificate = type === 'ورشة' && attendanceCode;
+                    const onlineBadge = isOnline ? `<div class="absolute bottom-3 left-3 bg-cyan-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 z-10 shadow-md"><i class="fa-solid fa-wifi"></i><span>عن بعد</span></div>` : '';
+                    const locationIcon = isOnline ? '<i class="fa-solid fa-wifi ml-1 text-cyan-500"></i>' : '<i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i>';
+                    
+                    const hasImage = image && image.startsWith('http');
+                    const imageSrc = hasImage ? image : getDefaultImage(type);
+                    
+                    html+=`<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openEventDetail(${allIndexEvents.length-1})">
+                        <div class="h-40 md:h-48 bg-gray-200 relative">
+                            <img src="${imageSrc}" alt="${name}" class="w-full h-full object-cover cursor-zoom-in" onclick="event.stopPropagation();openImageModal('${imageSrc}')" onerror="this.src='${getDefaultImage('افتراضي')}'">
+                            <div class="absolute top-3 right-3 bg-white text-cee-red font-bold px-2 py-1 rounded-md shadow text-xs">${day} / ${month}</div>
+                            ${onlineBadge}
+                        </div>
+                        <div class="p-4 md:p-6 flex-grow flex flex-col">
+                            <div class="flex justify-between items-start mb-2 gap-2 flex-wrap">
+                                <div class="flex gap-1.5 flex-wrap">
+                                    ${type?`<span class="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded">${type}</span>`:''}
+                                    ${genderBadge}
+                                    ${hasCertificate?`<span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-1 rounded" title="يوجد شهادة حضور"><i class="fa-solid fa-certificate ml-1"></i>شهادة</span>`:''}
+                                </div>
+                                <span class="text-xs text-gray-500 whitespace-nowrap"><i class="fa-regular fa-clock ml-1"></i> ${time}</span>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-1">${name}</h3>
+                            ${instructorHTML}
+                            <p class="text-gray-600 text-xs md:text-sm mb-3 flex-grow line-clamp-2">${desc}</p>
+                            <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
+                                <span class="text-xs font-bold text-gray-500">${locationIcon} ${location}</span>
+                                <span class="text-cee-red text-xs font-bold">اضغط للتفاصيل <i class="fa-solid fa-arrow-left mr-1"></i></span>
+                            </div>
+                        </div>
+                    </div>`; 
+                    count++; 
+                }); 
+                cont.innerHTML=count>0?html:'<div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد فعاليات قادمة حالياً</div>'; 
+                compCont.innerHTML = compCount > 0 ? compHtml : '<div class="text-center text-gray-400 py-12 col-span-full text-sm">لا توجد مسابقات حالياً 🎯</div>';
+                animateCounter('stat-workshops',wc||0); 
+            }catch(e){ console.error(e); } 
+        }
+        
         async function loadSponsors(){ try{ const r=await fetch(getSheetURL(GIDS.sponsors)); const d=await r.text(); const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1); let all=[], total=0; rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length<4||!c[0]) return; total++; if(c[1].trim() === 'دائم') { all.push({name:c[0].trim(),logo:c[2].trim(),url:c[3].trim()}); } }); const track=document.getElementById('sponsors-track'); if(all.length>0){ const html=all.map(s=>`<a href="${s.url||'#'}" target="_blank" class="w-28 h-14 md:w-32 md:h-16 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center p-2 hover:shadow-md transition"><img src="${s.logo}" alt="${s.name}" class="max-w-full max-h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\\'text-xs text-gray-400\\'>${s.name}</span>'"></a>`).join(''); track.innerHTML=html; } else{ track.innerHTML='<span class="text-xs text-gray-400">قريباً</span>'; } animateCounter('stat-partners',total||0); }catch(e){ console.error(e); } }
         async function loadHonours(){ try{ const r=await fetch(getSheetURL(GIDS.honours)); const d=await r.text(); const rows=d.split('\n').filter(r=>r.trim()!=='').slice(1); const cont=document.getElementById('honours-container'); let members=[]; const medals=['🥇','🥈','🥉']; rows.forEach(row=>{ const c=parseCSVRow(row); if(c.length>=3&&c[0]) members.push({name:c[0].trim(),role:c[1].trim(),points:parseInt(c[2].trim())||0,image:c[3]?c[3].trim():''}); }); if(members.length>0){ members.sort((a, b) => b.points - a.points); const top3=members.slice(0,3); const buildCard=(m,i,cls)=>{ const borderColor=i===0?'border-cee-gold':i===1?'border-gray-400':'border-orange-400'; const standClass=i===0?'stand-1':i===1?'stand-2':'stand-3'; return `<div class="podium-card ${cls}"><div class="text-2xl md:text-3xl mb-2">${medals[i]||'⭐'}</div>${m.image?`<img src="${m.image}" alt="${m.name}" class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover mx-auto mb-2 border-2 ${borderColor} shadow relative z-10" onerror="this.style.display='none'">`:`<div class="w-14 h-14 md:w-16 md:h-16 rounded-full mx-auto mb-2 border-2 ${borderColor} shadow flex items-center justify-center bg-white text-lg font-bold text-cee-red relative z-10">${m.name.charAt(0)}</div>`}<div class="podium-stand ${standClass}"><h3 class="font-bold text-white text-xs md:text-sm">${m.name}</h3><p class="text-white/80 text-xs">${m.points} نقطة</p></div></div>`; }; cont.innerHTML=`<div class="podium-container">${buildCard(top3[1]||top3[0],1,'second')}${buildCard(top3[0],0,'first')}${top3[2]?buildCard(top3[2],2,'third'):''}</div>`; }else{ cont.innerHTML='<div class="text-center text-gray-400 py-8 text-sm">لا يوجد أعضاء حالياً</div>'; } }catch(e){ console.error(e); } }
         document.getElementById('mobile-menu-btn').addEventListener('click',()=>{ document.getElementById('mobile-menu').classList.toggle('hidden'); });
