@@ -374,8 +374,7 @@
                 const today=new Date(); today.setHours(0,0,0,0); allEvents=[];
                 rows.forEach(row=>{
                     const c=parseCSVRow(row); if(c.length<3||!c[1]) return;
-                    const compPlatform = c[15]?.trim() || '';
-                    if(compPlatform) return;
+                    // ✅ ما نتجاهل المسابقات — نعرض كل صف فيه اسم فعالية كفعالية
                     const event={
                         type:c[0]?.trim()||'',name:c[1]?.trim()||'',image:c[2]?.trim()||'',desc:c[3]?.trim()||'',
                         dateStr:c[4]?.trim()||'',time:c[5]?.trim()||'',location:c[6]?.trim()||'',regLink:c[7]?.trim()||'#',status:c[8]?.trim()||'',
