@@ -19,6 +19,7 @@
         .code-input:focus { border-color: #8A1538; box-shadow: 0 0 0 3px rgba(138, 21, 56, 0.1); }
         .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
         .fade-in.show { opacity: 1; transform: translateY(0); }
+        .event-img { width: 100%; height: 100%; object-fit: contain; background-color: #f3f4f6; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
@@ -199,7 +200,6 @@
             return loc.includes('عن بعد') || loc.includes('أونلاين') || loc.includes('اونلاين') || loc.includes('online') || loc.includes('zoom') || loc.includes('teams') || loc.includes('remotely');
         }
 
-        // ✅ دالة مساعدة: تحليل التاريخ
         function parseDate(dateStr) {
             if(!dateStr || !dateStr.trim()) return null;
             const d = new Date(dateStr);
@@ -215,17 +215,21 @@
             return '';
         }
 
+        // ✅ الصور الافتراضية
         function getDefaultImage(type) {
             const t = (type || '').trim();
+            const WORKSHOP_IMG = 'https://i.imgur.com/n9yfJoc.png';
+            const EVENT_IMG = 'https://i.imgur.com/O7R20rZ.png';
+            
             const images = {
-                'ورشة': 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80',
-                'دورة': 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80',
-                'محاضرة': 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
-                'فعالية': 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&q=80',
-                'ندوة': 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&q=80',
+                'ورشة': WORKSHOP_IMG,
+                'دورة': WORKSHOP_IMG,
+                'محاضرة': WORKSHOP_IMG,
+                'فعالية': EVENT_IMG,
+                'ندوة': EVENT_IMG,
+                'حفل': EVENT_IMG,
                 'مسابقة': 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80',
-                'حفل': 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80',
-                'افتراضي': 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&q=80'
+                'افتراضي': WORKSHOP_IMG
             };
             return images[t] || images['افتراضي'];
         }
@@ -263,7 +267,6 @@
             const statusBadge = isCancelled ? 'ملغية' : (!isUpcoming && ed) ? 'منتهية' : '';
             const instructor = event.instructor ? `<p class="text-gray-500 text-xs mb-2"><i class="fa-solid fa-user-tie ml-1 text-cee-gold"></i> ${event.instructor}</p>` : '';
             
-            // ✅ بادج التاريخ
             let dateBadge = '';
             if(event.dateStr && event.dateStr.trim()) {
                 const parts = event.dateStr.split('/');
@@ -296,9 +299,10 @@
             const onlineBadge = isOnline ? `<div class="absolute bottom-3 left-3 bg-cyan-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 z-10 shadow-md"><i class="fa-solid fa-wifi"></i><span>عن بعد</span></div>` : '';
             const locationIcon = isOnline ? '<i class="fa-solid fa-wifi ml-1 text-cyan-500"></i>' : '<i class="fa-solid fa-location-dot ml-1 text-cee-gold"></i>';
             
+            // ✅ event-img class
             return `<div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col h-full transform hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openEventDetail(${index})">
-                <div class="h-40 md:h-48 bg-gray-200 relative">
-                    <img src="${imageSrc}" alt="${event.name}" class="w-full h-full object-cover cursor-zoom-in" onclick="event.stopPropagation();openImageModal('${imageSrc}')" onerror="this.src='${getDefaultImage('افتراضي')}'">
+                <div class="h-40 md:h-48 bg-gray-100 relative">
+                    <img src="${imageSrc}" alt="${event.name}" class="event-img cursor-zoom-in" onclick="event.stopPropagation();openImageModal('${imageSrc}')" onerror="this.src='${getDefaultImage('افتراضي')}'">
                     ${dateBadge}
                     ${statusBadge?`<div class="absolute top-3 left-3 ${isCancelled?'bg-red-500':'bg-gray-500'} text-white text-xs px-2 py-1 rounded">${statusBadge}</div>`:''}
                     ${onlineBadge}
